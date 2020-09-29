@@ -1,10 +1,10 @@
 # LAIG 2020/2021
 
-## Group T0xG0y
-| Name             | Number    | E-Mail             |
-| ---------------- | --------- | ------------------ |
-| John Doe         | 201801010 | ...                |
-| Jane Doe         | 201801011 | ...                |
+## Group T4xG8y
+| Name             | Number    | E-Mail               |
+| ---------------- | --------- | -------------------- |
+| Fabio Huang      | 201806829 | up201806829@fe.up.pt |
+| Nuno Gonçalves   | 201706864 | up201706864@fe.up.pt |
 
 ----
 
