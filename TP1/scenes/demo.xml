@@ -45,6 +45,8 @@
 
 <!--Textures-->
     <textures>
+        <!--Textures-->
+    <textures>
         <!--Textura para tampo da mesa-->
         <texture id="wood" path="images/woodTexture.jpg" />
         <!--Textura para bulbo da lampada-->
@@ -58,21 +60,23 @@
         <!--Textura para a parede-->
         <texture id="wall" path="images/wallTexture.jpg" />
         <!--Textura para a guardanapo-->
-        <texture id="mapkin" path="images/napkinTexture.jpg" />
+        <texture id="napkin" path="images/napkinTexture.jpg" />
         <!--Textura para a donut-->
         <texture id="donut" path="images/donutTexture.jpg" />
+    </textures>
+<!-- -->
+
     </textures>
 <!-- -->
 
 
 <!--Materials-->
     <materials>
-        <material id="blackMaterial">
-            <shininess value="6" />
-            <ambient r="0" g="0" b="0" a="1" />
-            <diffuse r="0" g="0" b="ff" a="1" />
-            <specular r="0" g="0" b="ff" a="1" />
-            <emissive r="0" g="0" b="ff" a="1" />
+        <material id="demoMaterial" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
         </material>
     </materials>
 <!-- -->
@@ -84,15 +88,11 @@
 
         <!--Root node-->
         <node id="Root"/>
-            <material id="ss" />
-            <texture id="ss">
-                <amplification afs="ff" aft="ff" />
-            </texture>
+            <material id="null" />
+
+            <texture id="null">
 
             <transformations>
-                <translation x="ff" y="ff" z="ff" />
-                <rotation axis="yy" angle="ff" />
-                <scale sx="ff" sy="ff" sz="ff" />
             </transformations>
 
             <descendants>
@@ -110,8 +110,6 @@
             <material id="null" />
 
             <texture id="floor">
-                <amplification afs="ff" aft="ff" />
-            </texture>
 
             <transformations>
             </transformations>
@@ -127,9 +125,7 @@
         <node id="Luzes">
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
+            <texture id="null">
 
             <transformations>
             </transformations>
@@ -147,9 +143,7 @@
         <node id="Luz 1">
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
+            <texture id="null">
 
             <transformations>
             </transformations>
@@ -165,9 +159,7 @@
         <node id="Luz 2">
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
+            <texture id="null">
 
             <transformations>
             </transformations>
@@ -183,9 +175,7 @@
         <node id="Luz 3">
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
+            <texture id="null">
 
             <transformations>
             </transformations>
@@ -200,9 +190,7 @@
         <node id="Candeeiro">
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
+            <texture id="null">
 
             <transformations>
             </transformations>
@@ -218,97 +206,157 @@
 
 
         <!--Protecao do Candeeiro-->
-        <node id="Protecao do Candeeiro">
+        <node id="Protecao">
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
+            <texture id="null">     
 
             <transformations>
             </transformations>
 
             <descendants>
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" />
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" />
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" />
-                <leaf type="triangle" x1="ff" y1="ff" x2="ff" y2="ff" x3="ff" y3="ff" />
+                <node type="Triangle1">
+                <node type="Triangle2">
+                <node type="Triangle3">
+                <node type="Triangle4">
             </descendants>
         </node>
         <!-- -->
 
-        
+        <!--Triângulo da Protecao do Candeeiro-->
+        <node id="Triangulo1">
+            <material id="null" />
+
+            <texture id="null">     
+
+            <transformations>
+                <translation x="-1" y="0" z="0">
+                <rotation axis="y" rotation="90"/>
+                <rotation axis="x" rotation="45"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="triangle" x1="1" y1="1" x2="2" y2="0" x3="0" y3="0" />
+                <leaf type="triangle" x1="1" y1="1" x2="0" y2="0" x3="2" y3="0" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Triângulo da Protecao do Candeeiro-->
+        <node id="Triangulo2">
+            <material id="null" />
+
+            <texture id="null">     
+
+            <transformations>
+                <translation x="0" y="0" z="1">
+                <rotation axis="y" rotation="180"/>
+                <rotation axis="x" rotation="45"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="triangle" x1="1" y1="1" x2="2" y2="0" x3="0" y3="0" />
+                <leaf type="triangle" x1="1" y1="1" x2="0" y2="0" x3="2" y3="0" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Triângulo da Protecao do Candeeiro-->
+        <node id="Triangulo3">
+            <material id="null" />
+
+            <texture id="null">     
+
+            <transformations>
+                <translation x="1" y="0" z="0">
+                <rotation axis="y" rotation="270"/>
+                <rotation axis="x" rotation="45"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="triangle" x1="1" y1="1" x2="2" y2="0" x3="0" y3="0" />
+                <leaf type="triangle" x1="1" y1="1" x2="0" y2="0" x3="2" y3="0" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Triângulo da Protecao do Candeeiro-->
+        <node id="Triangulo4">
+            <material id="null" />
+
+            <texture id="null">     
+
+            <transformations>
+                <translation x="0" y="0" z="-1">
+                <rotation axis="x" rotation="45"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="triangle" x1="1" y1="1" x2="2" y2="0" x3="0" y3="0" />
+                <leaf type="triangle" x1="1" y1="1" x2="0" y2="0" x3="2" y3="0" />
+            </descendants>
+        </node>
+        <!-- -->
 
         <!--Lampada-->
         <node id="Lampada">
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
+            <texture id="light">
+                <amplification afs="" aft="" />
             </texture>
 
             <transformations>
             </transformations>
 
             <descendants>
-                <noderef id="Bulbo"/>
-                <noderef id="Base da lampada"/>
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Bulbo-->
-        <node id="Bulbo">
-            <material id="null" />
-
-            <texture id="bulb">
-                <amplification afs="ff" aft="ff" />
-            </texture>
-
-            <transformations>
-            </transformations>
-
-            <descendants>
-                <leaf type="sphere" radius="ff" slices="ii" stacks="ii"/>
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Base da lampada-->
-        <node id="Base da lampada">
-            <material id="null" />
-
-            <texture id="steel">
-                <amplification afs="ff" aft="ff" />
-            </texture>
-
-            <transformations>
-            </transformations>
-
-            <descendants>
-                <leaf type="torus" innerRadius="ff" outerRadius="ff" slices="ff" loops="ii"/>
-                <leaf type="torus" innerRadius="ff" outerRadius="ff" slices="ff" loops="ii"/>
-                <leaf type="torus" innerRadius="ff" outerRadius="ff" slices="ff" loops="ii"/>
-                <leaf type="torus" innerRadius="ff" outerRadius="ff" slices="ff" loops="ii"/>
-                <leaf type="cylinder" bottomRadius="ff" topRadius="ff" height="ff" slices="ii" stacks="ii"/>
+                <leaf type="sphere" radius="0.5" slices="12" stacks="12"/>
             </descendants>
         </node>
         <!-- -->
 
         <!--Encaixo-->
         <node id="Encaixo">
-            <material id="blackMaterial" />
+            <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
+            <texture id="steel">
 
             <transformations>
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" bottomRadius="ff" topRadius="ff" height="ff" slices="ii" stacks="ii"/>
-                <leaf type="cylinder" bottomRadius="ff" topRadius="ff" height="ff" slices="ii" stacks="ii"/>
+                <noderef type="Encaixo cima"/>
+                <noderef type="Encaixo baixo"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parte de cima do encaixo-->
+        <node id="Encaixo cima">
+            <material id="null" />
+
+            <texture id="null">
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.2" topRadius="0.2" height="0.6" slices="12" stacks="8"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parte de baixo do encaixo-->
+        <node id="Encaixo baixo">
+            <material id="null" />
+
+            <texture id="null">
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.1" topRadius="0.1" height="0.6" slices="12" stacks="8"/>
             </descendants>
         </node>
         <!-- -->
@@ -316,17 +364,15 @@
     
         <!--Fio-->
         <node id="Fio">
-            <material id="BlackMaterial" />
+            <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
+            <texture id="null">
 
             <transformations>
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" bottomRadius="ff" topRadius="ff" height="ff" slices="ii" stacks="ii"/>
+                <leaf type="cylinder" bottomRadius="0.02" topRadius="0.02" height="2" slices="8" stacks="8"/>
             </descendants>
         </node>
         <!-- -->
@@ -337,14 +383,12 @@
             <material id="null" />
 
             <texture id="wall">
-                <amplification afs="ff" aft="ff" />
-            </texture>
 
             <transformations>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="ff" y1="ff" x2="ff" y2="ii"/>
+                <leaf type="rectangle" x1="-15" y1="15" x2="15" y2="0"/>
                 <noderef id="Janela"/>
             </descendants>
         </node>
@@ -356,14 +400,12 @@
             <material id="null" />
 
             <texture id="window">
-                <amplification afs="ff" aft="ff" />
-            </texture>
 
             <transformations>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="ff" y1="ff" x2="ff" y2="ii"/>
+                <leaf type="rectangle" x1="10" y1="10" x2="5" y2="5"/>
             </descendants>
         </node>
         <!-- -->
@@ -373,9 +415,7 @@
         <node id="Mesa">
             <material id="null" />
 
-            <texture id="wood">
-                <amplification afs="" aft="" />
-            </texture>
+            <texture id="null">
 
             <transformations>
             </transformations>
@@ -390,16 +430,14 @@
         </node>
         <!-- -->
 
-        <!--Tampo quadrada-->
+        <!--Tampo redondo-->
         <node id="Tampo">
             <material id="null" />
 
             <texture id="wood">
-                <amplification afs="" aft="" />
-            </texture>
 
             <transformations>
-                <translation x="0" y="8" z="0"/>
+                <translation x="0" y="5" z="0"/>
             </transformations>
 
             <descendants>
@@ -417,13 +455,15 @@
         <node id="Tampo cima">
             <material id="null" />
 
+            <texture id="null">
+
             <transformations>
                 <rotation axis="x" angle="90"/>
                 <translation x="0" y="1" z="0"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-6" y1="-9" x2="6" y2="9"/>
+                <leaf type="rectangle" x1="-4" y1="-6" x2="4" y2="6"/>
                 <noderef id="Snack"/>
             </descendants>
         </node>
@@ -433,12 +473,14 @@
         <node id="Tampo baixo">
             <material id="null" />
 
+            <texture id="null">
+
             <transformations>
                 <rotation axis="x" angle="-90"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-6" y1="-9" x2="6" y2="9"/>
+                <leaf type="rectangle" x1="-4" y1="-6" x2="4" y2="6"/>
             </descendants>
         </node>
         <!-- -->
@@ -447,12 +489,14 @@
         <node id="Tampo lado1">
             <material id="null" />
 
+            <texture id="null">
+
             <transformations>
-                <translation x="0" y="0" z="-9"/>
+                <translation x="0" y="0" z="-6"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-6" y1="0" x2="6" y2="1"/>
+                <leaf type="rectangle" x1="-4" y1="0" x2="4" y2="1"/>
             </descendants>
         </node>
         <!-- -->
@@ -461,13 +505,15 @@
         <node id="Tampo lado2">
             <material id="null" />
 
+            <texture id="null">
+
             <transformations>
                 <rotation axis="y" angle="180"/>
-                <translation x="0" y="0" z="9"/>
+                <translation x="0" y="0" z="6"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-6" y1="0" x2="6" y2="1"/>
+                <leaf type="rectangle" x1="-4" y1="0" x2="4" y2="1"/>
             </descendants>
         </node>
         <!-- -->
@@ -476,13 +522,15 @@
         <node id="Tampo lado3">
             <material id="null" />
 
+            <texture id="null">
+
             <transformations>
                 <rotation axis="y" angle="90"/>
-                <translation x="-6" y="0" z="0"/>
+                <translation x="-4" y="0" z="0"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-9" y1="0" x2="9" y2="1"/>
+                <leaf type="rectangle" x1="-6" y1="0" x2="6" y2="1"/>
             </descendants>
         </node>
         <!-- -->
@@ -492,16 +540,14 @@
             <material id="null" />
 
             <texture id="null">
-                <amplification afs="ff" aft="ff" />
-            </texture>
 
             <transformations>
                 <rotation axis="y" angle="-90"/>
-                <translation x="6" y="0" z="0"/>
+                <translation x="4" y="0" z="0"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-9" y1="0" x2="9" y2="1"/>
+                <leaf type="rectangle" x1="-6" y1="0" x2="6" y2="1"/>
             </descendants>
         </node>
         <!-- -->
@@ -511,11 +557,11 @@
             <material id="null" />
 
             <texture id="null">
-                <amplification afs="ff" aft="ff" />
-            </texture>
+
+            <texture id="null">
 
             <transformations>
-                <translation x="-5" y="0" z="-8"/>
+                <translation x="-3" y="0" z="-5"/>
             </transformations>
 
             <descendants>
@@ -529,11 +575,11 @@
             <material id="null" />
 
             <texture id="null">
-                <amplification afs="ff" aft="ff" />
-            </texture>
+
+            <texture id="null">
 
             <transformations>
-                <translation x="5" y="0" z="-8"/>
+                <translation x="3" y="0" z="-5"/>
             </transformations>
 
             <descendants>
@@ -546,12 +592,12 @@
         <node id="Perna3">
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
+            <texture id="null">
+
+            <texture id="null">
 
             <transformations>
-                <translation x="5" y="0" z="8"/>
+                <translation x="3" y="0" z="5"/>
             </transformations>
 
             <descendants>
@@ -564,12 +610,12 @@
         <node id="Perna4">
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
+            <texture id="null">
+
+            <texture id="null">
 
             <transformations>
-                <translation x="-5" y="0" z="8"/>
+                <translation x="-3" y="0" z="5"/>
             </transformations>
 
             <descendants>
@@ -583,9 +629,7 @@
         <node id="Perna">
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="" aft="" />
-            </texture>
+            <texture id="steel">
 
             <transformations>
             </transformations>
@@ -601,9 +645,7 @@
         <node id="Suporte">
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="" aft="" />
-            </texture>
+            <texture id="null">
 
             <transformations>
                 <rotation axis="x" angle="90"/>
@@ -620,9 +662,7 @@
         <node id="Base da perna">
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
+            <texture id="null">
 
             <transformations>
             </transformations>
@@ -637,9 +677,7 @@
         <node id="Snack">
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="" aft="" />
-            </texture>
+            <texture id="null">
 
             <transformations>
                 <translation x="3" y="0.05" z="5"/>
@@ -654,11 +692,9 @@
 
         <!--Donut-->
         <node id="Donut">
-            <material id="donut" />
+            <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="" aft="" />
-            </texture>
+            <texture id="donut">
 
             <transformations>
                 <translation x="0" y="0.5" z="0"/>
@@ -675,8 +711,6 @@
             <material id="null" />
 
             <texture id="napkin">
-                <amplification afs="" aft="" />
-            </texture>
 
             <transformations>
             </transformations>
