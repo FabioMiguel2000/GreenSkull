@@ -45,7 +45,12 @@
 
 <!--Textures-->
     <textures>
-        <texture id="wood" path="./scenes/images/woodTexture.png" />
+        <!--Textura para tampo da mesa-->
+        <texture id="wood" path="images/woodTexture.jpg" />
+        <!--Textura para bulbo da lampada-->
+        <texture id="light" path="images/bulbTexture.jpg" />
+        <!--Textura para perna da mesa-->
+        <texture id="steel" path="images/steelTexture.jpg" />
     </textures>
 <!-- -->
 
