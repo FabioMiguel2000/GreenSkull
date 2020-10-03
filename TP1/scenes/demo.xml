@@ -45,7 +45,7 @@
 
 <!--Textures-->
     <textures>
-        <texture id="ss" path="ss" />
+        <texture id="wood" path="./scenes/images/woodTexture.png" />
     </textures>
 <!-- -->
 
@@ -82,7 +82,6 @@
 
             <descendants>
                 <noderef id="Mesa" />
-                <noderef id="Caneca" />
                 <nodered id="Chao" />
                 <nodered id="Luzes" />
                 <nodered id="Parede"/>
@@ -103,7 +102,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="ff" y1="ff" x2="ff" y2="ii"/>
+                <leaf type="rectangle" x1="-15" y1="-15" x2="15" y2="15"/>
             </descendants>
         </node>
         <!-- -->
@@ -124,24 +123,6 @@
                 <nodered id="Luz 1" />
                 <nodered id="Luz 2" />
                 <nodered id="Luz 3" />
-            </descendants>
-        </node>
-        <!-- -->
-
-
-        <!--Luz 1-->
-        <node id="Luz 1">
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
-
-            <transformations>
-            </transformations>
-
-            <descendants>
-                <nodered id="Candeeiro" />
             </descendants>
         </node>
         <!-- -->
@@ -371,121 +352,141 @@
         <!-- -->
 
 
-        <!--Caneca-->
-        <node id="Caneca">
-            <material id="ss" />
-            <texture id="ss">
-                <amplification afs="ff" aft="ff" />
-            </texture>
-
-            <transformations>
-                <translation x="ff" y="ff" z="ff" />
-                <rotation axis="yy" angle="ff" />
-                <scale sx="ff" sy="ff" sz="ff" />
-            </transformations>
-
-            <descendants>
-                <noderef id="Copo" />
-                <noderef id="Cafe" />
-                <nodered id="Alca" />
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Copo da caneca-->
-        <node id="Copo">            
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
-
-            
-            <transformations>
-                <translation x="ff" y="ff" z="ff" />
-            </transformations>
-
-            <descendants>
-                <leaf type="cylinder" bottomRadius="ff" topRadius="ff" height="ff" slices="ii" stacks="ii"/>
-            </descendants>
-        </node>
-        <!-- -->
-
-
-        <!--Cafe dentro do copo-->
-        <node id="Cafe">
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
-
-            <transformations>
-            </transformations>
-
-            <descendants>
-                <leaf type="cylinder" bottomRadius="ff" topRadius="ff" height="ff" slices="ii" stacks="ii"/>
-            </descendants>
-        </node>
-        <!-- -->
-
-
-        <!--Alça da caneca-->
-        <node id="Alca">
-            <material id="null" />
-
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
-            </texture>
-
-            <transformations>
-            </transformations>
-
-            <descendants>
-                <leaf type="torus" innerRadius="ff" outerRadius="ff" slices="ff" loops="ii"/>
-            </descendants>
-        </node>
-        <!-- -->
-
-
-
         <!--Mesa-->
         <node id="Mesa">
             <material id="null" />
 
-            <texture id="clear">
-                <amplification afs="ff" aft="ff" />
+            <texture id="wood">
+                <amplification afs="" aft="" />
             </texture>
 
             <transformations>
             </transformations>
 
             <descendants>
-                <noderef id="Tampo redondo" />
-                <noderef id="Perna da mesa" />
+                <noderef id="Tampo" />
+                <noderef id="Perna1" />
+                <noderef id="Perna2" />
+                <noderef id="Perna3" />
+                <noderef id="Perna4" />
             </descendants>
         </node>
         <!-- -->
 
         <!--Tampo redondo-->
-        <node id="Tampo redondo">
+        <node id="Tampo">
             <material id="null" />
 
             <texture id="clear">
-                <amplification afs="ff" aft="ff" />
+                <amplification afs="" aft="" />
             </texture>
 
             <transformations>
+                <translation x="0" y="8" z="0"/>
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" bottomRadius="ff" topRadius="ff" height="ff" slices="ii" stacks="ii"/>
+                <noderef id="Tampo cima">
+                <noderef id="Tampo baixo">
+                <noderef id="Tampo lado1">
+                <noderef id="Tampo lado2">
+                <noderef id="Tampo lado3">
+                <noderef id="Tampo lado4">
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face de cima do tampo-->
+        <node id="Tampo cima">
+            <material id="null" />
+
+            <transformations>
+                <rotation axis="x" angle="90"/>
+                <translation x="0" y="1" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-6" y1="-9" x2="6" y2="9"/>
+                <noderef id="Snack"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face de baixo do tampo-->
+        <node id="Tampo baixo">
+            <material id="null" />
+
+            <transformations>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-6" y1="-9" x2="6" y2="9"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face de lado do tampo-->
+        <node id="Tampo lado1">
+            <material id="null" />
+
+            <transformations>
+                <translation x="0" y="0" z="-9"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-6" y1="0" x2="6" y2="1"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face de lado do tampo-->
+        <node id="Tampo lado2">
+            <material id="null" />
+
+            <transformations>
+                <rotation axis="y" angle="180"/>
+                <translation x="0" y="0" z="9"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-6" y1="0" x2="6" y2="1"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face de lado do tampo-->
+        <node id="Tampo lado3">
+            <material id="null" />
+
+            <transformations>
+                <rotation axis="y" angle="90"/>
+                <translation x="-6" y="0" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-9" y1="0" x2="9" y2="1"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face de lado do tampo-->
+        <node id="Tampo lado4">
+            <material id="null" />
+
+            <transformations>
+                <rotation axis="y" angle="-90"/>
+                <translation x="6" y="0" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-9" y1="0" x2="9" y2="1"/>
             </descendants>
         </node>
         <!-- -->
 
         <!--Perna da mesa-->
-        <node id="Perna da mesa">
+        <node id="Perna1">
             <material id="null" />
 
             <texture id="clear">
@@ -493,14 +494,106 @@
             </texture>
 
             <transformations>
+                <translation x="-5" y="0" z="-8"/>
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" bottomRadius="ff" topRadius="ff" height="ff" slices="ii" stacks="ii"/>
+                <noderef id="Perna" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da mesa-->
+        <node id="Perna2">
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="ff" aft="ff" />
+            </texture>
+
+            <transformations>
+                <translation x="5" y="0" z="-8"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Perna" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da mesa-->
+        <node id="Perna3">
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="ff" aft="ff" />
+            </texture>
+
+            <transformations>
+                <translation x="5" y="0" z="8"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Perna" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da mesa-->
+        <node id="Perna4">
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="ff" aft="ff" />
+            </texture>
+
+            <transformations>
+                <translation x="-5" y="0" z="8"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Perna" />
+            </descendants>
+        </node>
+        <!-- -->
+
+
+        <!--Template para as pernas da mesa-->
+        <node id="Perna">
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="" aft="" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="Suporte">
                 <noderef id="Base da perna" />
             </descendants>
         </node>
         <!-- -->
+
+        <!--Suporte da perna-->
+        <node id="Suporte">
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="" aft="" />
+            </texture>
+
+            <transformations>
+                <rotation axis="x" angle="90"/>
+                <translation x="0" y="4" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="1" topRadius="1" height="8" slices="12" stacks="8"/>
+            </descendants>
+        </node>
+
 
         <!--Base da perna-->
         <node id="Base da perna">
@@ -514,7 +607,61 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="ff" y1="ff" x2="ff" y2="ii"/>
+                <leaf type="rectangle" x1="-0.6" y1="-0.6" x2="0.6" y2="0.6"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Donut e guardanapo-->
+        <node id="Snack">
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="" aft="" />
+            </texture>
+
+            <transformations>
+                <translation x="3" y="0.05" z="5"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Donut">
+                <noderef id="Guardanapo">
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Donut-->
+        <node id="Donut">
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="" aft="" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="torus" inner="1" outer="3" slices="24" loops="16"/> 
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Guardanapo-->
+        <node id="Guardanapo">
+            <material id="null" />
+
+            <texture id="clear">
+                <amplification afs="" aft="" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-2" y1="-2" x2="2" y2="2"/> 
             </descendants>
         </node>
         <!-- -->
