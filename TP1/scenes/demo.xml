@@ -51,18 +51,28 @@
         <texture id="light" path="images/bulbTexture.jpg" />
         <!--Textura para perna da mesa-->
         <texture id="steel" path="images/steelTexture.jpg" />
+        <!--Textura para o chao-->
+        <texture id="floor" path="images/floorTexture.jpg" />
+        <!--Textura para a janela-->
+        <texture id="window" path="images/windowTexture.jpg" />
+        <!--Textura para a parede-->
+        <texture id="wall" path="images/wallTexture.jpg" />
+        <!--Textura para a guardanapo-->
+        <texture id="mapkin" path="images/napkinTexture.jpg" />
+        <!--Textura para a donut-->
+        <texture id="donut" path="images/donutTexture.jpg" />
     </textures>
 <!-- -->
 
 
 <!--Materials-->
     <materials>
-        <material id="ss">
-            <shininess value="ff" />
-            <ambient r="ff" g="ff" b="ff" a="ff" />
-            <diffuse r="ff" g="ff" b="ff" a="1.0" />
-            <specular r="ff" g="ff" b="ff" a="ff" />
-            <emissive r="ff" g="ff" b="ff" a="ff" />
+        <material id="blackMaterial">
+            <shininess value="6" />
+            <ambient r="0" g="0" b="0" a="1" />
+            <diffuse r="0" g="0" b="ff" a="1" />
+            <specular r="0" g="0" b="ff" a="1" />
+            <emissive r="0" g="0" b="ff" a="1" />
         </material>
     </materials>
 <!-- -->
@@ -99,7 +109,7 @@
         <node id="Chao">
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="floor">
                 <amplification afs="ff" aft="ff" />
             </texture>
 
@@ -227,6 +237,8 @@
         </node>
         <!-- -->
 
+        
+
         <!--Lampada-->
         <node id="Lampada">
             <material id="null" />
@@ -249,7 +261,7 @@
         <node id="Bulbo">
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="bulb">
                 <amplification afs="ff" aft="ff" />
             </texture>
 
@@ -266,7 +278,7 @@
         <node id="Base da lampada">
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="steel">
                 <amplification afs="ff" aft="ff" />
             </texture>
 
@@ -285,7 +297,7 @@
 
         <!--Encaixo-->
         <node id="Encaixo">
-            <material id="null" />
+            <material id="blackMaterial" />
 
             <texture id="clear">
                 <amplification afs="ff" aft="ff" />
@@ -304,7 +316,7 @@
     
         <!--Fio-->
         <node id="Fio">
-            <material id="null" />
+            <material id="BlackMaterial" />
 
             <texture id="clear">
                 <amplification afs="ff" aft="ff" />
@@ -324,7 +336,7 @@
         <node id="Parede">
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="wall">
                 <amplification afs="ff" aft="ff" />
             </texture>
 
@@ -343,7 +355,7 @@
         <node id="Janela">
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="window">
                 <amplification afs="ff" aft="ff" />
             </texture>
 
@@ -378,11 +390,11 @@
         </node>
         <!-- -->
 
-        <!--Tampo redondo-->
+        <!--Tampo quadrada-->
         <node id="Tampo">
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="wood">
                 <amplification afs="" aft="" />
             </texture>
 
@@ -479,6 +491,10 @@
         <node id="Tampo lado4">
             <material id="null" />
 
+            <texture id="null">
+                <amplification afs="ff" aft="ff" />
+            </texture>
+
             <transformations>
                 <rotation axis="y" angle="-90"/>
                 <translation x="6" y="0" z="0"/>
@@ -494,7 +510,7 @@
         <node id="Perna1">
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="ff" aft="ff" />
             </texture>
 
@@ -512,7 +528,7 @@
         <node id="Perna2">
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="ff" aft="ff" />
             </texture>
 
@@ -638,7 +654,7 @@
 
         <!--Donut-->
         <node id="Donut">
-            <material id="null" />
+            <material id="donut" />
 
             <texture id="clear">
                 <amplification afs="" aft="" />
@@ -658,7 +674,7 @@
         <node id="Guardanapo">
             <material id="null" />
 
-            <texture id="clear">
+            <texture id="napkin">
                 <amplification afs="" aft="" />
             </texture>
 
