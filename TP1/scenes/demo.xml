@@ -88,8 +88,8 @@
 
 <!--Materials-->
     <materials>
-    <
-
+    
+        <!--Default Material-->
         <material id="defaultMaterial" shininess="10">
             <emission r="0" g="0" b="0" a="1.0" />
             <ambient r="0.792" g="0.643" b="0.565" a="1.0" />
@@ -97,6 +97,7 @@
             <specular r="0.792" g="0.643" b="0.565" a="1.0" />
         </material>
 
+        <!--Black colour material-->
         <material id="blackMaterial" shininess="10">
             <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
