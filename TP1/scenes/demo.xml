@@ -121,13 +121,14 @@
         <!-- -->
 
 
-        <!--Chao-->
+       <!--Chao-->
         <node id="Chao">
             <material id="null" />
 
             <texture id="floor">
 
             <transformations>
+                <rotation axis="x" angle="90"/>
             </transformations>
 
             <descendants>
@@ -162,6 +163,7 @@
             <texture id="null">
 
             <transformations>
+                <translation x="8" y="15" z="0"/>
             </transformations>
 
             <descendants>
@@ -178,6 +180,7 @@
             <texture id="null">
 
             <transformations>
+                <translation x="-6" y="15" z="-6"/>
             </transformations>
 
             <descendants>
@@ -194,6 +197,7 @@
             <texture id="null">
 
             <transformations>
+                <translation x="-6" y="15" z="6"/>
             </transformations>
 
             <descendants>
@@ -252,8 +256,8 @@
             </transformations>
 
             <descendants>
-                <leaf type="triangle" x1="1" y1="1" x2="2" y2="0" x3="0" y3="0" />
-                <leaf type="triangle" x1="1" y1="1" x2="0" y2="0" x3="2" y3="0" />
+                <leaf type="triangle" x1="0" y1="2" x2="2" y2="0" x3="-2" y3="0" />
+                <leaf type="triangle" x1="0" y1="2" x2="-2" y2="0" x3="2" y3="0" />
             </descendants>
         </node>
         <!-- -->
@@ -271,8 +275,8 @@
             </transformations>
 
             <descendants>
-                <leaf type="triangle" x1="1" y1="1" x2="2" y2="0" x3="0" y3="0" />
-                <leaf type="triangle" x1="1" y1="1" x2="0" y2="0" x3="2" y3="0" />
+                <leaf type="triangle" x1="0" y1="2" x2="2" y2="0" x3="-2" y3="0" />
+                <leaf type="triangle" x1="0" y1="2" x2="-2" y2="0" x3="2" y3="0" />
             </descendants>
         </node>
         <!-- -->
@@ -290,8 +294,8 @@
             </transformations>
 
             <descendants>
-                <leaf type="triangle" x1="1" y1="1" x2="2" y2="0" x3="0" y3="0" />
-                <leaf type="triangle" x1="1" y1="1" x2="0" y2="0" x3="2" y3="0" />
+                <leaf type="triangle" x1="0" y1="2" x2="2" y2="0" x3="-2" y3="0" />
+                <leaf type="triangle" x1="0" y1="2" x2="-2" y2="0" x3="2" y3="0" />
             </descendants>
         </node>
         <!-- -->
@@ -308,8 +312,8 @@
             </transformations>
 
             <descendants>
-                <leaf type="triangle" x1="1" y1="1" x2="2" y2="0" x3="0" y3="0" />
-                <leaf type="triangle" x1="1" y1="1" x2="0" y2="0" x3="2" y3="0" />
+                <leaf type="triangle" x1="0" y1="2" x2="2" y2="0" x3="-2" y3="0" />
+                <leaf type="triangle" x1="0" y1="2" x2="-2" y2="0" x3="2" y3="0" />
             </descendants>
         </node>
         <!-- -->
@@ -323,6 +327,7 @@
             </texture>
 
             <transformations>
+                <translation x="0" y="-3" z="0"/>
             </transformations>
 
             <descendants>
@@ -338,6 +343,7 @@
             <texture id="steel">
 
             <transformations>
+                <rotation axis="x" angle="90"/>
             </transformations>
 
             <descendants>
@@ -354,6 +360,7 @@
             <texture id="null">
 
             <transformations>
+                <translation x="0" y="-2.5" z="0"/>
             </transformations>
 
             <descendants>
@@ -369,6 +376,7 @@
             <texture id="null">
 
             <transformations>
+                <translation x="0" y="-2.2" z="0"/>
             </transformations>
 
             <descendants>
@@ -385,10 +393,12 @@
             <texture id="null">
 
             <transformations>
+                <translation x="0" y="-1.5" z="0"/>
+                <rotation axis="x" angle="90"/>
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" bottomRadius="0.02" topRadius="0.02" height="2" slices="8" stacks="8"/>
+                <leaf type="cylinder" bottomRadius="0.02" topRadius="0.02" height="3" slices="8" stacks="8"/>
             </descendants>
         </node>
         <!-- -->
@@ -401,6 +411,8 @@
             <texture id="wall">
 
             <transformations>
+                <rotation axis="y" angle="90"/>
+                <translation x="-15" y="0" z="0"/>
             </transformations>
 
             <descendants>
@@ -418,6 +430,7 @@
             <texture id="window">
 
             <transformations>
+                <translation x="0" y="6" z="0"/>
             </transformations>
 
             <descendants>
@@ -473,9 +486,9 @@
 
             <texture id="null">
 
-            <transformations>
-                <rotation axis="x" angle="90"/>
+            <transformations>  
                 <translation x="0" y="1" z="0"/>
+                <rotation axis="x" angle="90"/>
             </transformations>
 
             <descendants>
@@ -524,8 +537,8 @@
             <texture id="null">
 
             <transformations>
-                <rotation axis="y" angle="180"/>
                 <translation x="0" y="0" z="6"/>
+                <rotation axis="y" angle="180"/>
             </transformations>
 
             <descendants>
@@ -541,8 +554,8 @@
             <texture id="null">
 
             <transformations>
-                <rotation axis="y" angle="90"/>
                 <translation x="-4" y="0" z="0"/>
+                <rotation axis="y" angle="90"/>
             </transformations>
 
             <descendants>
@@ -558,8 +571,8 @@
             <texture id="null">
 
             <transformations>
-                <rotation axis="y" angle="-90"/>
                 <translation x="4" y="0" z="0"/>
+                <rotation axis="y" angle="-90"/>
             </transformations>
 
             <descendants>
@@ -648,46 +661,16 @@
             <texture id="steel">
 
             <transformations>
-            </transformations>
-
-            <descendants>
-                <noderef id="Suporte">
-                <noderef id="Base da perna" />
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Suporte da perna-->
-        <node id="Suporte">
-            <material id="null" />
-
-            <texture id="null">
-
-            <transformations>
-                <rotation axis="x" angle="90"/>
                 <translation x="0" y="4" z="0"/>
+                <rotation axis="x" angle="90"/>
             </transformations>
 
             <descendants>
                 <leaf type="cylinder" bottomRadius="1" topRadius="1" height="8" slices="12" stacks="8"/>
             </descendants>
         </node>
-
-
-        <!--Base da perna-->
-        <node id="Base da perna">
-            <material id="null" />
-
-            <texture id="null">
-
-            <transformations>
-            </transformations>
-
-            <descendants>
-                <leaf type="rectangle" x1="-0.6" y1="-0.6" x2="0.6" y2="0.6"/>
-            </descendants>
-        </node>
         <!-- -->
+
 
         <!--Donut e guardanapo-->
         <node id="Snack">
