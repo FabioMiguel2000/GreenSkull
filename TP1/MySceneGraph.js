@@ -566,6 +566,10 @@ class MySceneGraph {
      */
     displayScene() {
         
+        //Tests 
+        var myCylinder = new MyCylinder(this.scene, 2, 1, 4, 8, 4);
+        myCylinder.display();
+        
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
         
         //this.nodes[this.idRoot].display()
