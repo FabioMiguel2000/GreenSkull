@@ -2,8 +2,9 @@ class MySphere extends CGFobject {
     /**
      * @method constructor
      * @param  {CGFscene} scene - MyScene object
-     * @param  {integer} slices - number of slices around Y axis
-     * @param  {integer} stacks - number of stacks along Y axis, from the center to the poles (half of sphere)
+     * @param  {integer} radius - radius of the sphere
+     * @param  {integer} slices - number of slices around z axis
+     * @param  {integer} stacks - number of stacks along z axis
      */
     constructor(scene, radius, slices, stacks) {
         super(scene);
