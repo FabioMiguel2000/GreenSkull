@@ -93,6 +93,22 @@ class MyCylinder extends CGFObject {
             currentYCoord = 0;
         }
 
+       var currentVert = edgeVerts;
+
+        //The bottom base is made
+        while(currentVert + edgeVerts < this.vertices.length){
+            this.indices.push(0, currentVert, currentVert + edgeVerts);
+            currentVert += edgeVerts;
+        }
+
+        currentVert = edgeVerts + this.stacks;
+
+        //The top base is made
+        while(currentVert + edgeVerts < this.vertices.length){
+            this.indices.push(this.stacks, currentVert, currentVert + edgeVerts);
+            currentVert += edgeVerts;
+        }
+
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
