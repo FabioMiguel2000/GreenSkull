@@ -567,14 +567,14 @@ class MySceneGraph {
     displayScene() {
         
         //Tests 
-        var cylinder = new MyCylinderSimple(this.scene, 2, 1, 4, 8);
-        cylinder.display();
+        //var cylinder = new MyCylinderSimple(this.scene, 2, 1, 4, 8);
+        //cylinder.display();
         //var triangle = new MyTriangle(this.scene, 2, 0, 5, 1, 3, 2);
         //triangle.display();
         //var sphere = new MySphere(this.scene, 1, 16, 16);
         //sphere.display();
-        //var torus = new MyTorus(this.scene, 2, 0.6, 8, 16);
-        //torus.display();
+        var torus = new MyTorus(this.scene, 0.5, 2, 40, 24);
+        torus.display();
         
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
         

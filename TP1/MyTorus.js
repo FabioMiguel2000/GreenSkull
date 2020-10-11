@@ -26,26 +26,26 @@ class MyTorus extends CGFobject {
 
         var phi = 0;
         var theta = 0;
-        var phiInc = (2 * Math.PI) / this.stacks;
+        var phiInc = (2 * Math.PI) / this.loops;
         var thetaInc = (2 * Math.PI) / this.slices;
-        var latVertices = this.longDivs + 1;
         var currentT = 0;         //Vertical
         var currentS = 0;         //Horizontal
-        var incrementT = 1 / this.latDivs;
-        var incrementS = 1 / this.longDivs;
+        var incrementT = 1 / this.loops;
+        var incrementS = 1 / this.slices;
 
-        for (let latitude = 0; latitude <= this.stacks; latitude++) {
+        for (let latitude = 0; latitude <= this.loops; latitude++) {
             var sinPhi = Math.sin(phi);
             var cosPhi = Math.cos(phi);
 
             theta = 0;
             currentS = 0;
-            for (let longitude = 0; longitude <= this.slices; longitude++) {
+            for (let longitude = 0; longitude <= this.slices; longitude++)
+            {
                 var cosTheta = Math.cos(theta);
                 var sinTheta = Math.sin(theta);
-                var x = (this.radius + (this.radius * cosPhi))*cosTheta;
-                var y = (this.radius + (this.radius * cosPhi))*sinTheta;
-                var z = this.radius * sinPhi;
+                var x = (this.outer + (this.inner * cosPhi))*cosTheta;
+                var y = (this.outer + (this.inner * cosPhi))*sinTheta;
+                var z = this.inner * sinPhi;
                 this.vertices.push(x, y, z);
 
 
@@ -62,7 +62,7 @@ class MyTorus extends CGFobject {
             currentT += incrementT;
             phi += phiInc;
         }
-        for (let latitude = 0; latitude < this.stacks; latitude++) {
+        for (let latitude = 0; latitude < this.loops; latitude++) {
             for (let longitude = 0; longitude < this.slices; longitude++) {
                 var first = (latitude * (this.slices + 1)) + longitude;
                 var second = first + this.slices + 1;
