@@ -1,5 +1,5 @@
 /**
- * MyCylinder
+ * MyCylinder (not working properly)
  * @constructor
  * @param scene - Reference to MyScene object
  * @param bottomRadius - Radius of the bottom base
@@ -8,7 +8,7 @@
  * @param slices - number of lateral divisions
  * @param stacks - number of height divisions
  */
-class MyCylinder extends CGFObject {
+class MyCylinder extends CGFobject {
     constructor(scene, bottomRadius, topRadius, height, slices, stacks){
         super(scene);
 
@@ -54,7 +54,7 @@ class MyCylinder extends CGFObject {
             currentYCoord += yCoordVar;
         }
 
-        //The rest of the cilinder is made
+        //The side faces are made
         //Slices loop
         for(var j = 0; j < this.slices; j++){
 
@@ -82,8 +82,8 @@ class MyCylinder extends CGFObject {
                 this.texCoords.push(currentXCoord, currentYCoord);
                 
                 //A rectangle that's part of the cilinder is drawn
-                this.indices.push(edgeVerts * (j + 1) + k, edgeVerts * j + k, edgeVerts * i + k + 1);
-                this.indices.push(edgeVerts * (j + 1) + k, edgeVerts * j + k, edgeVerts * i + k + 1);
+                this.indices.push(edgeVerts * (j + 1) + k, edgeVerts * j + k + 1, edgeVerts * j + k);
+                this.indices.push(edgeVerts * (j + 1) + k, edgeVerts * (j + 1) + k + 1, edgeVerts * j + k + 1);
             }
 
             currentAng += angVar;
@@ -93,11 +93,11 @@ class MyCylinder extends CGFObject {
             currentYCoord = 0;
         }
 
-       var currentVert = edgeVerts;
+        var currentVert = edgeVerts;
 
         //The bottom base is made
         while(currentVert + edgeVerts < this.vertices.length){
-            this.indices.push(0, currentVert, currentVert + edgeVerts);
+            this.indices.push(currentVert, 0, currentVert + edgeVerts);
             currentVert += edgeVerts;
         }
 
@@ -112,4 +112,14 @@ class MyCylinder extends CGFObject {
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
+
+    /**
+	 * @method updateTexCoords
+	 * Updates the list of texture coordinates of the rectangle
+	 * @param {Array} coords - Array of texture coordinates
+	 */
+	updateTexCoords(coords) {
+		this.texCoords = [...coords];
+		this.updateTexCoordsGLBuffers();
+	}
 }
