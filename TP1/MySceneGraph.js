@@ -245,7 +245,175 @@ class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseViews(viewsNode) {
-        this.onXMLMinorError("To do: Parse views and create cameras.");
+        var children = viewsNode.children;
+
+        this.cameras = [];
+        this.position = [];
+        this.target = [];
+
+        for (var i = 0; i < children.length; i++) {
+            this.viewName = this.reader.getString(children[i], 'id');
+
+            var grandChildren = children[i].children;
+
+            if(children[i].nodeName == "perspective"){
+
+                this.near = this.reader.getFloat(children[i], 'near');
+                if (this.near == null)
+                    return "No near value defined for view " + this.viewName;
+
+                this.far = this.reader.getFloat(children[i], 'far');
+                if (this.far == null)
+                    return "No far value defined for view " + this.viewName;
+
+                this.fov = this.reader.getFloat(children[i], 'angle');
+                if (this.fov == null)
+                    return "No angle value defined for view " + this.viewName;
+
+                for (var j = 0; j < grandchildren.length; j++) {
+
+                    switch (grandchildren[j].nodeName) {
+    
+                        case 'from':
+    
+                            this.x = this.reader.getFloat(grandChildren[i], 'x');
+                            if (this.x == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+    
+                            this.y = this.reader.getFloat(grandChildren[i], 'y');
+                            if (this.y == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+    
+                            this.z = this.reader.getFloat(grandChildren[i], 'z');
+                            if (this.z == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+    
+                            this.position.push(this.x, this.y, this.z);
+    
+                            break;
+    
+                        case 'to':
+    
+                            this.x = this.reader.getFloat(grandChildren[i], 'x');
+                            if (this.x == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+    
+                            this.y = this.reader.getFloat(grandChildren[i], 'y');
+                            if (this.y == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+    
+                            this.z = this.reader.getFloat(grandChildren[i], 'z');
+                            if (this.z == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+    
+                            this.target.push(this.x, this.y, this.z);
+                            break;
+    
+                    }
+                }
+    
+                var camera = new CGFcamera(this.fov, this.near, this.far, this.position, this.target);
+    
+                this.cameras.push(camera);
+            }
+
+            else if(children[i].nodeName == "ortho"){
+
+                this.up = []
+
+                this.near = this.reader.getFloat(children[i], 'near');
+                if (this.near == null)
+                    return "No near value defined for view " + this.viewName;;
+
+                this.far = this.reader.getFloat(children[i], 'far');
+                if (this.far == null)
+                    return "No far value defined for view " + this.viewName;;
+
+                this.left = this.reader.getFloat(children[i], 'left');
+                if (this.left == null)
+                    return "No left value defined for view "  + this.viewName;;
+
+                this.right = this.reader.getFloat(children[i], 'right');
+                if (this.right == null)
+                    return "No right value defined for view " + this.viewName;;
+
+                this.top = this.reader.getFloat(children[i], 'top');
+                if (this.top == null)
+                    return "No top value defined for view " + this.viewName;;
+
+                this.bottom = this.reader.getFloat(children[i], 'bottom');
+                if (this.bottom == null)
+                    return "No bottom value defined for view " + this.viewName;;
+
+                for (var j = 0; j < grandchildren.length; j++) {
+
+                    switch (grandchildren[j].nodeName) {
+
+                        case 'from':
+
+                            this.x = this.reader.getFloat(grandChildren[i], 'x');
+                            if (this.x == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+
+                            this.y = this.reader.getFloat(grandChildren[i], 'y');
+                            if (this.y == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+
+                            this.z = this.reader.getFloat(grandChildren[i], 'z');
+                            if (this.z == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+
+                            this.position.push(this.x, this.y, this.z);
+
+                            break;
+
+                        case 'to':
+
+                            this.x = this.reader.getFloat(grandChildren[i], 'x');
+                            if (this.x == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+
+                            this.y = this.reader.getFloat(grandChildren[i], 'y');
+                            if (this.y == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+
+                            this.z = this.reader.getFloat(grandChildren[i], 'z');
+                            if (this.z == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+
+                            this.target.push(this.x, this.y, this.z);
+                            break;
+
+                        case 'up':
+
+                            this.x = this.reader.getFloat(grandChildren[i], 'x');
+                            if (this.x == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+
+                            this.y = this.reader.getFloat(grandChildren[i], 'y');
+                            if (this.y == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+
+                            this.z = this.reader.getFloat(grandChildren[i], 'z');
+                            if (this.z == null)
+                                return "Grandchildren not properly declared in " + this.viewName;
+
+                            this.up.push(this.x, this.y, this.z);
+                            break;
+
+                    }
+                }
+
+                var camera = new CGFcameraOrtho(this.left, this.right, this.bottom, this.top, this.near, this.far, this.position, this.target, this.up);
+
+                this.cameras.push(camera);
+            }
+
+            else{
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+            }
+        }
+
         return null;
     }
 
