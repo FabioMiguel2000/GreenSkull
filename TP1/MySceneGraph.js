@@ -538,9 +538,36 @@ class MySceneGraph {
      * @param {textures block element} texturesNode
      */
     parseTextures(texturesNode) {
+        var children = texturesNode.children;
+        
+        this.textures = [];
 
-        //For each texture in textures block, check ID and file URL
-        this.onXMLMinorError("To do: Parse textures.");
+        for(var i = 0; i < children.length(); i++){
+            //For each texture in textures block, check ID and file URL
+            if (children[i].nodeName != "texture") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            var textureId = this.reader.getString(children[i], 'id');
+            if (textureId == null)
+                return "no ID defined for texture";
+
+            // Checks for repeated IDs.
+            if (this.textures[textureId] != null)
+                return "ID must be unique for each texture (conflict: ID = " + textureId + ")";
+            
+            var path = this.reader.getString(children[i], 'path');
+            if(path == null)
+                return "no path defined for texture id " + textureId;
+            
+            var texture = new CGFtexture(this.scene, path);
+            this.textures[textureId] = texture;
+        }
+
+        
+        //this.onXMLMinorError("To do: Parse textures.");
+        this.log("Parsed textures");
         return null;
     }
 
