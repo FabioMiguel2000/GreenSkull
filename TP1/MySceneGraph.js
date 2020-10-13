@@ -581,7 +581,7 @@ class MySceneGraph {
         this.materials = [];
 
         var grandChildren = [];
-        var nodeNames = [];
+    
 
         // Any number of materials.
         for (var i = 0; i < children.length; i++) {
@@ -592,19 +592,62 @@ class MySceneGraph {
             }
 
             // Get id of the current material.
-            var materialID = this.reader.getString(children[i], 'id');
-            if (materialID == null)
+            var materialId = this.reader.getString(children[i], 'id');
+            if (materialId == null)
                 return "no ID defined for material";
 
             // Checks for repeated IDs.
-            if (this.materials[materialID] != null)
-                return "ID must be unique for each light (conflict: ID = " + materialID + ")";
-
-            //Continue here
-            this.onXMLMinorError("To do: Parse materials.");
+            if (this.materials[materialId] != null)
+                return "ID must be unique for each light (conflict: ID = " + materialId + ")";
+            
+            var materialShininess = this.reader.getFloat(children[i], 'shininess');
+            if (materialShininess < 0 || materialShininess > 10){
+                return "Material " + materialId + " with shininess value out of range (0 - 10)";
+            }
+            var material = new CGFappearance(this.scene);
+            material.setShininess(materialShininess);
+            
+            grandChildren = children[i].children;
+            
+            for(var j = 0; grandChildren.length; j++){
+                switch(grandChildren[j].nodeName){
+                    case 'emission':
+                        var r = this.reader.getFloat(grandChildren[j], 'r');
+                        var g = this.reader.getFloat(grandChildren[j], 'g');
+                        var b = this.reader.getFloat(grandChildren[j], 'g');
+                        var a = this.reader.getFloat(grandChildren[j], 'a');
+                        material.setEmission(r,g,b,a);
+                        break;
+                    case 'ambient':
+                        var r = this.reader.getFloat(grandChildren[j], 'r');
+                        var g = this.reader.getFloat(grandChildren[j], 'g');
+                        var b = this.reader.getFloat(grandChildren[j], 'g');
+                        var a = this.reader.getFloat(grandChildren[j], 'a');
+                        material.setAmbient(r,g,b,a);
+                        break;
+                    case 'diffuse':
+                        var r = this.reader.getFloat(grandChildren[j], 'r');
+                        var g = this.reader.getFloat(grandChildren[j], 'g');
+                        var b = this.reader.getFloat(grandChildren[j], 'g');
+                        var a = this.reader.getFloat(grandChildren[j], 'a');
+                        material.setDiffuse(r,g,b,a);
+                        break;
+                    case 'specular':
+                        var r = this.reader.getFloat(grandChildren[j], 'r');
+                        var g = this.reader.getFloat(grandChildren[j], 'g');
+                        var b = this.reader.getFloat(grandChildren[j], 'g');
+                        var a = this.reader.getFloat(grandChildren[j], 'a');
+                        material.setSpecular(r,g,b,a);
+                        break;
+                    default:
+                        return "Invalid tag <" + grandChildren[j].nodeName + "> in material id " + materialId;
+                }
+            }
+            this.materials[materialId] = material;
+            
         }
 
-        //this.log("Parsed materials");
+        this.log("Parsed materials");
         return null;
     }
 
