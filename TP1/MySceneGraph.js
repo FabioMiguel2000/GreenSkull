@@ -656,13 +656,15 @@ class MySceneGraph {
    * @param {nodes block element} nodesNode
    */
   parseNodes(nodesNode) {
-        var children = nodesNode.children;
+                var children = nodesNode.children;
 
         this.nodes = [];
 
         var grandChildren = [];
         var grandgrandChildren = [];
         var nodeNames = [];
+
+        this.scene.pushMatrix();
 
         // Any number of nodes.
         for (var i = 0; i < children.length; i++) {
@@ -694,7 +696,68 @@ class MySceneGraph {
             var descendantsIndex = nodeNames.indexOf("descendants");
 
             this.onXMLMinorError("To do: Parse nodes.");
+            
             // Transformations
+            if(transformationsIndex != null){
+                grandgrandChildren = grandchildren[transformationsIndex].children;
+
+                var transMatrix = mat4.create();
+
+                for(var k = 0; k < grandgrandChildren.length; k++){
+                    switch(grandgrandChildren[k].nodeName){
+                        case 'translation': 
+                            var coordinates = this.parseCoordinates3D(grandgrandChildren[k], "translate transformation for ID " + transformationID);
+
+                            if (!Array.isArray(coordinates)) return coordinates;
+
+                            transfMatrix = mat4.translate(transfMatrix, transfMatrix, coordinates);
+                            break;
+
+                        case 'rotation':
+                            var axis = this.reader.getString(grandgrandChildren[k], "axis");
+                            if(axis == null){
+                                return "unable to parse axis of the primitive coordinates for ID = " + transformationID;
+                            }
+
+                            var angle = this.reader.getFloat(grandgrandChildren[k], "angle");
+                            if(angle == null){
+                                return "unable to parse angle of the primitive coordinates for ID = " + transformationID;
+                            }
+
+                             //Defining the axis to rotate
+                            var axisVector = [0, 0, 0];
+                            if (axis = 'x') {
+                                axisVector[0] = 1;
+                            } else if (axis == 'y') {
+                                axisVector[1] = 1;
+                            } else if (axis == 'z') {
+                                axisVector[2] == 1;
+                            }
+
+                            transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, axisVector);
+                            break;
+
+                        case 'scale':
+                            var coordinates = this.parseCoordinates3D(grandgrandChildren[k], "scale transformation for ID " + transformationID);
+
+                            if (!Array.isArray(coordinates)) return coordinates;
+
+                            //Check if the coordinates are valid
+                            if (coordinates[0] = 0) {
+                                return "Value of x must be different from 0."
+                            }
+                            if (coordinates[1] = 0) {
+                                return "Value of y must be different from 0."
+                            }
+                            if (coordinates[2] = 0) {
+                                return "Value of z must be different from 0."
+                            }
+
+                            transfMatrix = mat4.scale(transfMatrix, transfMatrix, coordinates);
+                            break;
+                    }
+                }
+            }
 
             // Material
 
