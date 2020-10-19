@@ -656,7 +656,7 @@ class MySceneGraph {
    * @param {nodes block element} nodesNode
    */
   parseNodes(nodesNode) {
-                var children = nodesNode.children;
+        var children = nodesNode.children;
 
         this.nodes = [];
 
@@ -686,6 +686,7 @@ class MySceneGraph {
             grandChildren = children[i].children;
 
             nodeNames = [];
+            //  loop through material, texture, tranformations...
             for (var j = 0; j < grandChildren.length; j++) {
                 nodeNames.push(grandChildren[j].nodeName);
             }
@@ -760,10 +761,50 @@ class MySceneGraph {
             }
 
             // Material
+            if(materialIndex == null){
+                return "Unable to Parse Material with node ID " + nodeID;
+            }
+            if(materialIndex == -1){
+                return "Material not defined with node ID " + nodeID;
+            }
+            
+            var materialID = this.reader.getString(grandchildren[materialIndex], 'id');
+
+            if(materialID == null){
+                return "Null Material ID defined for node ID " + nodeID;
+            }
+            //  id="null" maintains material from parent node
+            if(materialID != "null" && this.materials[materialID] == null){
+                return "No existing material declared with ID " + materialID + " for node ID " + nodeID;
+            }
+
+            this.nodes[nodeID].materialID = materialID;
+
 
             // Texture
+            if(textureIndex == null){
+                return "Unable to Parse Tuxture with node ID " + nodeID;
+            }
+            if(textureIndex = -1){
+                return "Texture not defined with node ID " + nodeID;
+            }
+
+            var textureID = this.reader.getString(grandchildren[textureIndex], 'id');
+            
+            if(textureID == null){
+                return "Null Texture ID defined for node ID " + nodeID;
+            }
+            //  id="null" maintains texture from parent node
+            //  id="clear" clears texture declaration received from parent node
+            if(textureID != "null" && textureID != "clear" && this.materials[textureID] == null){
+                return "No existing texture declared with ID " + textureID + " for node ID " + nodeID;
+            }
+
+            this.nodes[nodeID.textureID] = textureID;
 
             // Descendants
+
+
         }
     }
 
