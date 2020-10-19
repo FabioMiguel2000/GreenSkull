@@ -656,7 +656,7 @@ class MySceneGraph {
    * @param {nodes block element} nodesNode
    */
   parseNodes(nodesNode) {
-                var children = nodesNode.children;
+        var children = nodesNode.children;
 
         this.nodes = [];
 
@@ -696,7 +696,7 @@ class MySceneGraph {
             var descendantsIndex = nodeNames.indexOf("descendants");
 
             this.onXMLMinorError("To do: Parse nodes.");
-            
+
             // Transformations
             if(transformationsIndex != null){
                 grandgrandChildren = grandchildren[transformationsIndex].children;
@@ -706,7 +706,8 @@ class MySceneGraph {
                 for(var k = 0; k < grandgrandChildren.length; k++){
                     switch(grandgrandChildren[k].nodeName){
                         case 'translation': 
-                            var coordinates = this.parseCoordinates3D(grandgrandChildren[k], "translate transformation for ID " + transformationID);
+                            var coordinates = this.parseCoordinates3D(grandgrandChildren[k], 
+                                "Getting coordinates for a translation of node " + nodeID);
 
                             if (!Array.isArray(coordinates)) return coordinates;
 
@@ -716,12 +717,12 @@ class MySceneGraph {
                         case 'rotation':
                             var axis = this.reader.getString(grandgrandChildren[k], "axis");
                             if(axis == null){
-                                return "unable to parse axis of the primitive coordinates for ID = " + transformationID;
+                                return "Couldn't get the axis of a rotation in " + nodeID;
                             }
 
                             var angle = this.reader.getFloat(grandgrandChildren[k], "angle");
                             if(angle == null){
-                                return "unable to parse angle of the primitive coordinates for ID = " + transformationID;
+                                return "Couldn't get the angle of a rotation in " + nodeID;
                             }
 
                              //Defining the axis to rotate
@@ -738,7 +739,8 @@ class MySceneGraph {
                             break;
 
                         case 'scale':
-                            var coordinates = this.parseCoordinates3D(grandgrandChildren[k], "scale transformation for ID " + transformationID);
+                            var coordinates = this.parseCoordinates3D(grandgrandChildren[k], 
+                                "Getting scale factor for a scaling in " + nodeID);
 
                             if (!Array.isArray(coordinates)) return coordinates;
 
@@ -760,13 +762,177 @@ class MySceneGraph {
             }
 
             // Material
+            if(materialIndex != null){
+                
+            }
 
             // Texture
+            if(textureIndex != null){
+
+            }
 
             // Descendants
-        }
-    }
+            if(descendantsIndex != null){
+                grandgrandChildren = grandchildren[descendantsIndex].children;
 
+                for(var k = 0; k < grandgrandChildren.length; k++){
+                    switch(grandgrandChildren[k].nodeName){
+                        case 'noderef':
+                            var childID;
+                            if((childID = this.reader.getString(grandgrandChildren[k], "id")) == null){
+                                return "No id found on child in " + nodeID;
+                            }
+                            else if(childID == nodeID){
+                                return "Child node can't be the same as parent node in " + nodeID;
+                            }
+                            this.nodes[nodeID].addChild(childID);
+                            break;
+
+                        case 'leaf':
+                            var shape;
+                            if((shape = this.reader.getString(grandgrandChildren[k], "type")) == null){
+                                return "Primitive has no type in " + nodeID;
+                            }
+
+                            switch(shape){
+                                case 'triangle':
+
+                                    var x1 = this.reader.getFloat(grandgrandChildren[k], 'x1');
+                                    if (!(x1 != null && !isNaN(x1)))
+                                        return "Unable to parse x1 of a triangle in " + nodeID;
+
+                                    var x2 = this.reader.getFloat(grandgrandChildren[k], 'x2');
+                                    if (!(x2 != null && !isNaN(x2)))
+                                        return "Unable to parse x2 of a triangle in " + nodeID;
+
+                                    var x3 = this.reader.getFloat(grandgrandChildren[k], 'x3');
+                                    if (!(x3 != null && !isNaN(x3)))
+                                        return "Unable to parse x3 of a triangle in " + nodeID;
+
+                                    var y1 = this.reader.getFloat(grandgrandChildren[k], 'y1');
+                                    if (!(y1 != null && !isNaN(y1)))
+                                        return "Unable to parse y1 of a triangle in " + nodeID;
+
+                                    //y2
+                                    var y2 = this.reader.getFloat(grandgrandChildren[k], 'y2');
+                                    if (!(y2 != null && !isNaN(y2)))
+                                        return "Unable to parse y2 of a triangle in " + nodeID;
+
+                                    var y3 = this.reader.getFloat(grandgrandChildren[k], 'y3');
+                                    if (!(y3 != null && !isNaN(y3)))
+                                        return "Unable to parse y3 of a triangle in " + nodeID;
+
+                                    var triangle = new MyTriangle(this.scene, x1, y1, x2, y2, x3, y3);
+
+                                    this.nodes[nodeID].addChild(triangle);
+                                    break;
+
+                                case 'rectangle':
+                                    
+                                    var x1 = this.reader.getFloat(grandgrandChildren[k], 'x1');
+                                    if (!(x1 != null && !isNaN(x1)))
+                                        return "Unable to parse x1 of a rectangle in " + nodeID;
+
+                                    var y1 = this.reader.getFloat(grandgrandChildren[k], 'y1');
+                                    if (!(y1 != null && !isNaN(y1)))
+                                        return "Unable to parse y1 of a rectangle in " + nodeID;
+
+                                    var x2 = this.reader.getFloat(grandgrandChildren[k], 'x2');
+                                    if (!(x2 != null && !isNaN(x2) && x2 > x1))
+                                        return "Unable to parse x2 of a rectangle in " + nodeID;
+
+                                    var y2 = this.reader.getFloat(grandgrandChildren[k], 'y2');
+                                    if (!(y2 != null && !isNaN(y2) && y2 > y1))
+                                        return "Unable to parse y2 of a rectangle in " + nodeID;
+
+                                    var rectangle = new MyRectangle(this.scene, x1, x2, y1, y2);
+
+                                    this.nodes[nodeID].addChild(rectangle);
+                                    break;
+
+                                case 'cylinder':
+
+                                    var bottomRadius = this.reader.getFloat(grandgrandChildren[k], 'bottomRadius');
+                                    if (!(bottomRadius != null && !isNaN(bottomRadius)))
+                                        return "Unable to parse bottomRadius of a cylinder in " + nodeID;
+
+                                    var topRadius = this.reader.getFloat(grandgrandChildren[k], 'topRadius');
+                                    if (!(topRadius != null && !isNaN(topRadius)))
+                                        return "Unable to parse topRadius of a cylinder in " + nodeID;
+
+                                    var height = this.reader.getFloat(grandgrandChildren[k], 'height');
+                                    if (!(height != null && !isNaN(height)))
+                                        return "Unable to parse height of a cylinder in " + nodeID;
+
+                                    var slices = this.reader.getFloat(grandgrandChildren[k], 'slices');
+                                    if (!(slices != null && !isNaN(slices)))
+                                        return "Unable to parse slices of a cylinder in " + nodeID;
+
+                                    var stacks = this.reader.getFloat(grandgrandChildren[k], 'stacks');
+                                    if (!(stacks != null && !isNaN(stacks)))
+                                        return "Unable to parse stacks of a cylinder in " + nodeID;
+
+                                    var cylinder = new MyCylinder(this.scene, bottomRadius, topRadius, height, slices, stacks);
+
+                                    this.nodes[nodeID].addChild(cylinder);
+                                    break;
+
+                                case 'sphere':
+
+                                    var radius = this.reader.getFloat(grandgrandChildren[k], 'radius');
+                                    if (!(radius != null && !isNaN(radius)))
+                                        return "Unable to parse radius of a sphere in " + nodeID;
+
+                                    var slices = this.reader.getFloat(grandgrandChildren[k], 'slices');
+                                    if (!(slices != null && !isNaN(slices)))
+                                        return "Unable to parse slices of a sphere in " + nodeID;
+
+                                    var stacks = this.reader.getFloat(grandgrandChildren[k], 'stacks');
+                                    if (!(stacks != null && !isNaN(stacks)))
+                                        return "Unable to parse stacks of a sphere in " + nodeID;
+
+                                    var sphere = new MySphere(this.scene, radius, slices, stacks);
+
+                                    this.nodes[nodeID].addChild(sphere);
+                                    break;
+
+                                case 'torus':
+
+                                    var inner = this.reader.getFloat(grandgrandChildren[k], 'inner');
+                                    if (!(inner != null && !isNaN(inner)))
+                                        return "Unable to parse inner of a torus in " + nodeID;
+
+                                    var outer = this.reader.getFloat(grandgrandChildren[k], 'outer');
+                                    if (!(outer != null && !isNaN(outer)))
+                                        return "Unable to parse outer of a torus in " + nodeID;
+
+                                    var slices = this.reader.getFloat(grandgrandChildren[k], 'slices');
+                                    if (!(slices != null && !isNaN(slices)))
+                                        return "Unable to parse slices of a torus in " + nodeID;
+
+                                    var loops = this.reader.getFloat(grandgrandChildren[k], 'loops');
+                                    if (!(loops != null && !isNaN(loops)))
+                                        return "Unable to parse loops of a torus in " + nodeID;
+
+                                    var torus = new MyTorus(this.scene, inner, outer, slices, loops);
+
+                                    this.nodes[nodeID].addChild(torus);
+                                    break;
+
+                                default:
+                                    this.onXMLMinorError("Type of shape of a primitive not recognized in " + nodeID);
+                            }
+                            break;
+                        
+                        default:
+                            this.onXMLMinorError("A descendant wasn't declared properly in " + nodeID);
+                            break
+                    }
+                }
+            }
+        }
+        this.scene.popMatrix();
+  }
 
     parseBoolean(node, name, messageError){
         var boolVal = true;
