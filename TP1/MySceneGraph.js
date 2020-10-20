@@ -683,6 +683,8 @@ class MySceneGraph {
             if (this.nodes[nodeID] != null)
                 return "ID must be unique for each node (conflict: ID = " + nodeID + ")";
 
+            this.nodes[nodeID] = new MyNode(this, nodeID);
+
             grandChildren = children[i].children;
 
             nodeNames = [];
@@ -803,7 +805,7 @@ class MySceneGraph {
                 return "No existing texture declared with ID " + textureID + " for node ID " + nodeID;
             }
 
-            this.nodes[nodeID.textureID] = textureID;
+            this.nodes[nodeID].textureID = textureID;
 
 
             // Descendants
