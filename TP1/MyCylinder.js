@@ -39,74 +39,46 @@ class MyCylinder extends CGFobject {
         var currentYCoord = 0;
         var currentXCoord = 0;
 
-        //Number of vertexes per edge
-        var edgeVerts = this.stacks + 1;
+        //Number of vertexes per heigth division
+        var divVerts = this.slices + 1;
 
-        //First edge of the cilinder is made; no triangles are drawn since you need more points to make them
-        for(var i = 0; i <= this.stacks; i++){            
+        //Vertexes are defines
+        for(var i = 0; i <= this.stacks; i++){
 
-            this.vertices.push(0, currentRad, currentHeight);
-            this.normals.push(0, 1, 0);
-            this.texCoords.push(currentXCoord, currentYCoord);
+            for(var j = 0; j <= this.slices; j++){
 
+                var normX = -Math.sin(currentAng);
+                var normY = Math.cos(currentAng);
+
+                this.vertices.push(currentRad * normX, currentRad * normY, currentHeight);
+                this.normals.push(normX, normY, 0);
+                this.texCoords.push(currentXCoord, currentYCoord);
+
+                currentAng += angVar;
+                currentXCoord += xCoordVar;
+            }
+
+            currentAng = 0;
+            currentXCoord = 0;
             currentHeight += heightVar;
             currentRad += radVar;
             currentYCoord += yCoordVar;
         }
 
-        //The side faces are made
-        //Slices loop
-        for(var j = 0; j < this.slices; j++){
+        var finalDiv = divVerts * this.stacks;
 
-            currentAng += angVar;
-            currentXCoord += xCoordVar;
-            currentHeight = 0;
-            currentRad = this.bottomRadius;
-            currentYCoord = 0;
-            
-            var sinA = Math.sin(currentAng);
-            var cosA = Math.sin(currentAng);
+        //The bases are made
+        for(var b = 2; b < divVerts; b++){
+            this.indices.push(b - 1, 0, b);
+            this.indices.push(finalDiv, b - 1 + finalDiv, b + finalDiv);
+        }
 
-            this.vertices.push(currentRad * -sinA, currentRad * cosA, currentHeight);
-            this.normals.push(-sinA, cosA, 0);
-            this.texCoords.push(currentXCoord, currentYCoord);
-
-            //Stacks loop
-            for(var k = 0; k < this.stacks; k++){
-                currentHeight += heightVar;
-                currentRad += radVar;
-                currentYCoord += yCoordVar;
-
-                this.vertices.push(currentRad * -sinA, currentRad * cosA, currentHeight);
-                this.normals.push(-sinA, cosA, 0);
-                this.texCoords.push(currentXCoord, currentYCoord);
-                
-                //A rectangle that's part of the cilinder is drawn
-                this.indices.push(edgeVerts * (j + 1) + k, edgeVerts * j + k + 1, edgeVerts * j + k);
-                this.indices.push(edgeVerts * (j + 1) + k, edgeVerts * (j + 1) + k + 1, edgeVerts * j + k + 1);
+        //The side faces are drawn
+        for(var e = 0; e < this.stacks; e++){
+            for(var f = 0; f < this.slices; f++){
+                this.indices.push(divVerts * e + f, divVerts * e + f + 1, divVerts * (e + 1) + f);
+                this.indices.push(divVerts * (e + 1) + f + 1, divVerts * (e + 1) + f, divVerts * e + f + 1);
             }
-
-            currentAng += angVar;
-            currentXCoord += xCoordVar;
-            currentHeight = 0;
-            currentRad = this.bottomRadius;
-            currentYCoord = 0;
-        }
-
-        var currentVert = edgeVerts;
-
-        //The bottom base is made
-        while(currentVert + edgeVerts < this.vertices.length){
-            this.indices.push(currentVert, 0, currentVert + edgeVerts);
-            currentVert += edgeVerts;
-        }
-
-        currentVert = edgeVerts + this.stacks;
-
-        //The top base is made
-        while(currentVert + edgeVerts < this.vertices.length){
-            this.indices.push(this.stacks, currentVert, currentVert + edgeVerts);
-            currentVert += edgeVerts;
         }
 
         this.primitiveType = this.scene.gl.TRIANGLES;
