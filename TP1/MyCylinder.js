@@ -1,5 +1,5 @@
 /**
- * MyCylinder (not working properly)
+ * MyCylinder
  * @constructor
  * @param scene - Reference to MyScene object
  * @param bottomRadius - Radius of the bottom base
