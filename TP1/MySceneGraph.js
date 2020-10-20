@@ -270,9 +270,9 @@ class MySceneGraph {
                 if (this.fov == null)
                     return "No angle value defined for view " + this.viewName;
 
-                for (var j = 0; j < grandchildren.length; j++) {
+                for (var j = 0; j < grandChildren.length; j++) {
 
-                    switch (grandchildren[j].nodeName) {
+                    switch (grandChildren[j].nodeName) {
     
                         case 'from':
     
@@ -345,9 +345,9 @@ class MySceneGraph {
                 if (this.bottom == null)
                     return "No bottom value defined for view " + this.viewName;;
 
-                for (var j = 0; j < grandchildren.length; j++) {
+                for (var j = 0; j < grandChildren.length; j++) {
 
-                    switch (grandchildren[j].nodeName) {
+                    switch (grandChildren[j].nodeName) {
 
                         case 'from':
 
@@ -542,13 +542,12 @@ class MySceneGraph {
         
         this.textures = [];
 
-        for(var i = 0; i < children.length(); i++){
+        for(var i = 0; i < children.length; i++){
             //For each texture in textures block, check ID and file URL
             if (children[i].nodeName != "texture") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
             }
-
             var textureId = this.reader.getString(children[i], 'id');
             if (textureId == null)
                 return "no ID defined for texture";
@@ -569,6 +568,7 @@ class MySceneGraph {
         //this.onXMLMinorError("To do: Parse textures.");
         this.log("Parsed textures");
         return null;
+
     }
 
     /**
@@ -581,7 +581,6 @@ class MySceneGraph {
         this.materials = [];
 
         var grandChildren = [];
-    
 
         // Any number of materials.
         for (var i = 0; i < children.length; i++) {
@@ -686,7 +685,6 @@ class MySceneGraph {
             grandChildren = children[i].children;
 
             nodeNames = [];
-            //  loop through material, texture, tranformations...
             for (var j = 0; j < grandChildren.length; j++) {
                 nodeNames.push(grandChildren[j].nodeName);
             }
@@ -763,7 +761,6 @@ class MySceneGraph {
             }
 
             // Material
-
             if(materialIndex == null){
                 return "Unable to Parse Material with node ID " + nodeID;
             }
@@ -771,7 +768,7 @@ class MySceneGraph {
                 return "Material not defined with node ID " + nodeID;
             }
             
-            var materialID = this.reader.getString(grandchildren[materialIndex], 'id');
+            var materialID = this.reader.getString(grandChildren[materialIndex], 'id');
 
             if(materialID == null){
                 return "Null Material ID defined for node ID " + nodeID;
@@ -783,7 +780,6 @@ class MySceneGraph {
 
             this.nodes[nodeID].materialID = materialID;
 
-
             // Texture
             if(textureIndex == null){
                 return "Unable to Parse Tuxture with node ID " + nodeID;
@@ -792,7 +788,7 @@ class MySceneGraph {
                 return "Texture not defined with node ID " + nodeID;
             }
 
-            var textureID = this.reader.getString(grandchildren[textureIndex], 'id');
+            var textureID = this.reader.getString(grandChildren[textureIndex], 'id');
             
             if(textureID == null){
                 return "Null Texture ID defined for node ID " + nodeID;
@@ -804,7 +800,6 @@ class MySceneGraph {
             }
 
             this.nodes[nodeID.textureID] = textureID;
-
 
             // Descendants
             if(descendantsIndex != null){
@@ -881,7 +876,6 @@ class MySceneGraph {
                                         return "Unable to parse y2 of a rectangle in " + nodeID;
 
                                     var rectangle = new MyRectangle(this.scene, x1, x2, y1, y2);
-
 
                                     this.nodes[nodeID].addChild(rectangle);
                                     break;
@@ -968,7 +962,8 @@ class MySceneGraph {
             }
         }
         this.scene.popMatrix();
-  }
+    }
+
 
     parseBoolean(node, name, messageError){
         var boolVal = true;
@@ -1068,7 +1063,7 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        
+
         //Tests 
         //var cylinder = new MyCylinderSimple(this.scene, 2, 1, 4, 8);
         //cylinder.display();
@@ -1076,11 +1071,13 @@ class MySceneGraph {
         //triangle.display();
         //var sphere = new MySphere(this.scene, 1, 16, 16);
         //sphere.display();
-        var torus = new MyTorus(this.scene, 0.5, 2, 40, 24);
-        torus.display();
+        //var torus = new MyTorus(this.scene, 0.6, 2, 16, 8);
+        //torus.display();
         
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
         
-        //this.nodes[this.idRoot].display()
+        this.nodes[this.idRoot].display()
+    }
+}
     }
 }

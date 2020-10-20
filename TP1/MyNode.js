@@ -1,0 +1,7 @@
+/**
+ * MyNode
+ * @constructor
+ */
+class MyNode {
+    
+}
