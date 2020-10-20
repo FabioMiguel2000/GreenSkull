@@ -3,8 +3,8 @@
  * @constructor
  */
 class MyNode{
-    constructor(scene, nodeID){
-        super(scene);
+    constructor(sceneGraph, nodeID){
+        this.sceneGraph = sceneGraph;
         this.nodeID = nodeID;
         this.transMatrix = mat4.create();
         this.textureID = null;
@@ -20,6 +20,18 @@ class MyNode{
 
     pushLeaf(leaf){
         this.leaves.push(leaf);
+    }
+
+    setTexture(textureID){
+        this.textureID = textureID;
+    }
+
+    setMaterial(materialID){
+        this.materialID = materialID;
+    }
+
+    setTrasMatrix(transMatrix){
+        this.transMatrix = transMatrix;
     }
 
 

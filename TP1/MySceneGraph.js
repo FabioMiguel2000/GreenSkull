@@ -780,7 +780,7 @@ class MySceneGraph {
                 return "No existing material declared with ID " + materialID + " for node ID " + nodeID;
             }
 
-            this.nodes[nodeID].materialID = materialID;
+            this.nodes[nodeID].setMaterial(materialID);
 
             // Texture
             if(textureIndex == null){
@@ -801,7 +801,8 @@ class MySceneGraph {
                 return "No existing texture declared with ID " + textureID + " for node ID " + nodeID;
             }
 
-            this.nodes[nodeID].textureID = textureID;
+            this.nodes[nodeID].setTexture(textureID);
+            
 
             // Descendants
             if(descendantsIndex != null){
