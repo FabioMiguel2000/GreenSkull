@@ -1,4 +1,8 @@
-class MyNode extends CGFobject {
+/**
+ * MyNode
+ * @constructor
+ */
+class MyNode{
     constructor(scene, nodeID){
         super(scene);
         this.nodeID = nodeID;
@@ -11,11 +15,13 @@ class MyNode extends CGFobject {
     }
 
     pushChildren(childrenID){
-        this.childrens.push(childreID);
+        this.childrens.push(childrenID);
     }
 
     pushLeaf(leaf){
         this.leaves.push(leaf);
     }
 
+
 }
+
