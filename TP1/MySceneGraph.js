@@ -28,7 +28,7 @@ class MySceneGraph {
 
         this.nodes = [];
 
-        this.idRoot = null; // The id of the root element.
+        this.idRoot = "Root"; // The id of the root element.
 
         this.axisCoords = [];
         this.axisCoords['x'] = [1, 0, 0];
@@ -113,13 +113,17 @@ class MySceneGraph {
 
         // Processes each node, verifying errors.
 
+        console.log(nodeNames[0]);
+
         // <initials>
         var index;
-        if ((index = nodeNames.indexOf("initials")) == -1)
+        if ((index = nodeNames.indexOf("initials")) == -1){
             return "tag <initials> missing";
+        }
         else {
-            if (index != INITIALS_INDEX)
+            if (index != INITIALS_INDEX){
                 this.onXMLMinorError("tag <initials> out of order " + index);
+            }
 
             //Parse initials block
             if ((error = this.parseInitials(nodes[index])) != null)
@@ -608,7 +612,7 @@ class MySceneGraph {
             
             grandChildren = children[i].children;
             
-            for(var j = 0; grandChildren.length; j++){
+            for(var j = 0; j < grandChildren.length; j++){
                 switch(grandChildren[j].nodeName){
                     case 'emission':
                         var r = this.reader.getFloat(grandChildren[j], 'r');
@@ -682,7 +686,7 @@ class MySceneGraph {
             if (this.nodes[nodeID] != null)
                 return "ID must be unique for each node (conflict: ID = " + nodeID + ")";
 
-            this.nodes[nodeID] = new MyNode(this, nodeID);
+            var currentNode = new MyNode(this, nodeID);
 
             grandChildren = children[i].children;
 
@@ -698,9 +702,12 @@ class MySceneGraph {
 
             this.onXMLMinorError("To do: Parse nodes.");
 
+            console.log(transformationsIndex);
+            
             // Transformations
             if(transformationsIndex != null){
-                grandgrandChildren = grandchildren[transformationsIndex].children;
+                
+                grandgrandChildren = grandChildren[transformationsIndex].children;
 
                 var transMatrix = mat4.create();
 
@@ -760,6 +767,8 @@ class MySceneGraph {
                             break;
                     }
                 }
+
+                currentNode.setTrasMatrix(transfMatrix);
             }
 
             // Material
@@ -780,7 +789,7 @@ class MySceneGraph {
                 return "No existing material declared with ID " + materialID + " for node ID " + nodeID;
             }
 
-            this.nodes[nodeID].setMaterial(materialID);
+            currentNode.setMaterial(materialID);
 
             // Texture
             if(textureIndex == null){
@@ -801,8 +810,7 @@ class MySceneGraph {
                 return "No existing texture declared with ID " + textureID + " for node ID " + nodeID;
             }
 
-            this.nodes[nodeID].setTexture(textureID);
-            
+            currentNode.setTexture(textureID);
 
             // Descendants
             if(descendantsIndex != null){
@@ -818,7 +826,7 @@ class MySceneGraph {
                             else if(childID == nodeID){
                                 return "Child node can't be the same as parent node in " + nodeID;
                             }
-                            this.nodes[nodeID].addChild(childID);
+                            currentNode.pushChildren(childID);
                             break;
 
                         case 'leaf':
@@ -857,7 +865,7 @@ class MySceneGraph {
 
                                     var triangle = new MyTriangle(this.scene, x1, y1, x2, y2, x3, y3);
 
-                                    this.nodes[nodeID].addChild(triangle);
+                                    currentNode.pushLeaf(triangle);
                                     break;
 
                                 case 'rectangle':
@@ -880,7 +888,7 @@ class MySceneGraph {
 
                                     var rectangle = new MyRectangle(this.scene, x1, x2, y1, y2);
 
-                                    this.nodes[nodeID].addChild(rectangle);
+                                    currentNode.pushLeaf(rectangle);
                                     break;
 
                                 case 'cylinder':
@@ -907,7 +915,7 @@ class MySceneGraph {
 
                                     var cylinder = new MyCylinder(this.scene, bottomRadius, topRadius, height, slices, stacks);
 
-                                    this.nodes[nodeID].addChild(cylinder);
+                                    currentNode.pushLeaf(cilinder);
                                     break;
 
                                 case 'sphere':
@@ -926,7 +934,7 @@ class MySceneGraph {
 
                                     var sphere = new MySphere(this.scene, radius, slices, stacks);
 
-                                    this.nodes[nodeID].addChild(sphere);
+                                    currentNode.pushLeaf(sphere);
                                     break;
 
                                 case 'torus':
@@ -949,7 +957,7 @@ class MySceneGraph {
 
                                     var torus = new MyTorus(this.scene, inner, outer, slices, loops);
 
-                                    this.nodes[nodeID].addChild(torus);
+                                    currentNode.pushLeaf(torus);
                                     break;
 
                                 default:
@@ -963,6 +971,8 @@ class MySceneGraph {
                     }
                 }
             }
+
+            this.nodes[nodeID] = currentNode;
         }
         this.scene.popMatrix();
     }
@@ -1068,8 +1078,8 @@ class MySceneGraph {
     displayScene() {
 
         //Tests 
-        //var cylinder = new MyCylinderSimple(this.scene, 2, 1, 4, 8);
-        //cylinder.display();
+        var cylinder = new MyCylinder(this.scene, 2, 1, 4, 8);
+        cylinder.display();
         //var triangle = new MyTriangle(this.scene, 2, 0, 5, 1, 3, 2);
         //triangle.display();
         //var sphere = new MySphere(this.scene, 1, 16, 16);
@@ -1079,6 +1089,6 @@ class MySceneGraph {
         
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
         
-        this.nodes[this.idRoot].display();
+        //this.nodes[this.idRoot].display()
     }
 }
