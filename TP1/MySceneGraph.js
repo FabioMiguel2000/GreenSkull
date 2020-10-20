@@ -709,7 +709,7 @@ class MySceneGraph {
                 
                 grandgrandChildren = grandChildren[transformationsIndex].children;
 
-                var transMatrix = mat4.create();
+                var transfMatrix = mat4.create();
 
                 for(var k = 0; k < grandgrandChildren.length; k++){
                     switch(grandgrandChildren[k].nodeName){
@@ -773,7 +773,7 @@ class MySceneGraph {
 
             // Material
             if(materialIndex == null){
-                return "Unable to Parse Material with node ID " + nodeID;
+                return "Unable to parse material with node ID " + nodeID;
             }
             if(materialIndex == -1){
                 return "Material not defined with node ID " + nodeID;
@@ -793,10 +793,10 @@ class MySceneGraph {
 
             // Texture
             if(textureIndex == null){
-                return "Unable to Parse Tuxture with node ID " + nodeID;
+                return "Unable to parse texture with node ID " + nodeID;
             }
-            if(textureIndex = -1){
-                return "Texture not defined with node ID " + nodeID;
+            if(textureIndex == -1){
+                return "Texture not defined within node ID " + nodeID;
             }
 
             var textureID = this.reader.getString(grandChildren[textureIndex], 'id');
@@ -806,7 +806,7 @@ class MySceneGraph {
             }
             //  id="null" maintains texture from parent node
             //  id="clear" clears texture declaration received from parent node
-            if(textureID != "null" && textureID != "clear" && this.materials[textureID] == null){
+            if(textureID != "null" && textureID != "clear" && this.textures[textureID] == null){
                 return "No existing texture declared with ID " + textureID + " for node ID " + nodeID;
             }
 
@@ -814,7 +814,7 @@ class MySceneGraph {
 
             // Descendants
             if(descendantsIndex != null){
-                grandgrandChildren = grandchildren[descendantsIndex].children;
+                grandgrandChildren = grandChildren[descendantsIndex].children;
 
                 for(var k = 0; k < grandgrandChildren.length; k++){
                     switch(grandgrandChildren[k].nodeName){
@@ -915,7 +915,7 @@ class MySceneGraph {
 
                                     var cylinder = new MyCylinder(this.scene, bottomRadius, topRadius, height, slices, stacks);
 
-                                    currentNode.pushLeaf(cilinder);
+                                    currentNode.pushLeaf(cylinder);
                                     break;
 
                                 case 'sphere':
@@ -1078,7 +1078,7 @@ class MySceneGraph {
     displayScene() {
 
         //Tests 
-        var cylinder = new MyCylinder(this.scene, 2, 1, 4, 8);
+        var cylinder = new MyCylinder(this.scene, 2, 1, 4, 8, 8);
         cylinder.display();
         //var triangle = new MyTriangle(this.scene, 2, 0, 5, 1, 3, 2);
         //triangle.display();

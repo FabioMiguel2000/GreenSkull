@@ -213,10 +213,10 @@
             </transformations>
 
             <descendants>
-                <node type="Triangle1"/>
-                <node type="Triangle2"/>
-                <node type="Triangle3"/>
-                <node type="Triangle4"/>
+                <noderef id="Triangle1"/>
+                <noderef id="Triangle2"/>
+                <noderef id="Triangle3"/>
+                <noderef id="Triangle4"/>
             </descendants>
         </node>
         <!-- -->
@@ -229,8 +229,8 @@
 
             <transformations>
                 <translation x="-1" y="0" z="0"/>
-                <rotation axis="y" rotation="90"/>
-                <rotation axis="x" rotation="45"/>
+                <rotation axis="y" angle="90"/>
+                <rotation axis="x" angle="45"/>
             </transformations>
 
             <descendants>
@@ -248,8 +248,8 @@
 
             <transformations>
                 <translation x="0" y="0" z="1"/>
-                <rotation axis="y" rotation="180"/>
-                <rotation axis="x" rotation="45"/>
+                <rotation axis="y" angle="180"/>
+                <rotation axis="x" angle="45"/>
             </transformations>
 
             <descendants>
@@ -267,8 +267,8 @@
 
             <transformations>
                 <translation x="1" y="0" z="0"/>
-                <rotation axis="y" rotation="270"/>
-                <rotation axis="x" rotation="45"/>
+                <rotation axis="y" angle="270"/>
+                <rotation axis="x" angle="45"/>
             </transformations>
 
             <descendants>
@@ -286,7 +286,7 @@
 
             <transformations>
                 <translation x="0" y="0" z="-1"/>
-                <rotation axis="x" rotation="45"/>
+                <rotation axis="x" angle="45"/>
             </transformations>
 
             <descendants>
@@ -325,8 +325,8 @@
             </transformations>
 
             <descendants>
-                <noderef type="Encaixo cima"/>
-                <noderef type="Encaixo baixo"/>
+                <noderef id="Encaixo cima"/>
+                <noderef id="Encaixo baixo"/>
             </descendants>
         </node>
         <!-- -->
@@ -394,7 +394,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="-15" y1="15" x2="15" y2="0"/>
+                <leaf type="rectangle" x1="-15" y1="0" x2="15" y2="15"/>
                 <noderef id="Janela"/>
             </descendants>
         </node>
@@ -412,7 +412,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="10" y1="10" x2="5" y2="5"/>
+                <leaf type="rectangle" x1="5" y1="5" x2="10" y2="10"/>
             </descendants>
         </node>
         <!-- -->
