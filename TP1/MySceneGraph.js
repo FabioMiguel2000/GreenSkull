@@ -672,6 +672,7 @@ class MySceneGraph {
         // Any number of nodes.
         for (var i = 0; i < children.length; i++) {
 
+
             if (children[i].nodeName != "node") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
@@ -700,7 +701,7 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
             var descendantsIndex = nodeNames.indexOf("descendants");
 
-            this.onXMLMinorError("To do: Parse nodes.");
+            //this.onXMLMinorError("To do: Parse nodes.");
 
             console.log(transformationsIndex);
             
@@ -1072,14 +1073,52 @@ class MySceneGraph {
         return color;
     }
 
+    recursiveDisplayScene(nodeID, parentMaterialID, parentTextureID){
+
+        var currentNode = this.nodes[nodeID];
+        var currentMatID = parentMaterialID;
+        var currentTexID = parentTextureID;
+
+        this.scene.multMatrix(currentNode.transMatrix);
+
+        if(this.materials[currentNode.materialID] != null){
+            currentMatID = currentNode.materialID;
+        }
+
+        if(this.textures[currentNode.textureID] != null){
+            if(currentNode.textureID == "clear"){
+                currentTexID = "null";
+            }
+            else{
+                currentTexID = currentNode.textureID;
+            }
+        }
+
+        for(var i = 0; i < currentNode.leaves.length; i++){
+            if(this.materials[currentMatID] != null)
+                this.materials[currentMatID].apply();
+            
+            if(this.textures[currentTexID]!=null){
+                this.textures[currentTexID].bind();
+            }
+            currentNode.leaves[i].display();
+        }
+
+        for (var i = 0; i < currentNode.childrens.length; i++){
+            this.scene.pushMatrix();
+            this.recursiveDisplayScene(currentNode.childrens[i], currentMatID, currentTexID);
+            this.scene.popMatrix();
+        }
+    }
+
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-
+        this.recursiveDisplayScene(this.idRoot, this.nodes[this.idRoot].materialID, this.nodes[this.idRoot].textureID);
         //Tests 
-        var cylinder = new MyCylinder(this.scene, 2, 1, 4, 8, 8);
-        cylinder.display();
+        //var cylinder = new MyCylinder(this.scene, 2, 1, 4, 8, 8);
+        //cylinder.display();
         //var triangle = new MyTriangle(this.scene, 2, 0, 5, 1, 3, 2);
         //triangle.display();
         //var sphere = new MySphere(this.scene, 1, 16, 16);
