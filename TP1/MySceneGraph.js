@@ -887,7 +887,7 @@ class MySceneGraph {
                                     if (!(y2 != null && !isNaN(y2) && y2 > y1))
                                         return "Unable to parse y2 of a rectangle in " + nodeID;
 
-                                    var rectangle = new MyRectangle(this.scene, x1, x2, y1, y2);
+                                    var rectangle = new MyRectangle(this.scene, x1, y1, x2, y2);
 
                                     currentNode.pushLeaf(rectangle);
                                     break;
