@@ -9,13 +9,13 @@ class MyNode{
         this.transMatrix = mat4.create();
         this.textureID = null;
         this.materialID = null;
-        this.childrens = [];
+        this.children = [];
         this.leaves = [];
 
     }
 
-    pushChildren(childrenID){
-        this.childrens.push(childrenID);
+    pushChildren(childID){
+        this.children.push(childID);
     }
 
     pushLeaf(leaf){
@@ -33,8 +33,6 @@ class MyNode{
     setTrasMatrix(transMatrix){
         this.transMatrix = transMatrix;
     }
-
-
 
 }
 
