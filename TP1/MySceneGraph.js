@@ -764,10 +764,10 @@ class MySceneGraph {
                             if (coordinates[2] == 0) {
                                 return "Value of z must be different from 0."
                             }*/
-                            var sx = this.reader.getFloat(grandChildren[k], 'sx');
-                            var sy = this.reader.getFloat(grandChildren[k], 'sy');
-                            var sz = this.reader.getFloat(grandChildren[k], 'sz');
-
+                            var sx = this.reader.getFloat(grandgrandChildren[k], 'sx');
+                            var sy = this.reader.getFloat(grandgrandChildren[k], 'sy');
+                            var sz = this.reader.getFloat(grandgrandChildren[k], 'sz');
+                    
                             if(sx == null || sy == null || sz == null){
                                 return "Undefined scaling variable";
                             }
