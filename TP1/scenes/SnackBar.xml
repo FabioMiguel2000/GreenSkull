@@ -336,12 +336,10 @@
             <transformations>
             </transformations>
 
-            <descendants>
+            <descendants>               
                 <noderef id="Tampo" />
-                <!--noderef id="Perna1" /-->
-                <!--noderef id="Perna2" /-->
-                <!--noderef id="Perna3" /-->
-                <!--noderef id="Perna4" /-->
+                <noderef id="Perna" />
+                <!--noderef id="Suporte da perna" /-->                
             </descendants>
         </node>
         <!-- -->
@@ -354,11 +352,28 @@
 
             <transformations>
                 <translation x="0" y="3" z="0"/>
-                <rotation axis="x" angle="90"/>
+                <rotation axis="x" angle="-90"/>
             </transformations>
 
             <descendants>
                 <leaf type="cylinder" bottomRadius="2.5" topRadius="2.5" height="0.3" slices="24" stacks="4">
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da mesa-->
+        <node id="Perna">
+            <material id="null" />
+
+            <texture id="wood"/>
+
+            <transformations>
+                <translation x="0" y="1.5" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.5" topRadius="0.5" height="3" slices="16" stacks="4">
             </descendants>
         </node>
         <!-- -->

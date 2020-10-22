@@ -51,7 +51,7 @@ class MyCylinder extends CGFobject {
                 var normY = Math.cos(currentAng);
 
                 this.vertices.push(currentRad * normX, currentRad * normY, currentHeight);
-                this.normals.push(normX, normY, 0);
+                this.normals.push(normX, normY, currentHeight/this.height);
                 this.texCoords.push(currentXCoord, currentYCoord);
 
                 currentAng += angVar;
