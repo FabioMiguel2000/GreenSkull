@@ -90,11 +90,11 @@
             </transformations>
 
             <descendants>
-                <!--<noderef id="Mesa" />
-                <noderef id="Luzes" />-->
+                <!--<noderef id="Mesa" />-->
+                <noderef id="Luzes" />
                 <noderef id="Chao" />
 
-                <noderef id="Parede"/>
+                <noderef id="Paredes"/>
             </descendants>
         </node>
         <!-- -->
@@ -116,11 +116,54 @@
         </node>
         <!-- -->
 
-        <!--Parede-->
-        <node id="Parede">
+        <!--Paredes-->
+        <node id="Paredes">
             <material id="null" />
 
             <texture id="wall"/>
+
+            <transformations>
+                
+            </transformations>
+
+            <descendants>
+                
+                <noderef id="ParedeEsq"/> 
+                <noderef id="ParedeFrente"/> 
+                <noderef id="ParedeDir"/> 
+
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parede da esquerda-->
+        <node id="ParedeEsq">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="0" y="0" z="-15"/>
+
+                <rotation axis="y" angle="-180"/>
+
+                <scale sx="1" sy="1.5" sz="1" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-15" y1="0" x2="15" y2="15"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parede da frente com janela-->
+        <node id="ParedeFrente">
+            <material id="null" />
+
+            <texture id="null"/>
 
             <transformations>
                 <rotation axis="y" angle="-90"/>
@@ -133,10 +176,159 @@
 
             <descendants>
                 <leaf type="rectangle" x1="-15" y1="0" x2="15" y2="15"/>
-                <!--<noderef id="Janela"/> -->
+                <noderef id="Janela"/> 
             </descendants>
         </node>
         <!-- -->
+
+        <!--Parede da direita-->
+        <node id="ParedeDir">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="0" z="15"/>
+
+                <rotation axis="y" angle="180"/>
+
+                <scale sx="1" sy="1.5" sz="1" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-15" y1="0" x2="15" y2="15"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Janela-->
+        <node id="Janela">
+            <material id="null" />
+
+            <texture id="window"/>
+
+            <transformations>
+                <translation x="-1" y="-2.5" z="0"/>
+                <scale sx="1.5" sy="1.5" sz="1.5" />
+
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="5" y1="5" x2="10" y2="10"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Luzes-->
+        <node id="Luzes">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="Luz 1" />
+                <!--<noderef id="Luz 2" />
+                <noderef id="Luz 3" />-->
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Luz 1-->
+        <node id="Luz 1">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="8" y="15" z="0"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Candeeiro" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Candeeiro-->
+        <node id="Candeeiro">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="Lampada" />
+                <noderef id="Encaixo" />
+                <noderef id="Fio" />
+                <noderef id="Protecao" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Lampada-->
+        <node id="Lampada">
+            <material id="null" />
+
+            <texture id="light">
+                <amplification afs="" aft="" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="4" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="sphere" radius="0.6" slices="12" stacks="12"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Encaixo-->
+        <node id="Encaixo">
+            <material id="null" />
+
+            <texture id="steel"/>
+
+            <transformations>
+                <translation x="0" y="5" z="0"/>
+                <rotation axis="x" angle="90"/>
+
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.1" topRadius="0.2" height="0.6" slices="12" stacks="8"/>
+
+            </descendants>
+        </node>
+        <!-- -->
+
+
+
+
+        <!--Fio-->
+        <node id="Fio">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="7" z="0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.05" topRadius="0.05" height="3" slices="8" stacks="8"/>
+            </descendants>
+        </node>
+        <!-- -->
+        
 
 
     </nodes>
