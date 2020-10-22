@@ -736,12 +736,12 @@ class MySceneGraph {
 
                              //Defining the axis to rotate
                             var axisVector = [0, 0, 0];
-                            if (axis = 'x') {
+                            if (axis == 'x') {
                                 axisVector[0] = 1;
                             } else if (axis == 'y') {
                                 axisVector[1] = 1;
                             } else if (axis == 'z') {
-                                axisVector[2] == 1;
+                                axisVector[2] = 1;
                             }
 
                             transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, axisVector);
