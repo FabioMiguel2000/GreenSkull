@@ -736,35 +736,46 @@ class MySceneGraph {
 
                              //Defining the axis to rotate
                             var axisVector = [0, 0, 0];
-                            if (axis = 'x') {
+                            if (axis == 'x') {
                                 axisVector[0] = 1;
                             } else if (axis == 'y') {
                                 axisVector[1] = 1;
                             } else if (axis == 'z') {
-                                axisVector[2] == 1;
+                                axisVector[2] = 1;
                             }
 
                             transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle * DEGREE_TO_RAD, axisVector);
                             break;
 
                         case 'scale':
+                            /*
                             var coordinates = this.parseCoordinates3D(grandgrandChildren[k], 
                                 "Getting scale factor for a scaling in " + nodeID);
 
                             if (!Array.isArray(coordinates)) return coordinates;
 
                             //Check if the coordinates are valid
-                            if (coordinates[0] = 0) {
+                            if (coordinates[0] == 0) {
                                 return "Value of x must be different from 0."
                             }
-                            if (coordinates[1] = 0) {
+                            if (coordinates[1] == 0) {
                                 return "Value of y must be different from 0."
                             }
-                            if (coordinates[2] = 0) {
+                            if (coordinates[2] == 0) {
                                 return "Value of z must be different from 0."
+                            }*/
+                            var sx = this.reader.getFloat(grandChildren[k], 'sx');
+                            var sy = this.reader.getFloat(grandChildren[k], 'sy');
+                            var sz = this.reader.getFloat(grandChildren[k], 'sz');
+
+                            if(sx == null || sy == null || sz == null){
+                                return "Undefined scaling variable";
+                            }
+                            if(isNaN(sx) || isNaN(sy) || isNaN(sz)){
+                                return "Non-numeric value for scaling variable";
                             }
 
-                            transfMatrix = mat4.scale(transfMatrix, transfMatrix, coordinates);
+                            transfMatrix = mat4.scale(transfMatrix, transfMatrix, [sx,sy,sz]);
                             break;
                     }
                 }
