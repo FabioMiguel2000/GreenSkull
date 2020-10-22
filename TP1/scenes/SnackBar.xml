@@ -326,7 +326,6 @@
         </node>
         <!-- -->
 
-
         <!--Mesa-->
         <node id="Mesa">
             <material id="null" />
@@ -339,7 +338,7 @@
             <descendants>               
                 <noderef id="Tampo" />
                 <noderef id="Perna" />
-                <!--noderef id="Suporte da perna" /-->                
+                <noderef id="Suporte da perna"/>                
             </descendants>
         </node>
         <!-- -->
@@ -356,7 +355,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" bottomRadius="2.5" topRadius="2.5" height="0.3" slices="24" stacks="4">
+                <leaf type="cylinder" bottomRadius="2.5" topRadius="2.5" height="0.3" slices="24" stacks="4"/>
             </descendants>
         </node>
         <!-- -->
@@ -365,18 +364,34 @@
         <node id="Perna">
             <material id="null" />
 
-            <texture id="wood"/>
+            <texture id="steel"/>
 
             <transformations>
-                <translation x="0" y="1.5" z="0"/>
+                <translation x="0" y="0" z="0"/>
                 <rotation axis="x" angle="-90"/>
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" bottomRadius="0.5" topRadius="0.5" height="3" slices="16" stacks="4">
+                <leaf type="cylinder" bottomRadius="0.3" topRadius="0.3" height="3" slices="16" stacks="4"/>
             </descendants>
         </node>
         <!-- -->
+
+        <node id="Suporte da perna">   
+            <material id="null" />
+
+            <texture id="steel"/>
+
+            <transformations>
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="1.5" topRadius="1.5" height="0.2" slices="24" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->    
 
     </nodes>
 <!-- -->
