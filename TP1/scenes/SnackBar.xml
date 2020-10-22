@@ -1,0 +1,157 @@
+<lsf>
+
+<!--Initials-->
+    <initials>
+        <reference length="2" />
+        <root id="Root" />
+
+    </initials>
+<!-- -->
+
+<!--Cameras-->
+    <views default="defaultCamera">
+        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
+            <from x="15" y="15" z="15" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+        <ortho id="demoOrtho" near="0.2" far="100" left="-0.2" right="0.2" top="0.2" bottom="-0.2">
+            <from x="5" y="0" z="10" />
+            <to x="5" y="0" z="0" />
+            <up x="0" y="1" z="0" />
+        </ortho>
+    </views>
+<!-- -->
+
+<!--Illumination-->
+    <illumination>
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />          
+        <background r="0.1" g="0.7" b="1.0" a="1.0" />        
+    </illumination>
+<!-- -->
+
+<!--Lights-->
+    <lights>
+        <light id="demoLight">            
+            <enable value="1" />
+            <position x="10" y="12" z="9.5" w="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />                   
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />            
+        </light>
+    </lights>
+<!-- -->
+
+
+<!--Textures-->
+    <textures>
+
+        <!--Textura para tampo da mesa-->
+        <texture id="wood" path="scenes/images/woodTexture.jpg" />
+        <!--Textura para bulbo da lampada-->
+        <texture id="light" path="scenes/images/bulbTexture.jpg" />
+        <!--Textura para perna da mesa-->
+        <texture id="steel" path="scenes/images/steelTexture.jpg" />
+        <!--Textura para o chao-->
+        <texture id="floor" path="scenes/images/floorTexture.jpg" />
+        <!--Textura para a janela-->
+        <texture id="window" path="scenes/images/windowTexture.jpg" />
+        <!--Textura para a parede-->
+        <texture id="wall" path="scenes/images/wallTexture.jpg" />
+        <!--Textura para a guardanapo-->
+        <texture id="napkin" path="scenes/images/napkinTexture.jpg" />
+        <!--Textura para a donut-->
+        <texture id="donut" path="scenes/images/donutTexture.jpg" />
+    </textures>
+<!-- -->
+
+<!--Materials-->
+    <materials>
+        <material id="demoMaterial" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
+        </material>
+    </materials>
+<!-- -->
+
+<!--Nodes-->
+    
+    <nodes>
+
+        <!--Root node-->
+        <node id="Root">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <!--<noderef id="Mesa" />
+                <noderef id="Luzes" />-->
+                <noderef id="Chao" />
+
+                <noderef id="Parede"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+
+        <!--Chao-->
+        <node id="Chao">
+            <material id="null" />
+
+            <texture id="floor"/>
+
+            <transformations>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parede-->
+        <node id="Parede">
+            <material id="null" />
+
+            <texture id="wall"/>
+
+            <transformations>
+                <translation x="-5" y="0" z="0"/>
+                <rotation axis="y" angle="90"/>        
+                <!--scale sx="1" sy="1.5" sz="1" /-->                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                <noderef id="Janela"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Janela-->
+        <node id="Janela">
+            <material id="null" />
+
+            <texture id="window"/>
+
+            <transformations>
+                <translation x="0" y="0" z="0.01"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="2" y1="2" x2="4" y2="4"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+    </nodes>
+<!-- -->
+
+
+</lsf>
