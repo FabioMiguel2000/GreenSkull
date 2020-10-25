@@ -10,12 +10,11 @@
 
 ## Projects
 
-### [TP1 - Scene Graph](TP1)
+### [TP1 - Snack Bar](TP1)
 
-- (items briefly describing main strong points)
+- A cena consiste numa parte interior de um Snack-Bar, composto por uma mesa com um guardanapo e um donut em cima, três candeeiros com proteção (forma de piramide) e uma parede com uma janela. Todos os objetos da cena têm texturas e materiais aplicados.
 - Scene
-  - (Brief description of the created scene)
-  - (relative link to the scene)
+  - http://127.0.0.1:5500/TP1/index.html
 
 -----
 
