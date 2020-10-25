@@ -31,21 +31,21 @@
 
 <!--Lights-->
     <lights>
-        <light id="Luz Candeeiro 1">            
+        <light id="Luz Candeeiro1">            
             <enable value="1" />
             <position x="-2.6" y="5" z="0" w="1.0" />
             <ambient r="0" g="0" b="0" a="1.0" />                   
             <diffuse r="1.0" g="1.0" b="1.0" a="0.8" />             
             <specular r="1.0" g="1.0" b="1.0" a="0.8" />            
         </light>
-        <light id="Luz Candeeiro 2">            
+        <light id="Luz Candeeiro2">            
             <enable value="1" />
             <position x="2.3" y="5" z="-3.3" w="1.0" />
             <ambient r="0" g="0" b="0" a="1.0" />                   
             <diffuse r="1.0" g="1.0" b="1.0" a="0.8" />             
             <specular r="1.0" g="1.0" b="1.0" a="0.8" />            
         </light>
-        <light id="Luz Candeeiro 3">            
+        <light id="Luz Candeeiro3">            
             <enable value="1" />
             <position x="2.3" y="5" z="3.3" w="1.0" />
             <ambient r="0" g="0" b="0" a="1.0" />                   

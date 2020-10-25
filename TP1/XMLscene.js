@@ -10,6 +10,7 @@ class XMLscene extends CGFscene {
         super();
 
         this.interface = myinterface;
+        this.lightValues = {};
     }
 
     /**
@@ -39,7 +40,7 @@ class XMLscene extends CGFscene {
         this.defaultAppearance=new CGFappearance(this);
         
         this.enableAxis = true;
-        this.enableLights = true;
+        //this.enableLights = true;
         this.scaleFactor = 1;
         this.selectedCamera = -1;
         this.cameras = {'defaultCamera': 0, 'demoOrtho': 1};
@@ -99,6 +100,8 @@ class XMLscene extends CGFscene {
         this.initLights();
 
         this.sceneInited = true;
+
+        this.interface.addLightsGroup(this.graph.lights);
     }
 
     /**
@@ -122,14 +125,28 @@ class XMLscene extends CGFscene {
 
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
 
-        for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].setVisible(true);
+        /*for (var i = 0; i < this.lights.length; i++) {
 
+            this.lights[i].setVisible(true);
             if(this.enableLights)
                 this.lights[i].enable();
             else
-                this.lights[i].disable();
-                
+                this.lights[i].disable();  
+        }*/
+        var i = 0;
+        for (var key in this.lightValues) {
+            if (this.lightValues.hasOwnProperty(key)) {
+                if (this.lightValues[key]) {
+                    this.lights[i].setVisible(true);
+                    this.lights[i].enable();
+                }
+                else {
+                    this.lights[i].setVisible(false);
+                    this.lights[i].disable();
+                }
+                this.lights[i].update();
+                i++;
+            }
         }
 
         if (this.sceneInited) {
