@@ -14,8 +14,10 @@
 
 - A cena consiste numa parte interior de um Snack-Bar, composto por uma mesa com um guardanapo e um donut em cima, três candeeiros com proteção (forma de piramide) e uma parede com uma janela. Todos os objetos da cena têm texturas e materiais aplicados.
 - Scene
-  - http://127.0.0.1:5500/TP1/index.html
+  - - **LINK:** [Snack Bar](http://127.0.0.1:5500/TP1/index.html)
 
+
+  <img src="https://git.fe.up.pt/laig/laig-2020-2021/t04/laig-t04-g08/-/blob/master/TP1/scenes/images/ScreenShot1.png"><br>
 -----
 
 ### [TP2 - ...](TP2)
