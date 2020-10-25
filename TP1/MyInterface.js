@@ -22,7 +22,7 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'enableLights').name("Turn On Lights");
         this.gui.add(this.scene, 'enableAxis').name("Display Axis");
         this.gui.add(this.scene, 'scaleFactor', 0.1, 2.0).name('Scale');
-        
+        this.gui.add(this.scene, 'selectedCamera', this.scene.cameras).name('Selected View');
         // add a group of controls (and open/expand by defult)
 
         this.initKeys();

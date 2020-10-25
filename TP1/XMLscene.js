@@ -41,6 +41,9 @@ class XMLscene extends CGFscene {
         this.enableAxis = true;
         this.enableLights = true;
         this.scaleFactor = 1;
+        this.selectedCamera = 0;
+        this.cameras = {'defaultCamera': 0, 'demoOrtho': 1};
+
     }
 
     /**
@@ -48,6 +51,17 @@ class XMLscene extends CGFscene {
      */
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+
+        switch(this.selectedCamera){
+            case '0':
+                this.camera.setPosition(15,15,15);
+                this.camera.setTarget(0,-2,0);
+                break;
+            case '1':
+                this.camera.setPosition(5,0,0);
+                this.camera.setTarget([0,1,0]);
+                break;
+        }
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -120,6 +134,7 @@ class XMLscene extends CGFscene {
 
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].setVisible(true);
+
             if(this.enableLights)
                 this.lights[i].enable();
             else
