@@ -37,7 +37,9 @@ class XMLscene extends CGFscene {
         this.loadingProgress=0;
 
         this.defaultAppearance=new CGFappearance(this);
-
+        
+        this.enableAxis = true;
+        this.enableLights = true;
     }
 
     /**
@@ -115,12 +117,18 @@ class XMLscene extends CGFscene {
 
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].setVisible(true);
-            this.lights[i].enable();
+            if(this.enableLights)
+                this.lights[i].enable();
+            else
+                this.lights[i].disable();
+                
         }
 
         if (this.sceneInited) {
             // Draw axis
-            this.axis.display();
+            if(this.enableAxis){
+                this.axis.display();        
+            }
  
             this.defaultAppearance.apply();
 

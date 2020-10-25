@@ -19,7 +19,8 @@ class MyInterface extends CGFinterface {
         //  http://workshop.chromeexperiments.com/examples/gui
 
         this.gui = new dat.GUI();
-
+        this.gui.add(this.scene, 'enableLights').name("Turn On Lights");
+        this.gui.add(this.scene, 'enableAxis').name("Display Axis");
         // add a group of controls (and open/expand by defult)
 
         this.initKeys();
