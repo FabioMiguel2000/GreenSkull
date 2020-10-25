@@ -40,6 +40,7 @@ class XMLscene extends CGFscene {
         
         this.enableAxis = true;
         this.enableLights = true;
+        this.scaleFactor = 1;
     }
 
     /**
@@ -114,6 +115,8 @@ class XMLscene extends CGFscene {
         this.applyViewMatrix();
 
         this.pushMatrix();
+
+        this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
 
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].setVisible(true);
