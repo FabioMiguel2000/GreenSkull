@@ -10,7 +10,6 @@ class XMLscene extends CGFscene {
         super();
 
         this.interface = myinterface;
-        this.lightValues = {};
     }
 
     /**
@@ -21,8 +20,6 @@ class XMLscene extends CGFscene {
         super.init(application);
 
         this.sceneInited = false;
-
-        this.initCameras();
 
         this.enableTextures(true);
 
@@ -40,20 +37,32 @@ class XMLscene extends CGFscene {
         this.defaultAppearance=new CGFappearance(this);
         
         this.enableAxis = true;
-        //this.enableLights = true;
+        this.enableLights = true;
         this.scaleFactor = 1;
-        this.selectedCamera = -1;
-        this.cameras = {'defaultCamera': 0, 'demoOrtho': 1};
-
+        this.selectedCamera = 0;
     }
 
     /**
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
-
+        this.cameras = this.graph.cameras;
+        var i = 0;
+        this.cameraList = {};
+        for(var c in this.graph.camNames){
+            this.cameraList[c] = i;
+            i++;
+        }
+        this.camera = this.cameras[this.graph.defaultCam];
     }
+
+    /**
+     * Changes the camera if it was changed in the interface
+     */
+    updateCamera() {
+        return;
+    }
+
     /**
      * Initializes the scene lights with the values read from the XML file.
      */
@@ -99,9 +108,9 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
-        this.sceneInited = true;
+        this.initCameras();
 
-        this.interface.addLightsGroup(this.graph.lights);
+        this.sceneInited = true;
     }
 
     /**
@@ -109,6 +118,7 @@ class XMLscene extends CGFscene {
      */
     display() {
         // ---- BEGIN Background, camera and axis setup
+        //this.interface.setActiveCamera(this.camera); 
 
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -125,28 +135,14 @@ class XMLscene extends CGFscene {
 
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
 
-        /*for (var i = 0; i < this.lights.length; i++) {
-
+        for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].setVisible(true);
+
             if(this.enableLights)
                 this.lights[i].enable();
             else
-                this.lights[i].disable();  
-        }*/
-        var i = 0;
-        for (var key in this.lightValues) {
-            if (this.lightValues.hasOwnProperty(key)) {
-                if (this.lightValues[key]) {
-                    this.lights[i].setVisible(true);
-                    this.lights[i].enable();
-                }
-                else {
-                    this.lights[i].setVisible(false);
-                    this.lights[i].disable();
-                }
-                this.lights[i].update();
-                i++;
-            }
+                this.lights[i].disable();
+                
         }
 
         if (this.sceneInited) {
@@ -169,18 +165,6 @@ class XMLscene extends CGFscene {
             
             this.loadingProgressObject.display();
             this.loadingProgress++;
-        }
-
-        
-        switch(this.selectedCamera){
-            case '0':
-                this.camera.setPosition([15,15,15]);
-                this.camera.setTarget([0,-2,0]);
-                break;
-            case '1':
-                this.camera.setPosition([5,0,0]);
-                this.camera.setTarget([0,1,0]);
-                break;
         }
 
         this.popMatrix();
