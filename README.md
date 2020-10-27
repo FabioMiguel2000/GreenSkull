@@ -12,7 +12,14 @@
 
 ### [TP1 - Snack Bar](TP1)
 
-- A cena consiste numa parte interior de um Snack-Bar, composto por uma mesa com um guardanapo e um donut em cima, três candeeiros com proteção (forma de piramide) e uma parede com uma janela. Todos os objetos da cena têm texturas e materiais aplicados.
+- A cena consiste numa parte interior de uma sala de um Snack-Bar, composto por uma cadeira, uma mesa com um guardanapo e um donut em cima, três candeeiros com proteção (forma de piramide) e três paredes, uma delas com uma janela. Todos os objetos da cena têm texturas ou materiais aplicados. 
+
+- Há uma fonte de luz em cada um dos 3 candeeiros, que podem ser ativadas ou desativadas na interface.
+
+- A cena também pode ser escalada para vista mais aproximada ou afastada, e o eixo de coordenadas pode ser ativado e desativado.
+
+- Pode-se alternar entre 3 cameras, no entanto havia erros com a leitura de câmaras do ficheiro xml, por isso foram definidas câmaras no código para serem usadas.
+
 - Scene
   - **Link to Scene:** [Snack Bar](http://127.0.0.1:5500/TP1/index.html)
 
