@@ -1,0 +1,928 @@
+<lsf>
+
+<!--Initials-->
+    <initials>
+        <reference length="2" />
+        <root id="Root" />
+
+    </initials>
+<!-- -->
+
+<!--Cameras-->
+    <views default="defaultCamera">
+        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
+            <from x="15" y="15" z="15" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+        <ortho id="demoOrtho" near="0.2" far="100" left="-0.2" right="0.2" top="0.2" bottom="-0.2">
+            <from x="5" y="0" z="10" />
+            <to x="5" y="0" z="0" />
+            <up x="0" y="1" z="0" />
+        </ortho>
+    </views>
+<!-- -->
+
+<!--Illumination-->
+    <illumination>
+        <ambient r="0.2" g="0.2" b="0.2" a="0.4" />          
+        <background r="0.1" g="0.7" b="1.0" a="0.5" />        
+    </illumination>
+<!-- -->
+
+<!--Lights-->
+    <lights>
+        <light id="Luz Candeeiro1">            
+            <enable value="1" />
+            <position x="-2.6" y="6.5" z="0" w="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />                   
+            <diffuse r="1.0" g="1.0" b="1.0" a="0.8" />             
+            <specular r="1.0" g="1.0" b="1.0" a="0.8" />            
+        </light>
+        <light id="Luz Candeeiro2">            
+            <enable value="1" />
+            <position x="2.3" y="6.5" z="-3.3" w="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />                   
+            <diffuse r="1.0" g="1.0" b="1.0" a="0.8" />             
+            <specular r="1.0" g="1.0" b="1.0" a="0.8" />            
+        </light>
+        <light id="Luz Candeeiro3">            
+            <enable value="1" />
+            <position x="2.3" y="6.5" z="3.3" w="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />                   
+            <diffuse r="1.0" g="1.0" b="1.0" a="0.8" />             
+            <specular r="1.0" g="1.0" b="1.0" a="0.8" />            
+        </light>
+    </lights>
+<!-- -->
+
+
+<!--Textures-->
+    <textures>
+
+        <!--Textura para tampo da mesa-->
+        <texture id="wood" path="scenes/images/woodTexture.jpg" />
+        <!--Textura para bulbo da lampada-->
+        <texture id="light" path="scenes/images/bulbTexture.jpg" />
+        <!--Textura para perna da mesa-->
+        <texture id="steel" path="scenes/images/steelTexture.jpg" />
+        <!--Textura para o chao-->
+        <texture id="floor" path="scenes/images/floorTexture.jpg" />
+        <!--Textura para a janela-->
+        <texture id="window" path="scenes/images/windowTexture.jpg" />
+        <!--Textura para a parede-->
+        <texture id="wall" path="scenes/images/wallTexture.jpg" />
+        <!--Textura para a guardanapo-->
+        <texture id="napkin" path="scenes/images/napkinTexture.jpg" />
+        <!--Textura para a donut-->
+        <texture id="donut" path="scenes/images/donutTexture.jpg" />
+    </textures>
+<!-- -->
+
+<!--Materials-->
+    <materials>
+        <material id="lamp" shininess="0.5">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.7" g="0.7" b="0.5" a="1.0" />
+            <diffuse r="0.2" g="0.2" b="0.2" a="1.0" />
+            <specular r="0.4" g="0.4" b="0.3" a="1.0" />
+        </material>
+        <material id="ceiling" shininess="0.5">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.7" g="0.7" b="0.7" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.4" g="0.4" b="0.4" a="1.0" />
+        </material>
+        <material id="woodMaterial" shininess="0.5">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.8" g="0.8" b="0.8" a="1.0" />
+        </material>
+        <material id="wallMaterial" shininess="0.5">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="0.2" g="0.2" b="0.2" a="1.0" />
+            <specular r="0.4" g="0.4" b="0.4" a="1.0" />
+        </material>
+    </materials>
+<!-- -->
+
+<!--Nodes-->
+    
+    <nodes>
+
+        <!--Root node-->
+        <node id="Root">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="Cadeira"/>
+                <noderef id="Mesa" />
+                <noderef id="Luzes" />
+                <noderef id="Chao" />
+                <noderef id="Teto"/>
+                <noderef id="Paredes"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+
+        <!--Chao-->
+        <node id="Chao">
+            <material id="wallMaterial" />
+
+            <texture id="floor"/>
+
+            <transformations>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Teto-->
+        <node id="Teto">
+            <material id="ceiling" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="7.5" z="0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="-5" x2="5" y2="5"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Paredes-->
+        <node id="Paredes">
+            <material id="null" />
+
+            <texture id="wall"/>
+
+            <transformations>
+                
+            </transformations>
+
+            <descendants>
+                
+                <noderef id="ParedeEsq"/> 
+                <noderef id="ParedeFrente"/> 
+                <noderef id="ParedeDir"/> 
+
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parede da esquerda-->
+        <node id="ParedeEsq">
+            <material id="wallMaterial" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="0" y="0" z="5"/>
+
+                <rotation axis="y" angle="180"/>
+
+                <scale sx="1" sy="1.5" sz="1" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parede da frente com janela-->
+        <node id="ParedeFrente">
+            <material id="wallMaterial" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <rotation axis="y" angle="90"/>
+                
+                <translation x="0" y="0" z="-5"/>
+
+                <scale sx="1" sy="1.5" sz="1" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                <noderef id="Janela"/> 
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parede da direita-->
+        <node id="ParedeDir">
+            <material id="wallMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="0" z="-5"/>
+
+                <scale sx="1" sy="1.5" sz="1" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Janela-->
+        <node id="Janela">
+            <material id="null" />
+
+            <texture id="window"/>
+
+            <transformations>
+                <translation x="-0.3" y="0" z="0.01"/>
+                <scale sx="1.5" sy="1.3" sz="1.5" />
+
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="1.5" y1="1.5" x2="3" y2="3"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Luzes-->
+        <node id="Luzes">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="Luz1" />
+                <noderef id="Luz2" />
+                <noderef id="Luz3"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Luz 1-->
+        <node id="Luz1">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-2.6" y="5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Candeeiro" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Luz 2-->
+        <node id="Luz2">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="2.3" y="5" z="-3.3"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Candeeiro" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Luz 3-->
+        <node id="Luz3">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="2.3" y="5" z="3.3"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Candeeiro" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Candeeiro-->
+        <node id="Candeeiro">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="Lampada" />
+                <noderef id="Encaixo" />
+                <noderef id="Fio" />
+                <noderef id="Protecao" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Lampada-->
+        <node id="Lampada">
+            <material id="null" />
+
+            <texture id="light">
+                <amplification afs="" aft="" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="1.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="sphere" radius="0.2" slices="12" stacks="12"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Encaixo-->
+        <node id="Encaixo">
+            <material id="null" />
+
+            <texture id="steel"/>
+
+            <transformations>
+                <translation x="0" y="1.9" z="0"/>
+                <rotation axis="x" angle="90"/>
+
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.08" topRadius="0.08" height="0.25" slices="12" stacks="8"/>
+
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Fio-->
+        <node id="Fio">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="2.5" z="0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.01" topRadius="0.01" height="1" slices="8" stacks="8"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Protecao do Candeeiro-->
+        <node id="Protecao">
+            <material id="null" />
+
+            <texture id="null"/>     
+
+            <transformations>
+                <translation x="0" y="2.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Triangle1"/>
+                <noderef id="Triangle2"/>
+                <noderef id="Triangle3"/>
+                <noderef id="Triangle4"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Triângulo da Protecao do Candeeiro-->
+        <node id="Triangle1">
+            <material id="lamp" />
+
+            <texture id="null"/>     
+
+            <transformations>
+                
+                <rotation axis="z" angle="53.13"/>
+                <rotation axis="y" angle="90"/>
+
+            </transformations>
+
+            <descendants>
+                <leaf type="triangle" x1="0" y1="0" x2="0.7" y2="-0.85" x3="-0.7" y3="-0.85" />
+                <leaf type="triangle" x1="0" y1="0" x2="-0.7" y2="-0.85" x3="0.7" y3="-0.85" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Triângulo da Protecao do Candeeiro-->
+        <node id="Triangle2">
+            <material id="lamp" />
+
+            <texture id="null"/>     
+
+            <transformations>
+                
+                <rotation axis="z" angle="-53.13"/>
+                <rotation axis="y" angle="90"/>
+
+            </transformations>
+
+            <descendants>
+                <leaf type="triangle" x1="0" y1="0" x2="0.7" y2="-0.85" x3="-0.7" y3="-0.85" />
+                <leaf type="triangle" x1="0" y1="0" x2="-0.7" y2="-0.85" x3="0.7" y3="-0.85" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Triângulo da Protecao do Candeeiro-->
+        <node id="Triangle3">
+            <material id="lamp" />
+
+            <texture id="null"/>     
+
+            <transformations>
+                <rotation axis="x" angle="-53.13"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="triangle" x1="0" y1="0" x2="0.7" y2="-0.85" x3="-0.7" y3="-0.85" />
+                <leaf type="triangle" x1="0" y1="0" x2="-0.7" y2="-0.85" x3="0.7" y3="-0.85" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Triângulo da Protecao do Candeeiro-->
+        <node id="Triangle4">
+            <material id="null" />
+
+            <texture id="null"/>     
+
+            <transformations>
+                <rotation axis="x" angle="53.13"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="triangle" x1="0" y1="0" x2="0.7" y2="-0.85" x3="-0.7" y3="-0.85" />
+                <leaf type="triangle" x1="0" y1="0" x2="-0.7" y2="-0.85" x3="0.7" y3="-0.85" />
+            </descendants>
+        </node>
+
+        <!--Mesa-->
+        <node id="Mesa">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="0" z="-1"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>               
+                <noderef id="Tampo" />
+                <noderef id="Perna mesa" />
+                <noderef id="Suporte da perna"/>    
+                <noderef id="Snack"/>          
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Tampo retangular-->
+        <node id="Tampo">
+            <material id="woodMaterial" />
+
+            <texture id="wood"/>
+
+            <transformations>
+                <translation x="0" y="0" z="3"/>
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="2.5" topRadius="2.5" height="0.3" slices="24" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da mesa-->
+        <node id="Perna mesa">
+            <material id="null" />
+
+            <texture id="steel"/>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.3" topRadius="0.3" height="3" slices="16" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <node id="Suporte da perna">   
+            <material id="null" />
+
+            <texture id="steel"/>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="1.5" topRadius="1.5" height="0.2" slices="24" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->    
+
+        <!--Donut e guardanapo-->
+        <node id="Snack">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0.1" y="-1.5" z="3.31"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Donut"/>
+                <noderef id="Guardanapo"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Donut-->
+        <node id="Donut">
+            <material id="null" />
+
+            <texture id="donut"/>
+
+            <transformations>
+                <translation x="0" y="0" z="0.1"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="torus" inner="0.1" outer="0.3" slices="24" loops="16"/> 
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Guardanapo-->
+        <node id="Guardanapo">
+            <material id="null" />
+
+            <texture id="napkin"/>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/> 
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Cadeira-->
+        <node id="Cadeira">
+            <material id="woodMaterial"/>
+
+            <texture id="wood"/>
+
+            <transformations>
+                <translation x="0" y="0" z="2.3"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Perna cadeira 1"/>
+                <noderef id="Perna cadeira 2"/>
+                <noderef id="Perna cadeira 3"/>
+                <noderef id="Perna cadeira 4"/>
+                <noderef id="Assento"/>
+                <noderef id="Encosto"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da cadeira 1-->
+        <node id="Perna cadeira 1">
+            <material id="woodMaterial" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0.6" y="0" z="0.7"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Perna cadeira"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da cadeira 2-->
+        <node id="Perna cadeira 2">
+            <material id="woodMaterial" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-0.6" y="0" z="0.7"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Perna cadeira"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da cadeira 3-->
+        <node id="Perna cadeira 3">
+            <material id="woodMaterial" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-0.6" y="0" z="-0.7"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Perna cadeira"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da cadeira 4-->
+        <node id="Perna cadeira 4">
+            <material id="woodMaterial" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0.6" y="0" z="-0.7"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Perna cadeira"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da cadeira-->
+        <node id="Perna cadeira">
+            <material id="woodMaterial" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.1" topRadius="0.1" height="1.5" slices="16" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Assento da cadeira-->
+        <node id="Assento">
+            <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="1.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Assento cima"/>
+                <noderef id="Assento baixo"/>
+                <noderef id="Assento lado 1"/>
+                <noderef id="Assento lado 2"/>
+                <noderef id="Assento lado 3"/>
+                <noderef id="Assento lado 4"/> 
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face de cima do assento-->
+        <node id="Assento cima">
+            <material id="woodMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="0.2" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.85" y1="-0.95" x2="0.85" y2="0.95"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face de baixo do assento-->
+        <node id="Assento baixo">
+            <material id="woodMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.85" y1="-0.95" x2="0.85" y2="0.95"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face do lado do assento-->
+        <node id="Assento lado 1">
+            <material id="woodMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <rotation axis="y" angle="90"/>
+                <translation x="0" y="0.1" z="0.85"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.95" y1="-0.1" x2="0.95" y2="0.1"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face do lado do assento-->
+        <node id="Assento lado 2">
+            <material id="woodMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                
+                <translation x="0" y="0.1" z="0.95"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.85" y1="-0.1" x2="0.85" y2="0.1"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face do lado do assento-->
+        <node id="Assento lado 3">
+            <material id="woodMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <rotation axis="y" angle="-90"/>
+                <translation x="0" y="0.1" z="0.85"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.95" y1="-0.1" x2="0.95" y2="0.1"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face do lado do assento-->
+        <node id="Assento lado 4">
+            <material id="woodMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <rotation axis="y" angle="180"/>
+                <translation x="0" y="0.1" z="0.95"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.85" y1="-0.1" x2="0.85" y2="0.1"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Encosto da cadeira-->
+        <node id="Encosto">
+            <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="1.7" z="0.8"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Encosto direita"/>
+                <noderef id="Encosto esquerda"/>
+                <noderef id="Encosto meio"/>
+                <noderef id="Encosto cima"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Cilindro da direita do encosto-->
+        <node id="Encosto direita">
+            <material id="woodMaterial" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0.7" y="0" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.1" topRadius="0.1" height="1.5" slices="16" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Cilindro da esquerda do encosto-->
+        <node id="Encosto esquerda">
+            <material id="woodMaterial" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-0.7" y="0" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.1" topRadius="0.1" height="1.5" slices="16" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Cilindro do meio do encosto-->
+        <node id="Encosto meio">
+            <material id="woodMaterial" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0.7" y="0.7" z="0"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.1" topRadius="0.1" height="1.5" slices="16" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Cilindro de cima do encosto-->
+        <node id="Encosto cima">
+            <material id="woodMaterial" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0.7" y="1.5" z="0"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.1" topRadius="0.1" height="1.5" slices="16" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+    </nodes>
+<!-- -->
+
+
+</lsf>
