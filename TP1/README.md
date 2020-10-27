@@ -10,11 +10,17 @@
 ----
 ## Project information
 
-- (items describing main strong points)
+- A cena consiste numa parte interior de uma sala de um Snack-Bar, composto por uma cadeira, uma mesa com um guardanapo e um donut em cima, três candeeiros com proteção (forma de piramide) e três paredes, uma delas com uma janela. Todos os objetos da cena têm texturas ou materiais aplicados. 
+
+
 - Scene
-  - (Brief description of the created scene)
+  - Há uma fonte de luz em cada um dos 3 candeeiros, que podem ser ativadas ou desativadas na interface.
+
+  - A cena também pode ser escalada para vista mais aproximada ou afastada, e o eixo de coordenadas pode ser ativado e desativado.
+
+  - Pode-se alternar entre 3 cameras, no entanto havia erros com a leitura de câmaras do ficheiro xml, por isso foram definidas câmaras no código para serem usadas.  
   - (relative link to the scene)
 ----
 ## Issues/Problems
 
-- (items describing unimplemented features, bugs, problems, etc.)
+- Não chegamos a completar a parte do controlo das cameras
