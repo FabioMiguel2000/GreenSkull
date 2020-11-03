@@ -1,9 +1,6 @@
-const DEGREE_TO_RAD = Math.PI / 180;
-
 /**
  * MyKeyframeAnimation
  * @constructor
- * @param object - Object to apply the transformation to
  * @param keyframes - Array of the keyframes of the animation
  */
 class MyKeyframeAnimation extends MyAnimation{
@@ -15,32 +12,34 @@ class MyKeyframeAnimation extends MyAnimation{
         this.start = keyframes[0].instant;
         this.end = keyframes[this.keyframeNr - 1].instant;
         this.i = 0;
-        this.prevKeyframe = keyframes[i];
-        this.nextKeyframe = keyframes[i+1];
-        
+        this.prevKeyframe = keyframes[this.i];
+        this.nextKeyframe = keyframes[this.i+1];
 
         this.transfMatrix = mat4.create();
     }
 
-    update(time){
+    update(time){ 
         if((time >= this.start) && (time <= this.end)){
             if(time > this.nextKeyframe.instant){
-                i++;
+                this.i++;
                 this.prevKeyframe = this.nextKeyframe;
-                this.nextKeyframe = this.keyframes[i+1];
+                this.nextKeyframe = this.keyframes[this.i+1];
             }
+
+            this.transfMatrix = mat4.create();
             
             var timeFrac = (time - this.prevKeyframe.instant)/(this.nextKeyframe.instant - this.prevKeyframe.instant);
 
             var prevTranslate = this.prevKeyframe.translate;
             var nextTranslate = this.nextKeyframe.translate;
 
-            var currentTranslate = prevTranslate + timeFrac * (nextTranslate - prevTranslate);
-
-            console.log(currentTranslate);
+            var currentX = prevTranslate[0] + timeFrac * (nextTranslate[0] - prevTranslate[0]);
+            var currentY = prevTranslate[1] + timeFrac * (nextTranslate[1] - prevTranslate[1]);
+            var currentZ = prevTranslate[2] + timeFrac * (nextTranslate[2] - prevTranslate[2]);
+            var currentTranslate = [currentX, currentY, currentZ];
 
             //Sets the transfMatrix to identity and then translates it by currentTranslate
-            mat4.fromTranslation(this.transfMatrix, currentTranslate);
+            this.transfMatrix = mat4.translate(this.transfMatrix, this.transfMatrix, currentTranslate);
 
             var prevRotate = this.prevKeyframe.rotate;
             var nextRotate = this.nextKeyframe.rotate;
@@ -49,20 +48,21 @@ class MyKeyframeAnimation extends MyAnimation{
             var currentRotateY = (prevRotate[1] + timeFrac * (nextRotate[1] - prevRotate[1])) * DEGREE_TO_RAD;
             var currentRotateZ = (prevRotate[2] + timeFrac * (nextRotate[2] - prevRotate[2])) * DEGREE_TO_RAD;
 
-            mat4.rotateX(this.transfMatrix, this.transfMatrix, currentRotateX);
-            mat4.rotateY(this.transfMatrix, this.transfMatrix, currentRotateY);
-            mat4.rotateZ(this.transfMatrix, this.transfMatrix, currentRotateZ);
+            this.transfMatrix = mat4.rotateX(this.transfMatrix, this.transfMatrix, currentRotateX);
+            this.transfMatrix = mat4.rotateY(this.transfMatrix, this.transfMatrix, currentRotateY);
+            this.transfMatrix = mat4.rotateZ(this.transfMatrix, this.transfMatrix, currentRotateZ);
 
             var prevScale = this.prevKeyframe.scale;
             var nextScale = this.nextKeyframe.scale;
 
             var currentScale = prevScale + timeFrac * (nextScale - prevScale);
+            console.log(currentScale);
 
-            mat4.scale(this.transfMatrix, this.transfMatrix, currentScale);
+            this.transfMatrix = mat4.scale(this.transfMatrix, this.transfMatrix, currentScale);
         }
     }
 
     apply(scene){
-        scene.pushMatrix(this.transfMatrix * scene.transfMatrix);
+        scene.multMatrix(this.transfMatrix);
     }
 }
