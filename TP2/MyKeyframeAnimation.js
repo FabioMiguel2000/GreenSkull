@@ -55,8 +55,10 @@ class MyKeyframeAnimation extends MyAnimation{
             var prevScale = this.prevKeyframe.scale;
             var nextScale = this.nextKeyframe.scale;
 
-            var currentScale = prevScale + timeFrac * (nextScale - prevScale);
-            console.log(currentScale);
+            var currentScaleX = prevScale[0] + timeFrac * (nextScale[0] - prevScale[0]);
+            var currentScaleY = prevScale[1] + timeFrac * (nextScale[1] - prevScale[1]);
+            var currentScaleZ = prevScale[2] + timeFrac * (nextScale[2] - prevScale[2]);
+            var currentScale = [currentScaleX, currentScaleY, currentScaleZ];
 
             this.transfMatrix = mat4.scale(this.transfMatrix, this.transfMatrix, currentScale);
         }
