@@ -1134,10 +1134,7 @@ recursiveDisplayScene(nodeID, parentMaterialID, parentTextureID){
      */
     displayScene() {
 
-        this.recursiveDisplayScene(this.idRoot, this.nodes[this.idRoot].materialID, this.nodes[this.idRoot].textureID);
-        
-        //To do: Create display loop for transversing the scene graph, calling the root node's display function
-        
-        //this.nodes[this.idRoot].display()
+        //this.recursiveDisplayScene(this.idRoot, this.nodes[this.idRoot].materialID, this.nodes[this.idRoot].textureID);
+
     }
 }
