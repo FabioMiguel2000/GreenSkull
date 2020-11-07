@@ -1,0 +1,8 @@
+class Animation{
+    /**
+     * @constructor
+     */
+    constructor(){
+
+    }
+}
