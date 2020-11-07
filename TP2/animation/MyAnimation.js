@@ -7,7 +7,7 @@ class MyAnimation{
         this.scene = scene;
     }
 
-    update(time){}
+    update(t){}
 
-    apply(scene){}
+    apply(){}
 }

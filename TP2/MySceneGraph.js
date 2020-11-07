@@ -737,7 +737,8 @@ class MySceneGraph {
                 var keyframe = new MyKey(instant, translate, rotate, scale);
                 keyframes.add(keyframe);
             }
-            this.animations[animationId].add(keyframes);
+            var myKeyframeAnimation = new MyKeyframeAnimation(this.scene, keyframes);
+            this.animations[animationId].add(myKeyframeAnimation);
         }
         this.log("Parsed animations");
         return null;
