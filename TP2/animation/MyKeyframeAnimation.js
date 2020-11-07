@@ -4,9 +4,9 @@
  * @param keyframes - Array of the keyframes of the animation
  */
 class MyKeyframeAnimation extends MyAnimation{
-    constructor(keyframes){
-        super();
-
+    constructor(scene, keyframes){
+        super(scene);
+        
         this.keyframes = keyframes;
         this.keyframeNr = keyframes.length;
         this.start = keyframes[0].instant;
@@ -16,11 +16,20 @@ class MyKeyframeAnimation extends MyAnimation{
         this.nextKeyframe = keyframes[this.i+1];
 
         this.transfMatrix = mat4.create();
+        this.time0 = 0;
+        this.time = 0;
     }
 
-    update(time){ 
-        if((time >= this.start) && (time <= this.end)){
-            if(time > this.nextKeyframe.instant){
+    update(t){
+        if(this.time0 == 0){
+            this.time0 = t;
+        }
+        var elapsedTime = t - this.time0; //Calculates the time passed since last update()
+        this.time = this.time + elapsedTime;
+        this.time0 = t;
+
+        if((this.time >= this.start) && (this.time <= this.end)){
+            if(this.time > this.nextKeyframe.instant){
                 this.i++;
                 this.prevKeyframe = this.nextKeyframe;
                 this.nextKeyframe = this.keyframes[this.i+1];
@@ -28,7 +37,7 @@ class MyKeyframeAnimation extends MyAnimation{
 
             this.transfMatrix = mat4.create();
             
-            var timeFrac = (time - this.prevKeyframe.instant)/(this.nextKeyframe.instant - this.prevKeyframe.instant);
+            var timeFrac = (this.time - this.prevKeyframe.instant)/(this.nextKeyframe.instant - this.prevKeyframe.instant);
 
             var prevTranslate = this.prevKeyframe.translate;
             var nextTranslate = this.nextKeyframe.translate;
@@ -64,7 +73,7 @@ class MyKeyframeAnimation extends MyAnimation{
         }
     }
 
-    apply(scene){
-        scene.multMatrix(this.transfMatrix);
+    apply(){
+        this.scene.multMatrix(this.transfMatrix);
     }
 }

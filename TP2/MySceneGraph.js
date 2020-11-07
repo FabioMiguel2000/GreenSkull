@@ -7,7 +7,8 @@ var ILLUMINATION_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
-var NODES_INDEX = 6;
+var ANIMATIONS_INDEX = 6
+var NODES_INDEX = 7;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -186,6 +187,18 @@ class MySceneGraph {
 
             //Parse materials block
             if ((error = this.parseMaterials(nodes[index])) != null)
+                return error;
+        }
+
+        //  <animations>
+        if((index = nodeNames.indexOf("animations"))== -1){
+            return "tag <animations> missing";
+        }
+        else{
+            if(index != ANIMATIONS_INDEX)
+                this.onXMLMinorError("tag <animations> out of order");
+            //Parse animations block
+            if ((error = this.parseNodes(nodes[index])) != null)
                 return error;
         }
 
@@ -601,7 +614,7 @@ class MySceneGraph {
 
             // Checks for repeated IDs.
             if (this.materials[materialId] != null)
-                return "ID must be unique for each light (conflict: ID = " + materialId + ")";
+                return "ID must be unique for each material (conflict: ID = " + materialId + ")";
             
             var materialShininess = this.reader.getFloat(children[i], 'shininess');
             if (materialShininess < 0 || materialShininess > 10){
@@ -651,6 +664,82 @@ class MySceneGraph {
         }
 
         this.log("Parsed materials");
+        return null;
+    }
+
+    /**
+     * Parses the <animations> node.
+     * @param {animations block element} animationsNode
+     */
+    parseAnimations(animationsNode){
+        var children = animationsNode.children;
+
+        this.animations = [];
+        for(var i = 0; i < children.length; i++){
+            var keyframes = [];
+            if(children[i].nodeName != "animation"){
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+            var animationId = this.reader.getString(children[i], 'id');
+            if (animationId == null)
+                return "no ID defined for animation";
+            if (this.animations[animationId] != null)
+                return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
+            grandChildren = children[i].children;
+            for(var j = 0; grandChildren.length; j++){
+                if(grandChildren[i].nodeName != "keyframe"){
+                    this.onXMLMinorError("unknown tag <" + grandChildren[i].nodeName + ">");
+                    continue;
+                }
+                var instant = this.reader.getFloat(grandChildren[i], 'instant');
+                if(instant == null)
+                    return "no instant defined for keyframe with animation id = " + animationId;
+                grandgrandChildren = grandChildren[i].children;
+                for(var k = 0; k < grandgrandChildren.length; k++){
+                    var translate;
+                    var rotate = [0, 0, 0];
+                    var scale;
+                    switch(grandgrandChildren[i].nodeName){
+                        case 'translation':
+                            var x = this.reader.getFloat(grandgrandChildren[j], 'x');
+                            var y = this.reader.getFloat(grandgrandChildren[j], 'y');
+                            var z = this.reader.getFloat(grandgrandChildren[j], 'z');
+                            translate = [x,y,z];
+                            break;
+                        case 'rotation':
+                            var axis = this.reader.getString(grandgrandChildren[j], 'axis');
+                            var angle = this.reader.getFloat(grandgrandChildren[j], 'angle');
+                            switch(axis){
+                                case 'x':
+                                    rotate[0] = angle;
+                                    break;
+                                case 'y':
+                                    rotate[1] = angle;
+                                    break;
+                                case 'z':
+                                    rotate[2] = angle;
+                                    break;
+                                default:
+                                    return "Invalid axis = " + axis + " in animation id "+ animationId;
+                            }
+                            break;
+                        case 'scale':
+                            var sx = this.reader.getFloat(grandgrandChildren[j], 'sx');
+                            var sy = this.reader.getFloat(grandgrandChildren[j], 'sy');
+                            var sz = this.reader.getFloat(grandgrandChildren[j], 'sz');
+                            scale = [sx, sy, sz];
+                            break;
+                        default:
+                            return "Invalid tag <" + grandgrandChildren[j].nodeName + "> in animation id " + animationId;
+                    }
+                }
+                var keyframe = new MyKey(instant, translate, rotate, scale);
+                keyframes.add(keyframe);
+            }
+            this.animations[animationId].add(keyframes);
+        }
+        this.log("Parsed animations");
         return null;
     }
 

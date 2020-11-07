@@ -3,7 +3,9 @@
  * @constructor
  */
 class MyAnimation{
-    constructor(){}
+    constructor(scene){
+        this.scene = scene;
+    }
 
     update(time){}
 
