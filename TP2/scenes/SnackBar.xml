@@ -107,13 +107,15 @@
     </materials>
 <!-- -->
 
-<animations>
+
+<!--Animations-->
+    <animations>
 
 <!-- O bloco animations pode ser vazio, isto é, pode -->
 
 <!-- não ser declarada qualquer animação -->
 
-    <animation id="automatic door animation" >
+        <animation id="automatic door animation" >
 
 <!-- A animação inicia-se no tempo da primeira keyframe, -->
 <!-- sendo que o objeto em causa deve permanecer -->
@@ -124,7 +126,7 @@
 <!-- Os keyframes devem ser declarados por -->
 <!-- ordem crescente do tempo. -->
 
-        <keyframe instant="0">
+            <keyframe instant="0">
 
 <!-- translate, rotate e scale representam as -->
 <!-- quantidades das transformações -->
@@ -134,50 +136,50 @@
 <!-- translate, rotate e scale sao obrigatorios -->
 <!-- e fornecidos por esta ordem -->
 
-            <translation x="0" y="0" z="0" />
+                <translation x="0" y="0" z="0" />
 
-            <rotation axis="x" angle="0" />
+                <rotation axis="x" angle="0" />
 
-            <rotation axis="y" angle="0" />
+                <rotation axis="y" angle="0" />
 
-            <rotation axis="z" angle="0" />
+                <rotation axis="z" angle="0" />
 
-            <scale sx="1" sy="1" sz="1" />
+                <scale sx="1" sy="1" sz="1" />
 
-        </keyframe>
+            </keyframe>
 
-        <keyframe instant="3">
+            <keyframe instant="3">
 
-            <translation x="0" y="0" z="5" />
+                <translation x="0" y="0" z="5" />
 
-            <rotation axis="x" angle="0" />
+                <rotation axis="x" angle="0" />
 
-            <rotation axis="y" angle="0" />
+                <rotation axis="y" angle="0" />
 
-            <rotation axis="z" angle="0" />
+                <rotation axis="z" angle="0" />
 
-            <scale sx="1" sy="1" sz="1" />
+                <scale sx="1" sy="1" sz="1" />
 
-        </keyframe>
+            </keyframe>
 
-        <keyframe instant="6">
+            <keyframe instant="6">
 
-            <translation x="0" y="0" z="0" />
+                <translation x="0" y="0" z="0" />
 
-            <rotation axis="x" angle="0" />
+                <rotation axis="x" angle="0" />
 
-            <rotation axis="y" angle="0" />
+                <rotation axis="y" angle="0" />
 
-            <rotation axis="z" angle="0" />
+                <rotation axis="z" angle="0" />
 
-            <scale sx="1" sy="1" sz="1" />
+                <scale sx="1" sy="1" sz="1" />
 
-        </keyframe>
+            </keyframe>
 
-    </animation>
+        </animation>
 
-</animations>
-
+    </animations>
+<!-- -->
 
 <!-- spritesheets -->
 
@@ -185,15 +187,15 @@
 
 <!-- imediatamente após o bloco "textures" -->
 
-<spritesheets>
+    <!--<spritesheets>-->
 
         <!-- Semelhante à declaração de textura,  -->
 
 <!-- mas inclui a definição do nº de colunas e linhas -->
 
-        <spritesheet id="ss" path="ss" sizeM="ii" sizeN="ii" />
+            <!--<spritesheet id="ss" path="ss" sizeM="ii" sizeN="ii" />-->
 
-</spritesheets>
+    <!--</spritesheets>-->
 
 <!--Nodes-->
     

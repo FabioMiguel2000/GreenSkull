@@ -672,7 +672,7 @@ class MySceneGraph {
         // Any number of nodes.
         for (var i = 0; i < children.length; i++) {
 
-
+            //console.log(grandChildren[i]);
             if (children[i].nodeName != "node") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
@@ -703,7 +703,7 @@ class MySceneGraph {
 
             //this.onXMLMinorError("To do: Parse nodes.");
 
-            console.log(transformationsIndex);
+            //console.log(transformationsIndex);
             
             // Transformations
             if(transformationsIndex != null){

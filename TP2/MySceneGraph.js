@@ -56,7 +56,7 @@ class MySceneGraph {
 
         // Here should go the calls for different functions to parse the various blocks
         var error = this.parseXMLFile(rootElement);
-
+        
         if (error != null) {
             this.onXMLError(error);
             return;
@@ -191,14 +191,14 @@ class MySceneGraph {
         }
 
         //  <animations>
-        if((index = nodeNames.indexOf("animations"))== -1){
+        if((index = nodeNames.indexOf("animations")) == -1){
             return "tag <animations> missing";
         }
         else{
             if(index != ANIMATIONS_INDEX)
                 this.onXMLMinorError("tag <animations> out of order");
             //Parse animations block
-            if ((error = this.parseNodes(nodes[index])) != null)
+            if ((error = this.parseAnimations(nodes[index])) != null)
                 return error;
         }
 
@@ -686,30 +686,33 @@ class MySceneGraph {
                 return "no ID defined for animation";
             if (this.animations[animationId] != null)
                 return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
-            grandChildren = children[i].children;
-            for(var j = 0; grandChildren.length; j++){
+            var grandChildren = children[i].children;
+
+
+            for(var j = 0; j < grandChildren.length; j++){
                 if(grandChildren[i].nodeName != "keyframe"){
                     this.onXMLMinorError("unknown tag <" + grandChildren[i].nodeName + ">");
                     continue;
                 }
-                var instant = this.reader.getFloat(grandChildren[i], 'instant');
+                var instant = this.reader.getFloat(grandChildren[j], 'instant');
                 if(instant == null)
                     return "no instant defined for keyframe with animation id = " + animationId;
-                grandgrandChildren = grandChildren[i].children;
+                console.log(instant);
+                var grandgrandChildren = grandChildren[j].children;
                 for(var k = 0; k < grandgrandChildren.length; k++){
                     var translate;
                     var rotate = [0, 0, 0];
                     var scale;
-                    switch(grandgrandChildren[i].nodeName){
+                    switch(grandgrandChildren[k].nodeName){
                         case 'translation':
-                            var x = this.reader.getFloat(grandgrandChildren[j], 'x');
-                            var y = this.reader.getFloat(grandgrandChildren[j], 'y');
-                            var z = this.reader.getFloat(grandgrandChildren[j], 'z');
+                            var x = this.reader.getFloat(grandgrandChildren[k], 'x');
+                            var y = this.reader.getFloat(grandgrandChildren[k], 'y');
+                            var z = this.reader.getFloat(grandgrandChildren[k], 'z');
                             translate = [x,y,z];
                             break;
                         case 'rotation':
-                            var axis = this.reader.getString(grandgrandChildren[j], 'axis');
-                            var angle = this.reader.getFloat(grandgrandChildren[j], 'angle');
+                            var axis = this.reader.getString(grandgrandChildren[k], 'axis');
+                            var angle = this.reader.getFloat(grandgrandChildren[k], 'angle');
                             switch(axis){
                                 case 'x':
                                     rotate[0] = angle;
@@ -725,20 +728,20 @@ class MySceneGraph {
                             }
                             break;
                         case 'scale':
-                            var sx = this.reader.getFloat(grandgrandChildren[j], 'sx');
-                            var sy = this.reader.getFloat(grandgrandChildren[j], 'sy');
-                            var sz = this.reader.getFloat(grandgrandChildren[j], 'sz');
+                            var sx = this.reader.getFloat(grandgrandChildren[k], 'sx');
+                            var sy = this.reader.getFloat(grandgrandChildren[k], 'sy');
+                            var sz = this.reader.getFloat(grandgrandChildren[k], 'sz');
                             scale = [sx, sy, sz];
                             break;
                         default:
-                            return "Invalid tag <" + grandgrandChildren[j].nodeName + "> in animation id " + animationId;
+                            return "Invalid tag <" + grandgrandChildren[k].nodeName + "> in animation id " + animationId;
                     }
                 }
                 var keyframe = new MyKey(instant, translate, rotate, scale);
-                keyframes.add(keyframe);
+                keyframes.push(keyframe);
             }
             var myKeyframeAnimation = new MyKeyframeAnimation(this.scene, keyframes);
-            this.animations[animationId].add(myKeyframeAnimation);
+            this.animations[animationId]= myKeyframeAnimation;
         }
         this.log("Parsed animations");
         return null;
@@ -762,7 +765,7 @@ class MySceneGraph {
         // Any number of nodes.
         for (var i = 0; i < children.length; i++) {
 
-
+            //console.log(grandChildren[i]);
             if (children[i].nodeName != "node") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
@@ -793,7 +796,7 @@ class MySceneGraph {
             var descendantsIndex = nodeNames.indexOf("descendants");
 
 
-            console.log(transformationsIndex);
+            //console.log(transformationsIndex);
             
             // Transformations
             if(transformationsIndex != null){
@@ -874,9 +877,10 @@ class MySceneGraph {
             }
             // Animation
             // Note: animation declaration in xml is optional
-            if(animationsIndex != null){
+            if(animationsIndex != -1){
                 var animationId = this.reader.getString(grandChildren[animationsIndex], "id");
                 currentNode.setAnimation(animationId);
+                
             }
 
             // Material
@@ -1230,7 +1234,7 @@ recursiveDisplayScene(nodeID, parentMaterialID, parentTextureID){
      */
     displayScene() {
 
-        //this.recursiveDisplayScene(this.idRoot, this.nodes[this.idRoot].materialID, this.nodes[this.idRoot].textureID);
+        this.recursiveDisplayScene(this.idRoot, this.nodes[this.idRoot].materialID, this.nodes[this.idRoot].textureID);
 
     }
 }

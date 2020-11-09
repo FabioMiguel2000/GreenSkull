@@ -46,7 +46,7 @@ class XMLscene extends CGFscene {
         this.cameras = {'defaultCamera': 0, 'demoOrtho': 1};
 
         //Animation testing
-        var keyframes = [];
+        /*var keyframes = [];
         var keyframe1 = new MyKeyframe(0, [1, 0, 0], [0, 0, 0], [1, 1, 1]);
         var keyframe2 = new MyKeyframe(5, [-5, 0, 0], [0, 90, 0], [1, 1, 1.5]);
         var keyframe3 = new MyKeyframe(15, [-5, 0, 2], [180, 90, 0], [0.9, 0.9, 1.2]);
@@ -58,7 +58,7 @@ class XMLscene extends CGFscene {
 
         this.anim = new MyKeyframeAnimation(keyframes);
 
-        this.start = -1;
+        this.start = -1;*/
     }
 
     /**
@@ -118,7 +118,7 @@ class XMLscene extends CGFscene {
         this.interface.addLightsGroup(this.graph.lights);
     }
 
-    update(time){
+    /*update(time){
         if(this.start == -1){
             this.start = time;
         }
@@ -126,7 +126,7 @@ class XMLscene extends CGFscene {
         var currentTime = (time - this.start)/1000;
 
         this.anim.update(currentTime);
-    }
+    }*/
 
     /**
      * Displays the scene.
@@ -206,8 +206,8 @@ class XMLscene extends CGFscene {
                 this.camera.setTarget([0,1,0]);
                 break;
         }
-        this.anim.apply(this);
-        this.cylinder.display();
+        //this.anim.apply(this);
+        //this.cylinder.display();
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
