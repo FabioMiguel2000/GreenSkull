@@ -787,11 +787,11 @@ class MySceneGraph {
             }
 
             var transformationsIndex = nodeNames.indexOf("transformations");
+            var animationsIndex = nodeNames.indexOf("animationref");
             var materialIndex = nodeNames.indexOf("material");
             var textureIndex = nodeNames.indexOf("texture");
             var descendantsIndex = nodeNames.indexOf("descendants");
 
-            //this.onXMLMinorError("To do: Parse nodes.");
 
             console.log(transformationsIndex);
             
@@ -871,6 +871,12 @@ class MySceneGraph {
                 }
 
                 currentNode.setTrasMatrix(transfMatrix);
+            }
+            // Animation
+            // Note: animation declaration in xml is optional
+            if(animationsIndex != null){
+                var animationId = this.reader.getString(grandChildren[animationsIndex], "id");
+                currentNode.setAnimation(animationId);
             }
 
             // Material

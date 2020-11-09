@@ -9,6 +9,7 @@ class MyNode{
         this.transMatrix = mat4.create();
         this.textureID = null;
         this.materialID = null;
+        this.animationID = null;
         this.children = [];
         this.leaves = [];
 
@@ -32,6 +33,10 @@ class MyNode{
 
     setTrasMatrix(transMatrix){
         this.transMatrix = transMatrix;
+    }
+
+    setAnimation(animationID){
+        this.animationID = animationID;
     }
 
 }
