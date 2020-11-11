@@ -22,8 +22,6 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
-        this.initCameras();
-
         this.enableTextures(true);
 
         this.gl.clearDepth(100.0);
@@ -42,7 +40,7 @@ class XMLscene extends CGFscene {
         this.enableAxis = true;
         //this.enableLights = true;
         this.scaleFactor = 1;
-        this.selectedCamera = -1;
+        this.selectedCamera = 0;
         this.cameras = {'defaultCamera': 0, 'demoOrtho': 1};
 
         //Animation testing
@@ -65,7 +63,11 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        var defaultCamera = this.graph.cameras[0]; 
+
+        this.camera = this.graph.cameras[defaultCamera]; 
+        
+        this.interface.setActiveCamera(this.camera);
 
     }
     /**
@@ -116,6 +118,13 @@ class XMLscene extends CGFscene {
         this.sceneInited = true;
 
         this.interface.addLightsGroup(this.graph.lights);
+
+        this.initCameras();
+    }
+    updateCamera(i){
+        var cam = this.graph.cameras[this.graph.camerasIDs[i]];
+        this.camera = cam;
+        this.interface.setActiveCamera(this.camera);
     }
 
     /*update(time){
@@ -196,16 +205,15 @@ class XMLscene extends CGFscene {
         }
 
         
-        switch(this.selectedCamera){
-            case '0':
-                this.camera.setPosition([15,15,15]);
-                this.camera.setTarget([0,-2,0]);
+        switch (this.selectedCamera) {
+            case 1:
+                this.updateCamera(this.selectedCamera);
                 break;
-            case '1':
-                this.camera.setPosition([5,0,0]);
-                this.camera.setTarget([0,1,0]);
+            default:
+                this.updateCamera(this.selectedCamera);
                 break;
         }
+
         //this.anim.apply(this);
         //this.cylinder.display();
 
