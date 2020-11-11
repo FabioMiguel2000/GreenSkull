@@ -630,28 +630,28 @@ class MySceneGraph {
                     case 'emission':
                         var r = this.reader.getFloat(grandChildren[j], 'r');
                         var g = this.reader.getFloat(grandChildren[j], 'g');
-                        var b = this.reader.getFloat(grandChildren[j], 'g');
+                        var b = this.reader.getFloat(grandChildren[j], 'b');
                         var a = this.reader.getFloat(grandChildren[j], 'a');
                         material.setEmission(r,g,b,a);
                         break;
                     case 'ambient':
                         var r = this.reader.getFloat(grandChildren[j], 'r');
                         var g = this.reader.getFloat(grandChildren[j], 'g');
-                        var b = this.reader.getFloat(grandChildren[j], 'g');
+                        var b = this.reader.getFloat(grandChildren[j], 'b');
                         var a = this.reader.getFloat(grandChildren[j], 'a');
                         material.setAmbient(r,g,b,a);
                         break;
                     case 'diffuse':
                         var r = this.reader.getFloat(grandChildren[j], 'r');
                         var g = this.reader.getFloat(grandChildren[j], 'g');
-                        var b = this.reader.getFloat(grandChildren[j], 'g');
+                        var b = this.reader.getFloat(grandChildren[j], 'b');
                         var a = this.reader.getFloat(grandChildren[j], 'a');
                         material.setDiffuse(r,g,b,a);
                         break;
                     case 'specular':
                         var r = this.reader.getFloat(grandChildren[j], 'r');
                         var g = this.reader.getFloat(grandChildren[j], 'g');
-                        var b = this.reader.getFloat(grandChildren[j], 'g');
+                        var b = this.reader.getFloat(grandChildren[j], 'b');
                         var a = this.reader.getFloat(grandChildren[j], 'a');
                         material.setSpecular(r,g,b,a);
                         break;
@@ -660,9 +660,9 @@ class MySceneGraph {
                 }
             }
             this.materials[materialId] = material;
-            
+            console.log(material);
         }
-
+        //console.log(this.materials);
         this.log("Parsed materials");
         return null;
     }
@@ -697,7 +697,7 @@ class MySceneGraph {
                 var instant = this.reader.getFloat(grandChildren[j], 'instant');
                 if(instant == null)
                     return "no instant defined for keyframe with animation id = " + animationId;
-                console.log(instant);
+                
                 var grandgrandChildren = grandChildren[j].children;
                 for(var k = 0; k < grandgrandChildren.length; k++){
                     var translate;
@@ -900,6 +900,7 @@ class MySceneGraph {
             if(materialID != "null" && this.materials[materialID] == null){
                 return "No existing material declared with ID " + materialID + " for node ID " + nodeID;
             }
+            
 
             currentNode.setMaterial(materialID);
 
@@ -921,7 +922,6 @@ class MySceneGraph {
             if(textureID != "null" && textureID != "clear" && this.textures[textureID] == null){
                 return "No existing texture declared with ID " + textureID + " for node ID " + nodeID;
             }
-
             currentNode.setTexture(textureID);
 
             // Descendants
@@ -1186,7 +1186,6 @@ class MySceneGraph {
 
 recursiveDisplayScene(nodeID, parentMaterialID, parentTextureID){
 
-        this.scene.pushMatrix();
 
         var currentNode = this.nodes[nodeID];
 
@@ -1206,7 +1205,7 @@ recursiveDisplayScene(nodeID, parentMaterialID, parentTextureID){
 
         if(this.textures[currentNode.textureID] != null){
             if(currentNode.textureID == "clear"){
-                currentTexID = "null";
+                currentTexID = null;
             }
             else{
                 currentTexID = currentNode.textureID;
@@ -1215,8 +1214,10 @@ recursiveDisplayScene(nodeID, parentMaterialID, parentTextureID){
         
 
         for(var i = 0; i < currentNode.leaves.length; i++){
-            if(this.materials[currentMatID] != null)
+            if(this.materials[currentMatID] != null){
                 this.materials[currentMatID].apply();
+                
+            }
             
             if(this.textures[currentTexID]!=null){
                 this.textures[currentTexID].bind();
@@ -1225,15 +1226,17 @@ recursiveDisplayScene(nodeID, parentMaterialID, parentTextureID){
         }
 
         for (var i = 0; i < currentNode.children.length; i++){
+            this.scene.pushMatrix();
             this.recursiveDisplayScene(currentNode.children[i], currentMatID, currentTexID);
+            this.scene.popMatrix();
+
         }
-        this.scene.popMatrix();
     }
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-
+        
         this.recursiveDisplayScene(this.idRoot, this.nodes[this.idRoot].materialID, this.nodes[this.idRoot].textureID);
 
     }
