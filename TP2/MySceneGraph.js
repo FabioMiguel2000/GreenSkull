@@ -430,7 +430,6 @@ class MySceneGraph {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
             }
         }
-
         return null;
     }
 
@@ -660,7 +659,6 @@ class MySceneGraph {
                 }
             }
             this.materials[materialId] = material;
-            console.log(material);
         }
         //console.log(this.materials);
         this.log("Parsed materials");
