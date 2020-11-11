@@ -14,7 +14,7 @@
             <from x="15" y="15" z="15" />
             <to x="0" y="-2" z="0" />
         </perspective>
-        <ortho id="demoOrtho" near="0.2" far="500" left="-7.5" right="7.5" top="7.5" bottom="-7.5">
+        <ortho id="demoOrtho" near="0.1" far="500" left="-17.5" right="17.5" top="10" bottom="-10">
             <from x="5" y="2.5" z="0" />
             <to x="-5" y="2.5" z="0" />
             <up x="0" y="1" z="0" />
