@@ -265,10 +265,104 @@ class MySceneGraph {
         var children = viewsNode.children;
 
         this.cameras = [];
-        this.position = [];
-        this.target = [];
+        this.camerasIDs = [];
+
+        var defaultView = this.reader.getString(viewsNode, 'default');
+        this.cameras.push(defaultView);
+
 
         for (var i = 0; i < children.length; i++) {
+
+            if (children[i].nodeName != "perspective" && children[i].nodeName != "ortho") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            var cameraId = this.reader.getString(children[i], 'id');
+
+            if (cameraId == null)
+                return "no ID defined for views";
+
+            // Checks for repeated IDs.
+            if (this.cameras[cameraId] != null)
+                return "ID must be unique for each primitive (conflict: ID = " + viewId + ")";
+            
+            this.camerasIDs.push(cameraId);
+
+            var camera;
+            var grandChildren;
+
+            // Checks if view is perspective
+            if (children[i].nodeName == "perspective") {
+
+                var near = this.reader.getFloat(children[i], 'near');
+                var far = this.reader.getFloat(children[i], 'far');
+                var angle = this.reader.getFloat(children[i], 'angle');
+
+                var angleRad = angle * DEGREE_TO_RAD;
+
+                grandChildren = children[i].children;
+
+                // Checks position
+                if (grandChildren[0].nodeName != "from")
+                    this.onXMLMinorError("unknown tag <" + grandChildren[0].nodeName + ">");
+
+                var fromX = this.reader.getFloat(grandChildren[0], 'x');
+                var fromY = this.reader.getFloat(grandChildren[0], 'y');
+                var fromZ = this.reader.getFloat(grandChildren[0], 'z');
+
+                // Checks target
+                if (grandChildren[1].nodeName != "to")
+                    this.onXMLMinorError("unknown tag <" + grandChildren[1].nodeName + ">");
+
+                var toX = this.reader.getFloat(grandChildren[1], 'x');
+                var toY = this.reader.getFloat(grandChildren[1], 'y');
+                var toZ = this.reader.getFloat(grandChildren[1], 'z');
+
+                camera = new CGFcamera(angleRad, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ)); // Creates camera
+            }
+
+            // Checks if view is ortho
+            if (children[i].nodeName == "ortho") {
+                var near = this.reader.getFloat(children[i], 'near');
+                var far = this.reader.getFloat(children[i], 'far');
+                var left = this.reader.getFloat(children[i], 'left');
+                var right = this.reader.getFloat(children[i], 'right');
+                var top = this.reader.getFloat(children[i], 'top');
+                var bottom = this.reader.getFloat(children[i], 'bottom');
+
+                grandChildren = children[i].children;
+
+                // Checks position
+                if (grandChildren[0].nodeName != "from")
+                    this.onXMLMinorError("unknown tag <" + grandChildren[0].nodeName + ">");
+
+                var fromX = this.reader.getFloat(grandChildren[0], 'x');
+                var fromY = this.reader.getFloat(grandChildren[0], 'y');
+                var fromZ = this.reader.getFloat(grandChildren[0], 'z');
+
+                // Checks target
+                if (grandChildren[1].nodeName != "to")
+                    this.onXMLMinorError("unknown tag <" + grandChildren[1].nodeName + ">");
+
+                var toX = this.reader.getFloat(grandChildren[1], 'x');
+                var toY = this.reader.getFloat(grandChildren[1], 'y');
+                var toZ = this.reader.getFloat(grandChildren[1], 'z');
+
+                if (grandChildren[2].nodeName != "up")
+                    this.onXMLMinorError("unknown tag <" + grandChildren[2].nodeName + ">");
+
+                var upX = this.reader.getFloat(grandChildren[2], 'x');
+                var upY = this.reader.getFloat(grandChildren[2], 'y');
+                var upZ = this.reader.getFloat(grandChildren[2], 'z');
+
+                camera = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(fromX, fromY, fromZ), vec3.fromValues(toX, toY, toZ), vec3.fromValues(upX, upY, upZ)); // Creates camera
+            }
+            this.cameras[cameraId] = camera;
+
+        }
+        this.log("Parsed views");
+        /*for (var i = 0; i < children.length; i++) {
             this.viewName = this.reader.getString(children[i], 'id');
 
             var grandChildren = children[i].children;
@@ -429,7 +523,10 @@ class MySceneGraph {
             else{
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
             }
-        }
+        }*/
+        console.log(this.cameras);
+
+
         return null;
     }
 
