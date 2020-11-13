@@ -9,14 +9,23 @@
 class MySpriteSheet{
     constructor(scene, texture, sizeM, sizeN){
         this.scene = scene;
-        this.texture = texture;
+        this.texture = new CGFtexture(this.scene, texture);
         this.sizeM = sizeM;
         this.sizeN = sizeN;
 
-        //Get the texture resolution and divide height by sizeM to get row height and length by sizeN to get column length
+        this.spriteShader = new CGFshader(this.scene.gl ,"shaders/spriteSheet.vert" ,"shaders/spriteSheet.frag");
+
+        var dimensions = [sizeM, sizeN];
+        this.spriteShader.setUniformsValues('dimensions', dimensions);
     }
 
     activateCellMN(m, n){
-        
+        var spritePos = [m, n];
+        this.spriteShader.setUniformsValues('spritePos', spritePos);
+    }
+
+    activateCellP(p){
+        var spritePos = [p / this.sizeN, p % this.sizeN];
+        this.spriteShader.setUniformsValues('spritePos', spritePos);
     }
 }
