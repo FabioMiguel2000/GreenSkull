@@ -82,6 +82,12 @@
         <texture id="napkin" path="scenes/images/napkinTexture.jpg" />
         <!--Textura para a donut-->
         <texture id="donut" path="scenes/images/donutTexture.jpg" />
+        <!--Textura para a porta automatica-->
+        <texture id="glass" path="scenes/images/glassTexture.png" />
+        <!--Textura para a porta automatica-->
+        <texture id="automaticDoor" path="scenes/images/automaticDoorTexture.jpg" />
+         <!--Textura para a porta automatica-->
+        <texture id="street" path="scenes/images/streetTexture.jpg" />
     </textures>
 <!-- -->
 
@@ -119,6 +125,12 @@
             <diffuse r="0.2" g="0.2" b="0.2" a="1.0" />
             <specular r="0.4" g="0.4" b="0.4" a="1.0" />
         </material>
+        <material id="blackMaterial" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="0" g="0" b="0" a="1.0" />
+            <specular r="0" g="0" b="0" a="1.0" />
+        </material>
     </materials>
 <!-- -->
 
@@ -130,7 +142,7 @@
 
 <!-- não ser declarada qualquer animação -->
 
-        <animation id="automatic door animation" >
+        <animation id="automatic door animation left" >
 
 <!-- A animação inicia-se no tempo da primeira keyframe, -->
 <!-- sendo que o objeto em causa deve permanecer -->
@@ -165,7 +177,7 @@
 
             <keyframe instant="3">
 
-                <translation x="0" y="0" z="5" />
+                <translation x="0" y="0" z="0" />
 
                 <rotation axis="x" angle="0" />
 
@@ -178,6 +190,125 @@
             </keyframe>
 
             <keyframe instant="6">
+
+                <translation x="0" y="1" z="0" />
+
+                <rotation axis="x" angle="0" />
+
+                <rotation axis="y" angle="0" />
+
+                <rotation axis="z" angle="0" />
+
+                <scale sx="1" sy="1" sz="1" />
+
+            </keyframe>
+
+            <keyframe instant="10">
+
+                <translation x="0" y="1" z="0" />
+
+                <rotation axis="x" angle="0" />
+
+                <rotation axis="y" angle="0" />
+
+                <rotation axis="z" angle="0" />
+
+                <scale sx="1" sy="1" sz="1" />
+
+            </keyframe>
+
+            <keyframe instant="13">
+
+                <translation x="0" y="0" z="0" />
+
+                <rotation axis="x" angle="0" />
+
+                <rotation axis="y" angle="0" />
+
+                <rotation axis="z" angle="0" />
+
+                <scale sx="1" sy="1" sz="1" />
+
+            </keyframe>
+
+        </animation>
+
+        <animation id="automatic door animation right" >
+
+<!-- A animação inicia-se no tempo da primeira keyframe, -->
+<!-- sendo que o objeto em causa deve permanecer -->
+<!-- invisível até esse momento -->
+<!-- Deve existir pelo menos 1 elemento keyframe. -->
+<!-- instant e’ o tempo expresso em segundos -->
+<!-- desde o inicio da animação. -->
+<!-- Os keyframes devem ser declarados por -->
+<!-- ordem crescente do tempo. -->
+
+            <keyframe instant="0">
+
+<!-- translate, rotate e scale representam as -->
+<!-- quantidades das transformações -->
+<!-- correspondentes, medidas em relação à -->
+<!-- situação inicial (instante zero) --> 
+<!-- Para uma mesma keyframe, os elementos -->
+<!-- translate, rotate e scale sao obrigatorios -->
+<!-- e fornecidos por esta ordem -->
+
+                <translation x="0" y="0" z="0" />
+
+                <rotation axis="x" angle="0" />
+
+                <rotation axis="y" angle="0" />
+
+                <rotation axis="z" angle="0" />
+
+                <scale sx="1" sy="1" sz="1" />
+
+            </keyframe>
+
+            <keyframe instant="3">
+
+                <translation x="0" y="0" z="0" />
+
+                <rotation axis="x" angle="0" />
+
+                <rotation axis="y" angle="0" />
+
+                <rotation axis="z" angle="0" />
+
+                <scale sx="1" sy="1" sz="1" />
+
+            </keyframe>
+
+            <keyframe instant="6">
+
+                <translation x="0" y="-1" z="0" />
+
+                <rotation axis="x" angle="0" />
+
+                <rotation axis="y" angle="0" />
+
+                <rotation axis="z" angle="0" />
+
+                <scale sx="1" sy="1" sz="1" />
+
+            </keyframe>
+
+            <keyframe instant="10">
+
+                <translation x="0" y="-1" z="0" />
+
+                <rotation axis="x" angle="0" />
+
+                <rotation axis="y" angle="0" />
+
+                <rotation axis="z" angle="0" />
+
+                <scale sx="1" sy="1" sz="1" />
+
+            </keyframe>
+
+            <keyframe instant="13">
 
                 <translation x="0" y="0" z="0" />
 
@@ -231,8 +362,8 @@
                 <noderef id="Chao" />
                 <noderef id="Teto"/>
                 <noderef id="Paredes"/>
+                <noderef id="Porta automatica"/>
                 <noderef id="Entrada"/>
-
             </descendants>
         </node>
         <!-- -->
@@ -241,13 +372,139 @@
         <node id="Entrada">
             <material id="null" />
 
+            <texture id="street"/>
+
+            <transformations>
+                <translation x="-11" y="-8.5" z="-14.9"/>
+                <scale sx="5" sy="5.5" sz="3" />
+            </transformations>
+            <descendants>
+                <leaf type="rectangle" x1="1.5" y1="1.5" x2="3" y2="3"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Porta automantica-->
+        <node id="Porta automatica">
+            <material id="null" />
+
             <texture id="null"/>
 
             <transformations>
-                <translation x="0" y="-7.5" z="0    "/>
-                <scale sx="3" sy="5" sz="3" />
+
+            </transformations>
+            <descendants>
+                <noderef id="Porta automatica1"/>
+                <noderef id="Porta automatica2"/>
+                <noderef id="Suporte da porta"/>
+                <noderef id="Janela da porta1"/>
+                <noderef id="Janela da porta2"/>
+                <noderef id="Sensor"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parte cima da porta automatica-->
+        <node id="Suporte da porta">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="3.5" z="-14.8"/>
+                <scale sx="10" sy="3" sz="0.1" />
+
+            </transformations>
+            <descendants>
+                <noderef id="Assento"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Sensor da porte automatica-->
+        <node id="Sensor">
+            <material id="blackMaterial" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0.2" y="3.5" z="-14.6"/>
+                <scale sx="0.5" sy="3" sz="0.1" />
+
+            </transformations>
+            <descendants>
+                <noderef id="Assento"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+
+        <!--Porta automantica esquerda-->
+        <node id="Porta automatica1">
+            <material id="null" />
+
+            <texture id="automaticDoor"/>
+
+            <transformations>
+                <translation x="4.7" y="-8.5" z="-14.75"/>
+                <scale sx="3" sy="5.5" sz="3" />
                 <rotation axis="z" angle="90"/>
 
+            </transformations>
+            <animationref id="automatic door animation left" />
+            <descendants>
+                <leaf type="rectangle" x1="1.5" y1="1.5" x2="3" y2="3"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Porta automantica direita-->
+        <node id="Porta automatica2">
+            <material id="null" />
+
+            <texture id="automaticDoor"/>
+
+            <transformations>
+                <translation x="9.2" y="-8.5" z="-14.75"/>
+                <scale sx="3" sy="5.5" sz="3" />
+                <rotation axis="z" angle="90"/>
+
+            </transformations>
+            <animationref id="automatic door animation right" />
+            <descendants>
+                <leaf type="rectangle" x1="1.5" y1="1.5" x2="3" y2="3"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Janela da porta automatica esquerda-->
+        <node id="Janela da porta1">
+            <material id="null" />
+
+            <texture id="glass"/>
+
+            <transformations>
+                <translation x="0.5" y="-8.5" z="-14.8"/>
+                <scale sx="3" sy="5.5" sz="3" />
+                <rotation axis="z" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="1.5" y1="1.5" x2="3" y2="3"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Janela da porta automatica direita-->
+        <node id="Janela da porta2">
+            <material id="null" />
+
+            <texture id="glass"/>
+
+            <transformations>
+                <translation x="13" y="-8.5" z="-14.8"/>
+                <scale sx="3" sy="5.5" sz="3" />
+                <rotation axis="z" angle="90"/>
             </transformations>
 
             <descendants>

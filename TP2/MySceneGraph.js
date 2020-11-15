@@ -591,7 +591,6 @@ class MySceneGraph {
                 }
             }
             this.materials[materialId] = material;
-            console.log(material);
         }
         //console.log(this.materials);
         this.log("Parsed materials");
@@ -1129,6 +1128,11 @@ recursiveDisplayScene(nodeID, parentMaterialID, parentTextureID){
 
         this.scene.multMatrix(currentNode.transMatrix);
 
+        var animationNode = this.animations[currentNode.animationID];
+        if(animationNode != undefined){
+            //console.log(animationNode);
+            animationNode.apply();
+        }
 
         if(this.materials[currentNode.materialID] != null){
             currentMatID = currentNode.materialID;

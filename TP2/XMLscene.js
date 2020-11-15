@@ -22,6 +22,8 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
+        this.initCameras();
+
         this.enableTextures(true);
 
         this.gl.clearDepth(100.0);
@@ -54,20 +56,22 @@ class XMLscene extends CGFscene {
         
         this.cylinder = new MyCylinder(this, 2, 3, 5, 16, 8);
 
-        this.anim = new MyKeyframeAnimation(keyframes);
-
-        this.start = -1;*/
+        this.anim = new MyKeyframeAnimation(keyframes);*/
+        this.lastTime = 0;
+        this.time = 0;
     }
 
     /**
      * Initializes the scene cameras.
      */
     initCameras() {
-        var defaultCamera = this.graph.cameras[0]; 
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+
+        /*var defaultCamera = this.graph.cameras[0]; 
 
         this.camera = this.graph.cameras[defaultCamera]; 
-        
-        this.interface.setActiveCamera(this.camera);
+
+        this.interface.setActiveCamera(this.camera);*/
 
     }
     /**
@@ -119,23 +123,29 @@ class XMLscene extends CGFscene {
 
         this.interface.addLightsGroup(this.graph.lights);
 
-        this.initCameras();
+        this.updateCamera(this.selectedCamera);
     }
     updateCamera(i){
-        var cam = this.graph.cameras[this.graph.camerasIDs[i]];
-        this.camera = cam;
-        this.interface.setActiveCamera(this.camera);
+            var cameraID = this.graph.camerasIDs[i];
+            var cam = this.graph.cameras[cameraID];
+            this.camera = cam;
+            this.interface.setActiveCamera(this.camera);
     }
 
-    /*update(time){
-        if(this.start == -1){
-            this.start = time;
+    // Note: update(t) is called periodically (as per setUpdatePeriod() in init())
+    update(t){
+        t = t /1000;
+        if(this.lastTime == 0){
+            this.lastTime = t;
         }
-
-        var currentTime = (time - this.start)/1000;
-
-        this.anim.update(currentTime);
-    }*/
+        var elapsedTime = t - this.lastTime; //Calculates the time passed since last update()
+        this.time = this.time + elapsedTime;
+        this.lastTime = t;
+        this.animations = this.graph.animations;
+        for(var key in this.animations){
+            this.animations[key].update(elapsedTime);
+        }
+    }
 
     /**
      * Displays the scene.
@@ -158,14 +168,6 @@ class XMLscene extends CGFscene {
 
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
 
-        /*for (var i = 0; i < this.lights.length; i++) {
-
-            this.lights[i].setVisible(true);
-            if(this.enableLights)
-                this.lights[i].enable();
-            else
-                this.lights[i].disable();  
-        }*/
         var i = 0;
         for (var key in this.lightValues) {
             if (this.lightValues.hasOwnProperty(key)) {
@@ -204,15 +206,7 @@ class XMLscene extends CGFscene {
             this.loadingProgress++;
         }
 
-        
-        switch (this.selectedCamera) {
-            case 1:
-                this.updateCamera(this.selectedCamera);
-                break;
-            default:
-                this.updateCamera(this.selectedCamera);
-                break;
-        }
+        //this.updateCamera(this.selectedCamera);
 
         //this.anim.apply(this);
         //this.cylinder.display();

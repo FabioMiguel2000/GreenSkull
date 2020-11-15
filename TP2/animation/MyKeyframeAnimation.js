@@ -16,17 +16,13 @@ class MyKeyframeAnimation extends MyAnimation{
         this.nextKeyframe = keyframes[this.i+1];
 
         this.transfMatrix = mat4.create();
-        this.time0 = 0;
+
         this.time = 0;
+
     }
 
-    update(t){
-        if(this.time0 == 0){
-            this.time0 = t;
-        }
-        var elapsedTime = t - this.time0; //Calculates the time passed since last update()
+    update(elapsedTime){
         this.time = this.time + elapsedTime;
-        this.time0 = t;
 
         if((this.time >= this.start) && (this.time <= this.end)){
             if(this.time > this.nextKeyframe.instant){
@@ -39,6 +35,7 @@ class MyKeyframeAnimation extends MyAnimation{
             
             var timeFrac = (this.time - this.prevKeyframe.instant)/(this.nextKeyframe.instant - this.prevKeyframe.instant);
 
+            /*translate*/
             var prevTranslate = this.prevKeyframe.translate;
             var nextTranslate = this.nextKeyframe.translate;
 
@@ -49,7 +46,7 @@ class MyKeyframeAnimation extends MyAnimation{
 
             //Sets the transfMatrix to identity and then translates it by currentTranslate
             this.transfMatrix = mat4.translate(this.transfMatrix, this.transfMatrix, currentTranslate);
-
+            /*Rotate*/
             var prevRotate = this.prevKeyframe.rotate;
             var nextRotate = this.nextKeyframe.rotate;
 
@@ -61,6 +58,7 @@ class MyKeyframeAnimation extends MyAnimation{
             this.transfMatrix = mat4.rotateY(this.transfMatrix, this.transfMatrix, currentRotateY);
             this.transfMatrix = mat4.rotateZ(this.transfMatrix, this.transfMatrix, currentRotateZ);
 
+            /*Scale*/
             var prevScale = this.prevKeyframe.scale;
             var nextScale = this.nextKeyframe.scale;
 
@@ -75,5 +73,7 @@ class MyKeyframeAnimation extends MyAnimation{
 
     apply(){
         this.scene.multMatrix(this.transfMatrix);
+
+        
     }
 }
