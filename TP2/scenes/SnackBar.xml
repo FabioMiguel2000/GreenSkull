@@ -91,6 +91,19 @@
     </textures>
 <!-- -->
 
+<!-- Sprite Sheets-->
+    <spritesheets>
+
+        <!-- Semelhante à declaração de textura,  
+
+         mas inclui a definição do nº de colunas e linhas -->
+
+        <spritesheet id="snakeAnimation" path="scenes/images/snake-ss.png" sizeM="3" sizeN="4" />
+
+
+    </spritesheets>
+<!-- -->
+
 <!--Materials-->
     <!--Nota: mudar a cor na diffuse-->
     <materials>
@@ -327,22 +340,6 @@
     </animations>
 <!-- -->
 
-<!-- spritesheets -->
-
-<!-- o bloco "spritesheets" deve ser declarado -->
-
-<!-- imediatamente após o bloco "textures" -->
-
-    <!--<spritesheets>-->
-
-        <!-- Semelhante à declaração de textura,  -->
-
-<!-- mas inclui a definição do nº de colunas e linhas -->
-
-            <!--<spritesheet id="ss" path="ss" sizeM="ii" sizeN="ii" />-->
-
-    <!--</spritesheets>-->
-
 <!--Nodes-->
     
     <nodes>
@@ -364,6 +361,9 @@
                 <noderef id="Paredes"/>
                 <noderef id="Porta automatica"/>
                 <noderef id="Entrada"/>
+                <noderef id="Music player"/>
+                <noderef id="Snake Animation"/>
+                
             </descendants>
         </node>
         <!-- -->
@@ -383,6 +383,55 @@
             </descendants>
         </node>
         <!-- -->
+
+        <!--Snake Animation-->
+        <node id="Snake Animation">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="4" z="0"/>
+                <scale sx="2" sy="2" sz="2" />
+            </transformations>
+            <descendants>
+                <leaf type="spriteanim" ssid="snakeAnimation" duration="10" startCell="0" endCell="11"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Music Player-->
+        <node id="Music player">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+            </transformations>
+            <descendants>
+                <noderef id="Box"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Music Player box-->
+        <node id="Box">
+            <material id="blackMaterial" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="13.5" y="-8" z="-13.5"/>
+
+                <scale sx="1.5" sy="8" sz="1.5" />
+            </transformations>
+            <descendants>
+                <noderef id="Assento"/>
+            </descendants>
+        </node>
+        <!-- -->
+
 
         <!--Porta automantica-->
         <node id="Porta automatica">

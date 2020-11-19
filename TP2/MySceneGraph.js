@@ -6,9 +6,10 @@ var VIEWS_INDEX = 1;
 var ILLUMINATION_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
-var MATERIALS_INDEX = 5;
-var ANIMATIONS_INDEX = 6
-var NODES_INDEX = 7;
+var SPRITESHEET_INDEX = 5;
+var MATERIALS_INDEX = 6;
+var ANIMATIONS_INDEX = 7;
+var NODES_INDEX = 8;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -175,6 +176,18 @@ class MySceneGraph {
 
             //Parse textures block
             if ((error = this.parseTextures(nodes[index])) != null)
+                return error;
+        }
+
+        // <spritesheets>
+        if ((index = nodeNames.indexOf("spritesheets")) == -1)
+            return "tag <spritesheets> missing";
+        else {
+            if (index != SPRITESHEET_INDEX)
+                this.onXMLMinorError("tag <spritesheets> out of order");
+    
+            //Parse spriesheets block
+            if ((error = this.parseSpritesheets(nodes[index])) != null)
                 return error;
         }
 
@@ -518,6 +531,52 @@ class MySceneGraph {
         return null;
 
     }
+    /**
+     * Parses the <spritesheets> block. 
+     * @param {spritesheets block element} spritesheetsNode
+     */
+    parseSpritesheets(spritesheetsNode) {
+        var children = spritesheetsNode.children;
+        
+        this.spritesheets = [];
+
+        for(var i = 0; i < children.length; i++){
+            //For each spritesheet in spritesheets block, check ID and file URL
+            if (children[i].nodeName != "spritesheet") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+            var spritesheetId = this.reader.getString(children[i], 'id');
+            if (spritesheetId == null)
+                return "no ID defined for spritesheet";
+                        // Checks for repeated IDs.
+            if (this.spritesheets[spritesheetId] != null)
+                return "ID must be unique for each spritesheet (conflict: ID = " + spritesheetId + ")";
+            
+            var path = this.reader.getString(children[i], 'path');
+            if(path == null)
+                return "no path defined for spritesheet id " + spritesheetId;
+
+            var sizeM = this.reader.getFloat(children[i], 'sizeM');
+            if (sizeM == null)
+                return "no sizeM defined for spritesheet id "+ spritesheetId;
+
+            var sizeN = this.reader.getFloat(children[i], 'sizeN');
+            if (sizeN == null)
+                return "no sizeN defined for spritesheet id "+ spritesheetId;
+
+            
+            var spritesheet = new MySpriteSheet(this.scene, path, sizeM, sizeN);
+            this.spritesheets[spritesheetId] = spritesheet;
+            //console.log(spritesheet);
+        }
+
+        
+        //this.onXMLMinorError("To do: Parse textures.");
+        this.log("Parsed Spritesheet");
+        return null;
+
+    }
 
     /**
      * Parses the <materials> node.
@@ -685,6 +744,7 @@ class MySceneGraph {
         var children = nodesNode.children;
 
         this.nodes = [];
+        this.spriteAnimations = [];
 
         var grandChildren = [];
         var grandgrandChildren = [];
@@ -1000,6 +1060,29 @@ class MySceneGraph {
                                     var torus = new MyTorus(this.scene, inner, outer, slices, loops);
 
                                     currentNode.pushLeaf(torus);
+                                    break;
+                                
+                                case 'spriteanim':
+                                    var ssid = this.reader.getString(grandgrandChildren[k], 'ssid');
+                                    //console.log(ssid);
+                                    if(ssid == null)
+                                        return "Unable to parse ssid of sprite animation in " + nodeID;
+                                    var spritesheet = this.spritesheets[ssid];
+                                    var duration = this.reader.getString(grandgrandChildren[k], 'duration');
+                                    if(duration == null)
+                                        return "Unable to parse duration of sprite animation in " + nodeID;
+                                    var startCell = this.reader.getString(grandgrandChildren[k], 'startCell');
+                                    if(startCell == null)
+                                        return "Unable to parse startCell of sprite animation in " + nodeID;
+                                    var endCell = this.reader.getString(grandgrandChildren[k], 'endCell');
+                                    if(endCell == null)
+                                        return "Unable to parse endCell of sprite animation in " + nodeID; 
+                                    
+                                    var spriteAnimation = new MySpriteAnimation(this.scene,  spritesheet, duration, startCell, endCell);
+
+                                    this.spriteAnimations.push(spriteAnimation);
+                                    //console.log(this.spriteAnimations);
+                                    currentNode.pushLeaf(spriteAnimation);
                                     break;
 
                                 default:
