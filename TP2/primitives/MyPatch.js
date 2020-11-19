@@ -35,20 +35,20 @@ class MyPatch extends CGFobject {
     initBuffers(){
         var controlPoints = [];
 
-        for(var i = 0; i < this.degreeU; i++){
+        for(var i = 0; i <= this.degreeU; i++){
             var uPoints = [];
 
-            for(var j = 0; j < this.degreeV; j++){
+            for(var j = 0; j <= this.degreeV; j++){
                 var cpNr = i * (this.degreeV + 1) + j;
 
-                uPoints.push(this.cp[cpNr][0], this.cp[cpNr][1], this.cp[cpNr][2], 1);
+                uPoints.push([this.cp[cpNr][0], this.cp[cpNr][1], this.cp[cpNr][2], 1]);
             }
             controlPoints.push(uPoints);
         }
 
-        var planeSur = new CGFnurbsSurface(this.degreeU, this.degreeV, controlPoints);
+        var patchSur = new CGFnurbsSurface(this.degreeU, this.degreeV, controlPoints);
 
-        this.patch = new CGFnurbsObject(this.scene, this.divU, this.divV, planeSur);
+        this.patch = new CGFnurbsObject(this.scene, this.divU, this.divV, patchSur);
     }
 
     display(){

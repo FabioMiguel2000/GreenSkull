@@ -28,16 +28,87 @@ class MyDefbarrel extends CGFobject {
     }
 
     initBuffers(){
+        var hPb = (4/3) * this.base;
+        var hQm = (4/3) * (this.middle - this.base);
+        var hPm = (4/3) * (this.base + hQm);
+
+        console.log(hQm);
+
         var Sur1CP = [];
 
-        var Sur1BottomPoints = [];
-        Sur1BottomPoints.push([this.base, 0, 0, 1]);
-        Sur1BottomPoints.push([this.base, (4/3) * this.base, 0, 1]);
-        Sur1BottomPoints.push([-this.base, -(4/3) * this.base, 0, 1]);
-        Sur1BottomPoints.push([-this.base, 0, 0, 1]);
+        var Sur1Q1 = [];
+        Sur1Q1.push([-this.base, 0, 0, 1]);
+        Sur1Q1.push([-this.base, hPb, 0, 1]);
+        Sur1Q1.push([this.base, hPb, 0, 1]);
+        Sur1Q1.push([this.base, 0, 0, 1]);
+        Sur1CP.push(Sur1Q1);
 
-        var Sur1MidPoints = [];
-        Sur1MidPoints.push([this.mid, 0, this.height/2, 1]);
-        Sur1MidPoints.push([this.mid, (4/3) * this.mid, this.height/2, 1]);
+        var Sur1Q2 = [];
+        Sur1Q2.push([-this.base - hQm, 0, this.height/3, 1]);
+        Sur1Q2.push([-this.base - hQm, hPm, this.height/3, 1]);
+        Sur1Q2.push([this.base + hQm, hPm, this.height/3, 1]);
+        Sur1Q2.push([this.base + hQm, 0, this.height/3, 1]);
+        Sur1CP.push(Sur1Q2);
+
+        var Sur1Q3 = [];
+        Sur1Q3.push([-this.base - hQm, 0, this.height * 2/3, 1]);
+        Sur1Q3.push([-this.base - hQm, hPm, this.height * 2/3, 1]);
+        Sur1Q3.push([this.base + hQm, hPm, this.height * 2/3, 1]);
+        Sur1Q3.push([this.base + hQm, 0, this.height * 2/3, 1]);
+        Sur1CP.push(Sur1Q3);
+
+        var Sur1Q4 = [];
+        Sur1Q4.push([-this.base, 0, this.height, 1]);
+        Sur1Q4.push([-this.base, hPb, this.height, 1]);
+        Sur1Q4.push([this.base, hPb, this.height, 1]);
+        Sur1Q4.push([this.base, 0, this.height, 1]);
+        Sur1CP.push(Sur1Q4);
+
+        console.log(Sur1CP);
+
+        //Creates the first half of the barrel
+        var Sur1 = new CGFnurbsSurface(3, 3, Sur1CP);
+        this.barrelTopHalf = new CGFnurbsObject(this.scene, this.stacks, this.slices/2, Sur1);
+
+        var Sur2CP = [];
+
+        var Sur2Q1 = [];
+        Sur2Q1.push([this.base, 0, 0, 1]);
+        Sur2Q1.push([this.base, -hPb, 0, 1]);
+        Sur2Q1.push([-this.base, -hPb, 0, 1]);
+        Sur2Q1.push([-this.base, 0, 0, 1]);
+        Sur2CP.push(Sur2Q1);
+
+        var Sur2Q2 = [];
+        Sur2Q2.push([this.base + hQm, 0, this.height/3, 1]);
+        Sur2Q2.push([this.base + hQm, -hPm, this.height/3, 1]);
+        Sur2Q2.push([-this.base - hQm, -hPm, this.height/3, 1]);
+        Sur2Q2.push([-this.base - hQm, 0, this.height/3, 1]);
+        Sur2CP.push(Sur2Q2);
+
+        var Sur2Q3 = [];
+        Sur2Q3.push([this.base + hQm, 0, this.height * 2/3, 1]);
+        Sur2Q3.push([this.base + hQm, -hPm, this.height * 2/3, 1]);
+        Sur2Q3.push([-this.base - hQm, -hPm, this.height * 2/3, 1]);
+        Sur2Q3.push([-this.base - hQm, 0, this.height * 2/3, 1]);
+        Sur2CP.push(Sur2Q3);
+
+        var Sur2Q4 = [];
+        Sur2Q4.push([this.base, 0, this.height, 1]);
+        Sur2Q4.push([this.base, -hPb, this.height, 1]);
+        Sur2Q4.push([-this.base, -hPb, this.height, 1]);
+        Sur2Q4.push([-this.base, 0, this.height, 1]);
+        Sur2CP.push(Sur2Q4);
+
+        console.log(Sur2CP);
+
+        //Creates the first half of the barrel
+        var Sur2 = new CGFnurbsSurface(3, 3, Sur2CP);
+        this.barrelBottomHalf = new CGFnurbsObject(this.scene, this.stacks, this.slices/2, Sur2);
+    }
+
+    display(){
+        this.barrelTopHalf.display();
+        this.barrelBottomHalf.display();
     }
 }
