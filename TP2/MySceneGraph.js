@@ -1091,6 +1091,93 @@ class MySceneGraph {
                                     currentNode.pushLeaf(spriteText);
                                     break;
 
+                                case 'plane':
+
+                                    var divU = this.reader.getFloat(grandgrandChildren[k], 'npartsU');
+                                    if (!(divU != null && !isNaN(divU)))
+                                        return "Unable to parse U axis divisions of a plane in " + nodeID;
+
+                                    var divV = this.reader.getFloat(grandgrandChildren[k], 'npartsV');
+                                    if (!(divV != null && !isNaN(divV)))
+                                        return "Unable to parse V axis divisions of a plane in " + nodeID;
+
+                                    var plane = new MyPlane(this.scene, divU, divV);
+
+                                    currentNode.pushLeaf(plane);
+                                    break;
+
+                                case 'patch':
+
+                                    var divU = this.reader.getFloat(grandgrandChildren[k], 'npartsU');
+                                    if (!(divU != null && !isNaN(divU)))
+                                        return "Unable to parse U axis divisions of a patch in " + nodeID;
+
+                                    var divV = this.reader.getFloat(grandgrandChildren[k], 'npartsV');
+                                    if (!(divV != null && !isNaN(divV)))
+                                        return "Unable to parse V axis divisions of a patch in " + nodeID;
+
+                                    var degreeU = this.reader.getFloat(grandgrandChildren[k], 'npointsU');
+                                    if (!(degreeU != null && !isNaN(degreeU)))
+                                        return "Unable to parse degree in U of a patch in " + nodeID;
+
+                                    var degreeV = this.reader.getFloat(grandgrandChildren[k], 'npointsV');
+                                    if (!(degreeV != null && !isNaN(degreeV)))
+                                        return "Unable to parse degree in V of a patch in " + nodeID;
+
+                                    var cp = grandgrandChildren[k].children;
+
+                                    var controlPoints = [];
+
+                                    for(var n = 0; n < cp.length; n++){
+
+                                        var x = this.reader.getFloat(cp[k], 'xx');
+                                        if (!(x != null && !isNaN(x)))
+                                            return "Unable to parse control points of a patch in " + nodeID;
+
+                                        var y = this.reader.getFloat(cp[k], 'yy');
+                                        if (!(y != null && !isNaN(y)))
+                                            return "Unable to parse control points of a patch in " + nodeID;
+
+                                        var z = this.reader.getFloat(cp[k], 'zz');
+                                        if (!(z != null && !isNaN(z)))
+                                            return "Unable to parse control points of a patch in " + nodeID;
+
+                                        var point = [x, y, z];
+                                        controlPoints.push(point);
+                                    }
+
+                                    var patch = new MyPatch(this.scene, divU, divV, degreeU, degreeV, controlPoints);
+
+                                    currentNode.pushLeaf(patch);
+                                    break;
+
+                                case 'defbarrel':
+
+                                    var baseRadius = this.reader.getFloat(grandgrandChildren[k], 'base');
+                                    if (!(baseRadius != null && !isNaN(baseRadius)))
+                                        return "Unable to parse baseRadius of a barrel in " + nodeID;
+
+                                    var midRadius = this.reader.getFloat(grandgrandChildren[k], 'middle');
+                                    if (!(midRadius != null && !isNaN(midRadius)))
+                                        return "Unable to parse midRadius of a barrel in " + nodeID;
+
+                                    var height = this.reader.getFloat(grandgrandChildren[k], 'height');
+                                    if (!(height != null && !isNaN(height)))
+                                        return "Unable to parse height of a barrel in " + nodeID;
+
+                                    var slices = this.reader.getFloat(grandgrandChildren[k], 'slices');
+                                    if (!(slices != null && !isNaN(slices)))
+                                        return "Unable to parse slices of a barrel in " + nodeID;
+
+                                    var stacks = this.reader.getFloat(grandgrandChildren[k], 'stacks');
+                                    if (!(stacks != null && !isNaN(stacks)))
+                                        return "Unable to parse stacks of a barrel in " + nodeID;
+
+                                    var barrel = new MyDefbarrel(this.scene, baseRadius, midRadius,
+                                                                height, slices, stacks);
+                                    currentNode.pushLeaf(barrel);
+                                    break;
+
                                 default:
                                     this.onXMLMinorError("Type of shape of a primitive not recognized in " + nodeID);
                             }
