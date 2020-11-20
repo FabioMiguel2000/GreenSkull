@@ -142,8 +142,12 @@ class XMLscene extends CGFscene {
         this.time = this.time + elapsedTime;
         this.lastTime = t;
         this.animations = this.graph.animations;
+        this.spriteAnimations = this.graph.spriteAnimations;
         for(var key in this.animations){
             this.animations[key].update(elapsedTime);
+        }
+        for(var key in this.spriteAnimations){
+            this.spriteAnimations[key].update(elapsedTime);
         }
     }
 

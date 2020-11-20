@@ -91,12 +91,26 @@
     </textures>
 <!-- -->
 
+<!-- Sprite Sheets-->
+    <spritesheets>
+
+        <!-- Semelhante à declaração de textura,  
+
+         mas inclui a definição do nº de colunas e linhas -->
+
+        <spritesheet id="snakeAnimation" path="scenes/images/snake-ss.png" sizeM="3" sizeN="4" />
+        <spritesheet id="berlinfontSpriteText" path="scenes/images/Berlinfont.png" sizeM="16" sizeN="16" />
+        
+
+    </spritesheets>
+<!-- -->
+
 <!--Materials-->
     <!--Nota: mudar a cor na diffuse-->
     <materials>
         <material id="defaultMaterial" shininess="1">
             <emission r="0.0" g="0.0" b="0.0" a="1" />
-            <ambient r="0.4" g="0.4" b="0.4" a="1" />      7
+            <ambient r="0.4" g="0.4" b="0.4" a="1" />      
             <diffuse r="0.4" g="0.4" b="0.4" a="1" />       
             <specular r="0.0" g="0.0" b="0.0" a="1" />        
 
@@ -327,22 +341,6 @@
     </animations>
 <!-- -->
 
-<!-- spritesheets -->
-
-<!-- o bloco "spritesheets" deve ser declarado -->
-
-<!-- imediatamente após o bloco "textures" -->
-
-    <!--<spritesheets>-->
-
-        <!-- Semelhante à declaração de textura,  -->
-
-<!-- mas inclui a definição do nº de colunas e linhas -->
-
-            <!--<spritesheet id="ss" path="ss" sizeM="ii" sizeN="ii" />-->
-
-    <!--</spritesheets>-->
-
 <!--Nodes-->
     
     <nodes>
@@ -364,6 +362,10 @@
                 <noderef id="Paredes"/>
                 <noderef id="Porta automatica"/>
                 <noderef id="Entrada"/>
+                <noderef id="Music player"/>
+                <noderef id="Snake Animation"/>
+                <noderef id="Sprite Text"/>
+                
             </descendants>
         </node>
         <!-- -->
@@ -383,6 +385,71 @@
             </descendants>
         </node>
         <!-- -->
+        
+        <!--Sprite Text-->
+        <node id="Sprite Text">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="14.9" y="6" z="0"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="spritetext" text="Hello World" />
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Snake Sprite Animation-->
+        <node id="Snake Animation">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="4" z="0"/>
+                <scale sx="2" sy="2" sz="2" />
+            </transformations>
+            <descendants>
+                <leaf type="spriteanim" ssid="snakeAnimation" duration="10" startCell="0" endCell="11"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Music Player-->
+        <node id="Music player">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+            </transformations>
+            <descendants>
+                <noderef id="Box"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Music Player box-->
+        <node id="Box">
+            <material id="blackMaterial" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="13.5" y="-8" z="-13.5"/>
+
+                <scale sx="1.5" sy="8" sz="1.5" />
+            </transformations>
+            <descendants>
+                <noderef id="Assento"/>
+            </descendants>
+        </node>
+        <!-- -->
+
 
         <!--Porta automantica-->
         <node id="Porta automatica">
