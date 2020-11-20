@@ -40,8 +40,6 @@ class MySpriteSheet{
         var n = Math.floor(p / this.sizeM);
         var auxX = m/this.sizeM;
         var auxY = n/this.sizeN;
-        //this.spriteShader.setUniformsValues({x : m, y : n, sizezeM : this.sizeM, sizeN : this.sizeN});
-        //console.log((m+1)/this.sizeN);
         this.spriteShader.setUniformsValues({ax : auxX, ay : auxY, sizeM : this.sizeM, sizeN : this.sizeN});
 
 

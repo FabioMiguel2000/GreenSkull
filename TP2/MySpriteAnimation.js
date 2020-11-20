@@ -10,9 +10,6 @@
 class MySpriteAnimation{
     constructor(scene, spritesheet, duration, startCell, endCell){
         this.scene = scene;
-        //this.spritesheet = new MySpriteSheet(this.scene, "scenes/images/snake-ss.png", 3, 4);
-        //console.log(this.graph.spritesheets[spritesheetID]);
-
         this.spritesheet = spritesheet;
         this.duration = duration;
         this.startCell = startCell;
