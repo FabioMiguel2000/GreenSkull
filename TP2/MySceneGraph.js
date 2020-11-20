@@ -1116,13 +1116,14 @@ class MySceneGraph {
                                     if (!(divV != null && !isNaN(divV)))
                                         return "Unable to parse V axis divisions of a patch in " + nodeID;
 
-                                    var degreeU = this.reader.getFloat(grandgrandChildren[k], 'npointsU');
-                                    if (!(degreeU != null && !isNaN(degreeU)))
-                                        return "Unable to parse degree in U of a patch in " + nodeID;
+                                    var nPointsU = this.reader.getFloat(grandgrandChildren[k], 'npointsU');
+                                    if (!(nPointsU != null && !isNaN(nPointsU)))
+                                        return "Unable to parse number of U points of a patch in " + nodeID;
 
-                                    var degreeV = this.reader.getFloat(grandgrandChildren[k], 'npointsV');
-                                    if (!(degreeV != null && !isNaN(degreeV)))
-                                        return "Unable to parse degree in V of a patch in " + nodeID;
+                                    var nPointsV = this.reader.getFloat(grandgrandChildren[k], 'npointsV');
+                                    if (!(nPointsV != null && !isNaN(nPointsV)))
+                                        return "Unable to parse number of V points of a patch in " + nodeID;
+
 
                                     var cp = grandgrandChildren[k].children;
 
@@ -1130,15 +1131,15 @@ class MySceneGraph {
 
                                     for(var n = 0; n < cp.length; n++){
 
-                                        var x = this.reader.getFloat(cp[k], 'xx');
+                                        var x = this.reader.getFloat(cp[n], 'x');
                                         if (!(x != null && !isNaN(x)))
                                             return "Unable to parse control points of a patch in " + nodeID;
 
-                                        var y = this.reader.getFloat(cp[k], 'yy');
+                                        var y = this.reader.getFloat(cp[n], 'y');
                                         if (!(y != null && !isNaN(y)))
                                             return "Unable to parse control points of a patch in " + nodeID;
 
-                                        var z = this.reader.getFloat(cp[k], 'zz');
+                                        var z = this.reader.getFloat(cp[n], 'z');
                                         if (!(z != null && !isNaN(z)))
                                             return "Unable to parse control points of a patch in " + nodeID;
 
@@ -1146,7 +1147,10 @@ class MySceneGraph {
                                         controlPoints.push(point);
                                     }
 
-                                    var patch = new MyPatch(this.scene, divU, divV, degreeU, degreeV, controlPoints);
+                                    /*Since the degree is passed instead of the number of points, the values
+                                    to pass for each degree paramenter should be nPoints - 1 */
+                                    var patch = new MyPatch(this.scene, divU, divV, 
+                                                            nPointsU - 1, nPointsV - 1, controlPoints);
 
                                     currentNode.pushLeaf(patch);
                                     break;

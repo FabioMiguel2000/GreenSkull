@@ -633,7 +633,8 @@
             <descendants>
                 <noderef id="Cadeira1"/>
                 <noderef id="Cadeira2"/>
-
+                
+                <noderef id="Guardanapo usado"/>
                 <noderef id="Mesa" />
             </descendants>
         </node>
@@ -652,7 +653,8 @@
             <descendants>
                 <noderef id="Cadeira1"/>
                 <noderef id="Cadeira2"/>
-
+                
+                <noderef id="Copo"/>
                 <noderef id="Mesa" />
             </descendants>
         </node>
@@ -1186,6 +1188,57 @@
 
             <descendants>
                 <leaf type="rectangle" x1="-0.5" y1="-0.5" x2="0.5" y2="0.5"/> 
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Guardanapo usado-->
+        <node id="Guardanapo usado">
+            <material id="null"/>
+
+            <texture id="napkin"/>
+
+            <transformations>
+                <translation x="-1" y="3.4" z="-0.5"/>
+                <scale sx="0.6" sy="1" sz="0.6"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="patch" npointsU="4" npointsV="4" npartsU="8" npartsV="8">
+                    <controlpoint x="0" y="0" z="0"/>
+                    <controlpoint x="0.5" y="0.2" z="0"/>
+                    <controlpoint x="1.0" y="-0.2" z="0"/>
+                    <controlpoint x="1.5" y="0" z="0"/>
+                    <controlpoint x="0" y="0.1" z="0.4"/>
+                    <controlpoint x="0.4" y="0.25" z="0.5"/>
+                    <controlpoint x="0.9" y="-0.1" z="0.6"/>
+                    <controlpoint x="1.5" y="0.05" z="0.6"/>
+                    <controlpoint x="0" y="-0.1" z="0.9"/>
+                    <controlpoint x="0.6" y="-0.2" z="1.1"/>
+                    <controlpoint x="1.1" y="-0.05" z="1.1"/>
+                    <controlpoint x="1.5" y="0.1" z="1.0"/>
+                    <controlpoint x="0" y="0" z="1.5"/>
+                    <controlpoint x="0.6" y="-0.1" z="1.5"/>
+                    <controlpoint x="1.1" y="0" z="1.5"/>
+                    <controlpoint x="1.5" y="0.2" z="1.5"/>
+                </leaf>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Copo-->
+        <node id="Copo">
+            <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="4" z="0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="defbarrel" base="0.3" middle="0.4" height="0.7" slices="16" stacks="16"/>
             </descendants>
         </node>
         <!-- -->
