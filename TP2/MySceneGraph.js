@@ -1064,7 +1064,6 @@ class MySceneGraph {
                                 
                                 case 'spriteanim':
                                     var ssid = this.reader.getString(grandgrandChildren[k], 'ssid');
-                                    //console.log(ssid);
                                     if(ssid == null)
                                         return "Unable to parse ssid of sprite animation in " + nodeID;
                                     var spritesheet = this.spritesheets[ssid];
@@ -1081,8 +1080,15 @@ class MySceneGraph {
                                     var spriteAnimation = new MySpriteAnimation(this.scene,  spritesheet, duration, startCell, endCell);
 
                                     this.spriteAnimations.push(spriteAnimation);
-                                    //console.log(this.spriteAnimations);
                                     currentNode.pushLeaf(spriteAnimation);
+                                    break;
+                                
+                                case 'spritetext':
+                                    var text = this.reader.getString(grandgrandChildren[k], 'text');
+                                    if(text == null)
+                                        return "Unable to parse text of sprite text in " + nodeID;
+                                    var spriteText = new MySpriteText(this.scene, text);
+                                    currentNode.pushLeaf(spriteText);
                                     break;
 
                                 default:
