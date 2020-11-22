@@ -711,7 +711,7 @@ class MySceneGraph {
                                     break;
                                 case 'z':
                                     rotate[2] = angle;
-                                    console.log(rotate);
+                                    //console.log(rotate);
 
                                     break;
                                 default:
@@ -1297,6 +1297,7 @@ class MySceneGraph {
     }
 
 recursiveDisplayScene(nodeID, parentMaterialID, parentTextureID){
+        this.scene.pushMatrix();
 
 
         var currentNode = this.nodes[nodeID];
@@ -1308,13 +1309,18 @@ recursiveDisplayScene(nodeID, parentMaterialID, parentTextureID){
         var currentMatID = parentMaterialID;
         var currentTexID = parentTextureID;
 
-        this.scene.multMatrix(currentNode.transMatrix);
-
+        this.scene.pushMatrix();
+        
         var animationNode = this.animations[currentNode.animationID];
+
+        this.scene.popMatrix();
         if(animationNode != undefined){
             //console.log(animationNode);
             animationNode.apply();
         }
+
+
+        this.scene.multMatrix(currentNode.transMatrix);
 
         if(this.materials[currentNode.materialID] != null){
             currentMatID = currentNode.materialID;
@@ -1339,15 +1345,18 @@ recursiveDisplayScene(nodeID, parentMaterialID, parentTextureID){
             if(this.textures[currentTexID]!=null){
                 this.textures[currentTexID].bind();
             }
-            currentNode.leaves[i].display();
+            if(animationNode == undefined || (animationNode != undefined && animationNode.display == true)){
+                currentNode.leaves[i].display();
+                //console.log(animationNode);
+            }
+                
         }
-
         for (var i = 0; i < currentNode.children.length; i++){
-            this.scene.pushMatrix();
             this.recursiveDisplayScene(currentNode.children[i], currentMatID, currentTexID);
-            this.scene.popMatrix();
 
         }
+        this.scene.popMatrix();
+
     }
     /**
      * Displays the scene, processing each node, starting in the root node.

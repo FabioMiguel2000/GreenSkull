@@ -12,7 +12,6 @@ class MyNode{
         this.animationID = null;
         this.children = [];
         this.leaves = [];
-
     }
 
     pushChildren(childID){

@@ -18,13 +18,13 @@ class MyKeyframeAnimation extends MyAnimation{
         this.transfMatrix = mat4.create();
 
         this.time = 0;
-
+        this.display = false;
     }
 
     update(elapsedTime){
         this.time = this.time + elapsedTime;
-
         if((this.time >= this.start) && (this.time <= this.end)){
+            this.display = true;
             if(this.time > this.nextKeyframe.instant){
                 this.i++;
                 this.prevKeyframe = this.nextKeyframe;
