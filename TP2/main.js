@@ -16,7 +16,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.j
                 './primitives/MyTorus.js', './primitives/MyCylinderSimple.js', 'MyNode.js', './animation/MyKey.js',
                 './animation/MyAnimation.js', './animation/MyKeyframeAnimation.js', 'MySpriteSheet.js',
                 './primitives/MyPlane.js',  './primitives/MyPatch.js', './primitives/MyDefbarrel.js',
-                'MySpriteSheet.js', 'MySpriteAnimation.js', 'MySpriteText.js',
+                'MySpriteAnimation.js', 'MySpriteText.js',
 
 
 main=function()

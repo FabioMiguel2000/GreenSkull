@@ -32,7 +32,7 @@ class MyDefbarrel extends CGFobject {
         var hQm = (4/3) * (this.middle - this.base);
         var hPm = (4/3) * (this.base + hQm);
 
-        console.log(hQm);
+        //console.log(hQm);
 
         var Sur1CP = [];
 
@@ -64,7 +64,7 @@ class MyDefbarrel extends CGFobject {
         Sur1Q4.push([this.base, 0, this.height, 1]);
         Sur1CP.push(Sur1Q4);
 
-        console.log(Sur1CP);
+        //console.log(Sur1CP);
 
         //Creates the first half of the barrel
         var Sur1 = new CGFnurbsSurface(3, 3, Sur1CP);
@@ -100,7 +100,7 @@ class MyDefbarrel extends CGFobject {
         Sur2Q4.push([-this.base, 0, this.height, 1]);
         Sur2CP.push(Sur2Q4);
 
-        console.log(Sur2CP);
+        //console.log(Sur2CP);
 
         //Creates the first half of the barrel
         var Sur2 = new CGFnurbsSurface(3, 3, Sur2CP);
