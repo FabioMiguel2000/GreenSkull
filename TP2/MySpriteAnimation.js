@@ -17,7 +17,6 @@ class MySpriteAnimation{
         this.square = new MyRectangle(this.scene, 0, 0, 1, 1);
         this.timePassed = 0;
         this.currentCell = startCell;
-        this.durationPerCell = duration / (endCell - this.startCell);
         this.spritesheet.activateCellP(this.currentCell);
 
     }
@@ -31,9 +30,7 @@ class MySpriteAnimation{
     }
     update(elapsedTime){
         this.timePassed = this.timePassed + elapsedTime;
-        if(this.timePassed < this.duration && this.currentCell < this.endCell){
-            this.currentCell = (Math.floor(this.timePassed / this.durationPerCell) + parseInt(this.startCell));
-        }
+        this.currentCell = Math.floor((this.timePassed / this.duration) % this.endCell);
         this.spritesheet.activateCellP(this.currentCell);
     }
 }

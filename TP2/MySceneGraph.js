@@ -686,12 +686,11 @@ class MySceneGraph {
                 var instant = this.reader.getFloat(grandChildren[j], 'instant');
                 if(instant == null)
                     return "no instant defined for keyframe with animation id = " + animationId;
-                
+                var translate;
+                var rotate = [0, 0, 0];
+                var scale;
                 var grandgrandChildren = grandChildren[j].children;
                 for(var k = 0; k < grandgrandChildren.length; k++){
-                    var translate;
-                    var rotate = [0, 0, 0];
-                    var scale;
                     switch(grandgrandChildren[k].nodeName){
                         case 'translation':
                             var x = this.reader.getFloat(grandgrandChildren[k], 'x');
@@ -700,6 +699,7 @@ class MySceneGraph {
                             translate = [x,y,z];
                             break;
                         case 'rotation':
+                            
                             var axis = this.reader.getString(grandgrandChildren[k], 'axis');
                             var angle = this.reader.getFloat(grandgrandChildren[k], 'angle');
                             switch(axis){
@@ -711,6 +711,8 @@ class MySceneGraph {
                                     break;
                                 case 'z':
                                     rotate[2] = angle;
+                                    console.log(rotate);
+
                                     break;
                                 default:
                                     return "Invalid axis = " + axis + " in animation id "+ animationId;
@@ -732,6 +734,7 @@ class MySceneGraph {
             var myKeyframeAnimation = new MyKeyframeAnimation(this.scene, keyframes);
             this.animations[animationId]= myKeyframeAnimation;
         }
+        //console.log(this.animations);
         this.log("Parsed animations");
         return null;
     }
@@ -870,7 +873,6 @@ class MySceneGraph {
             if(animationsIndex != -1){
                 var animationId = this.reader.getString(grandChildren[animationsIndex], "id");
                 currentNode.setAnimation(animationId);
-                
             }
 
             // Material

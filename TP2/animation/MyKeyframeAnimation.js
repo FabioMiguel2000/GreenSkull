@@ -73,7 +73,5 @@ class MyKeyframeAnimation extends MyAnimation{
 
     apply(){
         this.scene.multMatrix(this.transfMatrix);
-
-        
     }
 }
