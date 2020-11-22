@@ -25,16 +25,18 @@ class MySpriteText{
     }
 
     display(){
+        this.scene.setActiveShader(this.spritesheet.spriteShader);
+
         for(var i = 0; i < this.text.length; i++){
             this.spritesheet.activateCellP(this.getCharacterPosition(this.text.charAt(i)));
-            this.scene.setActiveShader(this.spritesheet.spriteShader);
             this.spritesheet.appearance.apply();
             if(i != 0)
                 this.scene.translate(1,0,0);
             this.rectangle.display();
             this.scene.defaultAppearance.apply();
-            this.scene.setActiveShader(this.scene.defaultShader);
         }
+        this.scene.setActiveShader(this.scene.defaultShader);
+
     }
 
 }
