@@ -106,6 +106,7 @@
          mas inclui a definição do nº de colunas e linhas -->
 
         <spritesheet id="snakeAnimation" path="scenes/images/snake-ss.png" sizeM="3" sizeN="4" />
+        <spritesheet id="coffeeSmoke" path="scenes/images/CoffeeSmoke.png" sizeM="3" sizeN="2" />
         <spritesheet id="berlinfontSpriteText" path="scenes/images/Berlinfont.png" sizeM="16" sizeN="16" />
         
 
@@ -436,6 +437,7 @@
                 <noderef id="Entrada"/>
                 <noderef id="Record Player"/>
                 <noderef id="Snake Animation"/>
+                <noderef id="Smoke"/>
                 <noderef id="Sprite Text"/>
                 
             </descendants>
@@ -481,11 +483,11 @@
             <texture id="null"/>
 
             <transformations>
-                <translation x="0" y="4" z="0"/>
+                <translation x="9" y="0" z="-12"/>
                 <scale sx="2" sy="2" sz="2" />
             </transformations>
             <descendants>
-                <leaf type="spriteanim" ssid="snakeAnimation" duration="0.25" startCell="0" endCell="11"/>
+                <leaf type="spriteanim" ssid="snakeAnimation" duration="0.5" startCell="0" endCell="11"/>
             </descendants>
         </node>
         <!-- -->
@@ -1501,6 +1503,22 @@
 
             <descendants>
                 <leaf type="torus" inner="0.06" outer="0.2" slices="16" loops="16"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Animação do fumo que sai do café-->
+        <node id="Smoke">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-9.2" y="3.7" z="10"/>
+                <scale sx="0.3" sy="0.6" sz="0.6" />
+            </transformations>
+            <descendants>
+                <leaf type="spriteanim" ssid="coffeeSmoke" duration="0.1" startCell="0" endCell="5"/>
             </descendants>
         </node>
         <!-- -->
