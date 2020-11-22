@@ -82,14 +82,18 @@
         <texture id="napkin" path="scenes/images/napkinTexture.jpg" />
         <!--Textura para a donut-->
         <texture id="donut" path="scenes/images/donutTexture.jpg" />
-        <!--Textura para a porta automatica-->
+        <!--Textura para o vidro-->
         <texture id="glass" path="scenes/images/glassTexture.png" />
         <!--Textura para a porta automatica-->
         <texture id="automaticDoor" path="scenes/images/automaticDoorTexture.jpg" />
-         <!--Textura para a porta automatica-->
+        <!--Textura para a rua-->
         <texture id="street" path="scenes/images/streetTexture.jpg" />
 
         <texture id="disk" path="scenes/images/diskTexture.png" />
+        <!--Textura para a chávena de café-->
+        <texture id="greenCup" path="scenes/images/greenCupTexture.png"/>
+        <!--Textura para o café-->
+        <texture id="coffee" path="scenes/images/Coffee.jpg"/>
 
     </textures>
 <!-- -->
@@ -1419,7 +1423,7 @@
         <node id="Copo">
             <material id="null"/>
 
-            <texture id="null"/>
+            <texture id="glass"/>
 
             <transformations>
                 <translation x="0" y="4" z="0"/>
@@ -1436,7 +1440,7 @@
         <node id="Chavena de cafe">
             <material id="null"/>
 
-            <texture id="null"/>
+            <texture id="greenCup"/>
 
             <transformations>
                 <translation x="1" y="3.9" z="0"/>
@@ -1471,7 +1475,7 @@
         <node id="Cafe">
             <material id="null"/>
 
-            <texture id="null"/>
+            <texture id="coffee"/>
 
             <transformations>
                 <translation x="0" y="-0.1" z="0"/>
