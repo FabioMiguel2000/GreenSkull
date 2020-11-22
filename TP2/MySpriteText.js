@@ -25,6 +25,10 @@ class MySpriteText{
     }
 
     display(){
+        this.scene.gl.enable(this.scene.gl.BLEND);
+        this.scene.gl.blendFunc(this.scene.gl.SRC_ALPHA, this.scene.gl.ONE_MINUS_SRC_ALPHA);
+        this.scene.gl.depthMask(false);
+
         this.scene.setActiveShader(this.spritesheet.spriteShader);
 
         for(var i = 0; i < this.text.length; i++){
@@ -36,7 +40,8 @@ class MySpriteText{
             this.scene.defaultAppearance.apply();
         }
         this.scene.setActiveShader(this.scene.defaultShader);
-
+        this.scene.gl.depthMask(true);
+        this.scene.gl.disable(this.scene.gl.BLEND);
     }
 
 }
