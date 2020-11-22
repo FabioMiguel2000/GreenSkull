@@ -21,19 +21,31 @@ class MySpriteAnimation{
         this.spritesheet.activateCellP(this.currentCell);
 
     }
+
     display(){
+        this.scene.gl.enable(this.scene.gl.BLEND);
+        this.scene.gl.blendFunc(this.scene.gl.SRC_ALPHA, this.scene.gl.ONE_MINUS_SRC_ALPHA);
+        this.scene.gl.depthMask(false);
+
         this.scene.setActiveShader(this.spritesheet.spriteShader);
         this.spritesheet.appearance.apply();
         this.square.display();
+
         this.scene.defaultAppearance.apply();
-        this.scene.setActiveShader(this.scene.defaultShader);
+        this.scene.setActiveShader(this.scene.defaultShader);      
+        
+        this.scene.gl.depthMask(true);
+        this.scene.gl.disable(this.scene.gl.BLEND);
 
     }
+
     update(elapsedTime){
         this.timePassed = this.timePassed + elapsedTime;
+
         if(this.timePassed < this.duration && this.currentCell < this.endCell){
             this.currentCell = (Math.floor(this.timePassed / this.durationPerCell) + parseInt(this.startCell));
         }
+        
         this.spritesheet.activateCellP(this.currentCell);
     }
 }
