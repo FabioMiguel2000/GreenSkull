@@ -22,7 +22,7 @@
 
 ### Scene
 
-  <img src="TP1/scenes/images/ScreenShot1.png"><br>
+  <img src="img/ScreenShot1.png"><br>
 -----
 
 ### [TP2 - Snack Snack](TP2)
@@ -45,6 +45,10 @@
   - Há quatro candeeiros, cada um deles com uma fonte de luz que pode ser ativada ou desativada.
 
   - A cena pode ser escalada.
+
+### Scene
+
+  <img src="img/ScreenShot2.png"><br>
 
 
 ----
