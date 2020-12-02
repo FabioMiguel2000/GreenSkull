@@ -21,10 +21,8 @@
 - Pode-se alternar entre 3 cameras, no entanto havia erros com a leitura de câmaras do ficheiro xml, por isso foram definidas câmaras no código para serem usadas.
 
 - Scene
-  - **Link to Scene:** [Snack Bar](http://127.0.0.1:5500/TP1/index.html)
 
-
-  <img src="https://git.fe.up.pt/laig/laig-2020-2021/t04/laig-t04-g08/-/blob/master/TP1/scenes/images/ScreenShot1.png"><br>
+  <img src="TP1/scenes/images/ScreenShot1.png"><br>
 -----
 
 ### [TP2 - ...](TP2)
