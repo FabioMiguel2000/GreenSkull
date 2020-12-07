@@ -1,0 +1,650 @@
+<lsf>
+
+<!--Initials-->
+    <initials>
+        <reference length="2" />
+        <root id="Root" />
+
+    </initials>
+<!-- -->
+
+<!--Cameras-->
+    <views default="defaultCamera">
+        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
+            <from x="15" y="15" z="15" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+    </views>
+<!-- -->
+
+<!--Illumination-->
+    <illumination>
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />          
+        <background r="0.1" g="0.7" b="1.0" a="1.0" />        
+    </illumination>
+<!-- -->
+
+<!--Lights-->
+    <lights>
+        <light id="Default light">            
+            <enable value="1" />
+            <position x="0" y="8" z="0" w="1.0" />
+            <ambient r="0.3" g="0.3" b="0.3" a="1.0" />                   
+            <diffuse r="1" g="1" b="1" a="1.0" />             
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />            
+        </light>
+    </lights>
+<!-- -->
+
+
+<!--Textures-->
+    <textures>
+    </textures>
+<!-- -->
+
+<!-- Sprite Sheets-->
+    <spritesheets>
+    </spritesheets>
+<!-- -->
+
+<!--Materials-->
+    <!--Nota: mudar a cor na diffuse-->
+    <materials>
+        <material id="defaultMaterial" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+            <ambient r="0.4" g="0.4" b="0.4" a="1" />      
+            <diffuse r="0.4" g="0.4" b="0.4" a="1" />       
+            <specular r="0.0" g="0.0" b="0.0" a="1" />        
+        </material>
+        <material id="orcMaterial" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1" />      
+            <diffuse r="1.0" g="1.0" b="1.0" a="1" />       
+            <specular r="1.0" g="1.0" b="1.0" a="1" />           
+        </material>
+        <material id="goblinMaterial" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+            <ambient r="0.8" g="0.2" b="0.8" a="1" />      
+            <diffuse r="0.8" g="0.2" b="0.8" a="1" />       
+            <specular r="0.8" g="0.2" b="0.8" a="1" />        
+        </material>
+        <material id="zombieMaterial" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1" />
+            <ambient r="0.3" g="0.9" b="0.1" a="1" />      
+            <diffuse r="0.3" g="0.9" b="0.1" a="1" />             
+            <specular r="0.3" g="0.9" b="0.1" a="1" />        
+        </material>
+    </materials>
+<!-- -->
+
+
+<!--Animations-->
+    <animations>
+    </animations>
+<!-- -->
+
+<!--Nodes-->
+    <nodes>
+        <!--Root node-->
+        <node id="Root">
+            <material id="defaultMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="Board"/>
+                <noderef id="Orc Pieces"/>
+                <noderef id="Goblin Pieces"/>
+                <noderef id="Zombie Pieces"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Game board-->
+        <node id="Board">
+            <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="0" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="board"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Orc pieces present in the game-->
+        <node id="Orc Pieces">
+           <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="0.6" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Orc Piece 1"/>
+                <noderef id="Orc Piece 2"/>
+                <noderef id="Orc Piece 3"/>
+                <noderef id="Orc Piece 4"/>
+                <noderef id="Orc Piece 5"/>
+                <noderef id="Orc Piece 6"/>
+                <noderef id="Orc Piece 7"/>
+                <noderef id="Orc Piece 8"/>
+                <noderef id="Orc Piece 9"/>
+                <noderef id="Orc Piece 10"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Goblin pieces present in the game-->
+        <node id="Goblin Pieces">
+           <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="0.6" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Goblin Piece 1"/>
+                <noderef id="Goblin Piece 2"/>
+                <noderef id="Goblin Piece 3"/>
+                <noderef id="Goblin Piece 4"/>
+                <noderef id="Goblin Piece 5"/>
+                <noderef id="Goblin Piece 6"/>
+                <noderef id="Goblin Piece 7"/>
+                <noderef id="Goblin Piece 8"/>
+                <noderef id="Goblin Piece 9"/>
+                <noderef id="Goblin Piece 10"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Zombie pieces present in the game-->
+        <node id="Zombie Pieces">
+           <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="0.6" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Zombie Piece 1"/>
+                <noderef id="Zombie Piece 2"/>
+                <noderef id="Zombie Piece 3"/>
+                <noderef id="Zombie Piece 4"/>
+                <noderef id="Zombie Piece 5"/>
+                <noderef id="Zombie Piece 6"/>
+                <noderef id="Zombie Piece 7"/>
+                <noderef id="Zombie Piece 8"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Orc piece that starts at (7, 7)-->
+        <node id= "Orc Piece 1">
+            <material id="orcMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="5.1" y="-3" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Orc piece that starts at (8, 7)-->
+        <node id= "Orc Piece 2">
+            <material id="orcMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="4.25" y="-4.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Orc piece that starts at (8, 8)-->
+        <node id= "Orc Piece 3">
+            <material id="orcMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="5.95" y="-4.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Orc piece that starts at (9, 7)-->
+        <node id= "Orc Piece 4">
+            <material id="orcMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="3.4" y="-6" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Orc piece that starts at (9, 8)-->
+        <node id= "Orc Piece 5">
+            <material id="orcMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="5.1" y="-6" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Orc piece that starts at (9, 9)-->
+        <node id= "Orc Piece 6">
+            <material id="orcMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="6.8" y="-6" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Orc piece that starts at (10, 7)-->
+        <node id= "Orc Piece 7">
+            <material id="orcMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="2.55" y="-7.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Orc piece that starts at (10, 8)-->
+        <node id= "Orc Piece 8">
+            <material id="orcMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="4.25" y="-7.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Orc piece that starts at (10, 9)-->
+        <node id= "Orc Piece 9">
+            <material id="orcMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="5.95" y="-7.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Orc piece that starts at (10, 10)-->
+        <node id= "Orc Piece 10">
+            <material id="orcMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="7.65" y="-7.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Goblin piece that starts at (7, 1)-->
+        <node id= "Goblin Piece 1">
+            <material id="goblinMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-5.1" y="-3" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Goblin piece that starts at (8, 1)-->
+        <node id= "Goblin Piece 2">
+            <material id="goblinMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-5.95" y="-4.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Goblin piece that starts at (8, 2)-->
+        <node id= "Goblin Piece 3">
+            <material id="goblinMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-4.25" y="-4.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Goblin piece that starts at (9, 1)-->
+        <node id= "Goblin Piece 4">
+            <material id="goblinMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-6.8" y="-6" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Goblin piece that starts at (9, 2)-->
+        <node id= "Goblin Piece 5">
+            <material id="goblinMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-5.1" y="-6" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Goblin piece that starts at (9, 3)-->
+        <node id= "Goblin Piece 6">
+            <material id="goblinMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-3.4" y="-6" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Goblin piece that starts at (10, 1)-->
+        <node id= "Goblin Piece 7">
+            <material id="goblinMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-7.65" y="-7.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Goblin piece that starts at (10, 2)-->
+        <node id= "Goblin Piece 8">
+            <material id="goblinMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-5.95" y="-7.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Goblin piece that starts at (10, 3)-->
+        <node id= "Goblin Piece 9">
+            <material id="goblinMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-4.25" y="-7.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Goblin piece that starts at (10, 4)-->
+        <node id= "Goblin Piece 10">
+            <material id="goblinMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-2.55" y="-7.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Zombie piece that starts at (3, 1)-->
+        <node id= "Zombie Piece 1">
+            <material id="zombieMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-1.7" y="3" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Zombie piece that starts at (3, 3)-->
+        <node id= "Zombie Piece 2">
+            <material id="zombieMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="1.7" y="3" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Zombie piece that starts at (4, 1)-->
+        <node id= "Zombie Piece 3">
+            <material id="zombieMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-2.55" y="1.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Zombie piece that starts at (4, 4)-->
+        <node id= "Zombie Piece 4">
+            <material id="zombieMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="2.55" y="1.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Zombie piece that starts at (5, 3)-->
+        <node id= "Zombie Piece 5">
+            <material id="zombieMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="0" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Zombie piece that starts at (6, 3)-->
+        <node id= "Zombie Piece 6">
+            <material id="zombieMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-0.85" y="-1.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Zombie piece that starts at (6, 4)-->
+        <node id= "Zombie Piece 7">
+            <material id="zombieMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0.85" y="-1.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Zombie piece that starts at (7, 4)-->
+        <node id= "Zombie Piece 8">
+            <material id="zombieMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-0" y="-3" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="piece"/>
+            </descendants>
+        </node>
+        <!-- -->
+    </nodes>
+<!-- -->
+
+
+</lsf>
