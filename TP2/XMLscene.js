@@ -34,16 +34,16 @@ class XMLscene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(100);
 
-        this.loadingProgressObject=new MyRectangle(this, -1, -.1, 1, .1);
-        this.loadingProgress=0;
+        this.loadingProgressObject = new MyRectangle(this, -1, -.1, 1, .1);
+        this.loadingProgress = 0;
 
-        this.defaultAppearance=new CGFappearance(this);
-        
+        this.defaultAppearance = new CGFappearance(this);
+
         this.enableAxis = true;
         //this.enableLights = true;
         this.scaleFactor = 1;
         this.selectedCamera = 0;
-        this.cameras = {'defaultCamera': 0, 'demoOrtho': 1};
+        this.cameras = { 'defaultCamera': 0, 'demoOrtho': 1 };
 
         //Animation testing
         /*var keyframes = [];
@@ -65,18 +65,18 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+            this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
 
-        /*var defaultCamera = this.graph.cameras[0]; 
+            /*var defaultCamera = this.graph.cameras[0]; 
 
-        this.camera = this.graph.cameras[defaultCamera]; 
+            this.camera = this.graph.cameras[defaultCamera]; 
 
-        this.interface.setActiveCamera(this.camera);*/
+            this.interface.setActiveCamera(this.camera);*/
 
-    }
-    /**
-     * Initializes the scene lights with the values read from the XML file.
-     */
+        }
+        /**
+         * Initializes the scene lights with the values read from the XML file.
+         */
     initLights() {
         var i = 0;
         // Lights index.
@@ -84,7 +84,7 @@ class XMLscene extends CGFscene {
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
             if (i >= 8)
-                break;              // Only eight lights allowed by WebCGF on default shaders.
+                break; // Only eight lights allowed by WebCGF on default shaders.
 
             if (this.graph.lights.hasOwnProperty(key)) {
                 var graphLight = this.graph.lights[key];
@@ -125,17 +125,17 @@ class XMLscene extends CGFscene {
 
         this.updateCamera(this.selectedCamera);
     }
-    updateCamera(i){
-            var cameraID = this.graph.camerasIDs[i];
-            var cam = this.graph.cameras[cameraID];
-            this.camera = cam;
-            this.interface.setActiveCamera(this.camera);
+    updateCamera(i) {
+        var cameraID = this.graph.camerasIDs[i];
+        var cam = this.graph.cameras[cameraID];
+        this.camera = cam;
+        this.interface.setActiveCamera(this.camera);
     }
 
     // Note: update(t) is called periodically (as per setUpdatePeriod() in init())
-    update(t){
-        t = t /1000;
-        if(this.lastTime == 0){
+    update(t) {
+        t = t / 1000;
+        if (this.lastTime == 0) {
             this.lastTime = t;
         }
         var elapsedTime = t - this.lastTime; //Calculates the time passed since last update()
@@ -143,10 +143,10 @@ class XMLscene extends CGFscene {
         this.lastTime = t;
         this.animations = this.graph.animations;
         this.spriteAnimations = this.graph.spriteAnimations;
-        for(var key in this.animations){
+        for (var key in this.animations) {
             this.animations[key].update(elapsedTime);
         }
-        for(var key in this.spriteAnimations){
+        for (var key in this.spriteAnimations) {
             this.spriteAnimations[key].update(elapsedTime);
         }
     }
@@ -170,7 +170,7 @@ class XMLscene extends CGFscene {
 
         this.pushMatrix();
 
-        this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
         var i = 0;
         for (var key in this.lightValues) {
@@ -178,8 +178,7 @@ class XMLscene extends CGFscene {
                 if (this.lightValues[key]) {
                     this.lights[i].setVisible(true);
                     this.lights[i].enable();
-                }
-                else {
+                } else {
                     this.lights[i].setVisible(false);
                     this.lights[i].disable();
                 }
@@ -190,22 +189,20 @@ class XMLscene extends CGFscene {
 
         if (this.sceneInited) {
             // Draw axis
-            if(this.enableAxis){
-                this.axis.display();        
+            if (this.enableAxis) {
+                this.axis.display();
             }
- 
+
             this.defaultAppearance.apply();
 
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
-        }
-        else
-        {
+        } else {
             // Show some "loading" visuals
             this.defaultAppearance.apply();
 
-            this.rotate(-this.loadingProgress/10.0,0,0,1);
-            
+            this.rotate(-this.loadingProgress / 10.0, 0, 0, 1);
+
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
