@@ -276,10 +276,6 @@ class MySceneGraph {
         var children = viewsNode.children;
 
         this.cameras = [];
-        this.camerasIDs = [];
-
-        var defaultView = this.reader.getString(viewsNode, 'default');
-        this.cameras.push(defaultView);
 
 
         for (var i = 0; i < children.length; i++) {
@@ -297,8 +293,6 @@ class MySceneGraph {
             // Checks for repeated IDs.
             if (this.cameras[cameraId] != null)
                 return "ID must be unique for each primitive (conflict: ID = " + viewId + ")";
-
-            this.camerasIDs.push(cameraId);
 
             var camera;
             var grandChildren;
@@ -371,6 +365,10 @@ class MySceneGraph {
             }
             this.cameras[cameraId] = camera;
 
+        }
+        this.scene.selectedCamera = this.reader.getString(viewsNode, 'default');
+        if (!this.cameras[this.scene.selectedCamera]) {
+            return this.onXMLError("Default view not found");
         }
         this.log("Parsed views");
         return null;
@@ -1194,6 +1192,22 @@ class MySceneGraph {
                             }
                             break;
 
+                        case 'piece':
+                            var type = this.reader.getString(grandgrandChildren[k], "type");
+                            if (type != 'goblin' && type != 'orc' && type != 'zombie') {
+                                return "Invalid piece type in nodeID = " + nodeID;
+                            }
+                            var row = this.reader.getString(grandgrandChildren[k], "row");
+                            if (row == null || isNaN(row)) {
+                                return "Unable to parse row in " + nodeID;
+                            }
+                            var column = this.reader.getString(grandgrandChildren[k], "column");
+                            if (column == null || isNaN(column)) {
+                                return "Unable to parse column in " + nodeID;
+                            }
+                            var piece = new MyPiece(this.scene, type, row, column);
+                            currentNode.pushLeaf(piece);
+                            break;
                         default:
                             this.onXMLMinorError("A descendant wasn't declared properly in " + nodeID);
                             break

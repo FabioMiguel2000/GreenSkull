@@ -3,26 +3,43 @@
  * @constructor
  * @param scene - Reference to MyScene object
  */
-class MyBoard extends CGFobject{
-    constructor(scene){
+class MyBoard extends CGFobject {
+    constructor(scene) {
         super(scene);
 
         this.initBuffers();
     }
 
-    initBuffers(){
+    initBuffers() {
         //Geometry for a tile of the board that will be replicated to display all tiles of the board
         this.tile = new MyCylinder(this.scene, 1, 1, 0.6, 6, 4);
+        this.square = new MyRectangle(this.scene, -1, -1, 1, 1);
+        this.triangle = new MyTriangle(this.scene, 0, 0, 1.5, 1.5, 1.5, 0);
+        this.greenSkull = new MyGreenSkull(this.scene, 'goblin');
+        //his.greenSkull.switchGreenSkull();
+
+
+        this.triangleMat = new CGFappearance(this.scene);
+        this.triangleMat.setEmission(0, 0, 0, 1);
+        this.triangleMat.setAmbient(1, 1, 1, 1);
+        this.triangleMat.setDiffuse(1, 1, 1, 1);
+        this.triangleMat.setSpecular(1, 1, 1, 1);
+
+        this.squareMat = new CGFappearance(this.scene);
+        this.squareMat.setEmission(0, 0, 0, 1);
+        this.squareMat.setAmbient(0.4, 0.4, 0.4, 1);
+        this.squareMat.setDiffuse(0.52, 0.37, 0.26, 1);
+        this.squareMat.setSpecular(0.1, 0.1, 0.1, 1);
     }
 
-    display(){
+    display() {
         //Displays all the tiles in the board
         //(1, 1)
         this.scene.pushMatrix();
         this.scene.translate(0, 6, 0);
         this.tile.display();
         this.scene.popMatrix();
-        
+
         //(2, 1)
         this.scene.pushMatrix();
         this.scene.translate(-0.85, 4.5, 0);
@@ -345,6 +362,77 @@ class MyBoard extends CGFobject{
         this.scene.pushMatrix();
         this.scene.translate(7.65, -7.5, 0);
         this.tile.display();
+        this.scene.popMatrix();
+
+        /*Square Board */
+        this.scene.pushMatrix();
+        this.scene.translate(0, -1, -1.7);
+        this.scene.scale(9, 9, 0.2);
+        this.squareMat.apply();
+
+        // Top
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0, 10);
+        this.square.display();
+        this.scene.popMatrix();
+
+        // Down
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0, 8);
+        this.scene.rotate(-180 * Math.PI / 180, 1, 0, 0);
+        this.square.display();
+        this.scene.popMatrix();
+
+        // 
+        this.scene.pushMatrix();
+        this.scene.translate(-1, 0, 9);
+        this.scene.rotate(-90 * Math.PI / 180, 0, 1, 0);
+        this.square.display();
+        this.scene.popMatrix();
+
+        // 
+        this.scene.pushMatrix();
+        this.scene.translate(1, 0, 9);
+        this.scene.rotate(90 * Math.PI / 180, 0, 1, 0);
+        this.square.display();
+        this.scene.popMatrix();
+
+        // 
+        this.scene.pushMatrix();
+        this.scene.translate(0, -1, 9);
+        this.scene.rotate(90 * Math.PI / 180, 1, 0, 0);
+        this.square.display();
+        this.scene.popMatrix();
+
+        // 
+        this.scene.pushMatrix();
+        this.scene.translate(0, 1, 9);
+        this.scene.rotate(-90 * Math.PI / 180, 1, 0, 0);
+        this.square.display();
+        this.scene.popMatrix();
+
+        this.scene.popMatrix();
+
+        // Triangles
+        this.scene.pushMatrix();
+        this.triangleMat.apply();
+        this.scene.translate(-2, 7, 0.31);
+        this.scene.rotate(180 * Math.PI / 180, 0, 0, 1);
+        this.scene.scale(4, 8, 0);
+        this.triangle.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.triangleMat.apply();
+        this.scene.translate(2, 7, 0.31);
+        this.scene.rotate(180 * Math.PI / 180, 1, 0, 0);
+        this.scene.scale(4, 8, 0);
+        this.triangle.display();
+        this.scene.popMatrix();
+
+        //Green Skull
+        this.scene.pushMatrix();
+        this.greenSkull.display();
         this.scene.popMatrix();
     }
 }
