@@ -33,6 +33,7 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(100);
+        this.setPickEnabled(true);
 
         this.loadingProgressObject = new MyRectangle(this, -1, -.1, 1, .1);
         this.loadingProgress = 0;

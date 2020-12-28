@@ -17,7 +17,7 @@ class MyGreenSkull extends CGFobject {
     initBuffers() {
         this.greenSkull = new CGFOBJModel(this.scene, './models/skullModel.obj');
         this.greenSkullMat = new CGFappearance(this.scene);
-        this.greenSkullMat.setEmission(0, 0.3, 0, 1);
+        this.greenSkullMat.setEmission(0, 0.05, 0, 1);
         this.greenSkullMat.setAmbient(0.0, 1, 0, 1);
         this.greenSkullMat.setDiffuse(0.0, 1, 0, 1);
         this.greenSkullMat.setSpecular(0.0, 1, 0, 1);
@@ -31,6 +31,7 @@ class MyGreenSkull extends CGFobject {
     }
 
     display() {
+
         this.scene.pushMatrix();
         this.greenSkullMat.apply();
         if (this.player == 'goblin') {

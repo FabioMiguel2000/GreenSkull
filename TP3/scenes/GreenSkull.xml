@@ -108,9 +108,9 @@
 
             <descendants>
                 <noderef id="Board"/>
-                <noderef id="Orc Pieces"/>
+              <!--  <noderef id="Orc Pieces"/>
                 <noderef id="Goblin Pieces"/>
-                <noderef id="Zombie Pieces"/>
+                <noderef id="Zombie Pieces"/>-->
                 <noderef id="Mesa e Cadeira"/>
             </descendants>
         </node>

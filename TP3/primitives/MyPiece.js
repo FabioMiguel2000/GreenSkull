@@ -53,7 +53,7 @@ class MyPiece extends CGFobject {
     display() {
         this.scene.pushMatrix();
         this.pieceMaterial.apply();
-        this.scene.translate(this.posX, this.posY, 0);
+        this.scene.translate(this.posX, this.posY, 0.6);
         this.piece.display();
         this.scene.popMatrix();
     }
