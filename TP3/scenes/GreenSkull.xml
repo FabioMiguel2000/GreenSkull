@@ -14,7 +14,14 @@
             <from x="15" y="15" z="15" />
             <to x="0" y="-2" z="0" />
         </perspective>
+        <ortho id="demoOrtho" near="0.1" far="500" left="-25" right="25" top="25" bottom="-25">
+            <from x="5" y="2.5" z="0" />
+            <to x="-5" y="2.5" z="0" />
+            <up x="0" y="1" z="0" />
+        </ortho>
+
     </views>
+    
 <!-- -->
 
 <!--Illumination-->
@@ -28,7 +35,7 @@
     <lights>
         <light id="Default light">            
             <enable value="1" />
-            <position x="0" y="8" z="0" w="1.0" />
+            <position x="0" y="50" z="0" w="1.0" />
             <ambient r="0.3" g="0.3" b="0.3" a="1.0" />                   
             <diffuse r="1" g="1" b="1" a="1.0" />             
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            
@@ -108,6 +115,7 @@
 
             <descendants>
                 <noderef id="Board"/>
+                <noderef id="Room"/>
               <!--  <noderef id="Orc Pieces"/>
                 <noderef id="Goblin Pieces"/>
                 <noderef id="Zombie Pieces"/>-->
@@ -132,6 +140,166 @@
             </descendants>
         </node>
         <!-- -->
+
+        <!--Game board-->
+        <node id="Room">
+            <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="ParedeEsq"/> 
+                <noderef id="ParedeDir"/> 
+                <noderef id="ParedeFre"/> 
+                <noderef id="ParedeTras"/> 
+                <noderef id="Teto"/> 
+                <noderef id="Chao"/> 
+
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parede da esquerda-->
+        <node id="ParedeEsq">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="0" y="-20" z="75"/>
+
+                <rotation axis="y" angle="180"/>
+
+                <scale sx="15" sy="15" sz="5" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parede da direita-->
+        <node id="ParedeDir">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="0" y="-20" z="-75"/>
+
+                <rotation axis="y" angle="0"/>
+
+                <scale sx="15" sy="15" sz="5" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parede da frente-->
+        <node id="ParedeFre">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="-75" y="-20" z="0"/>
+
+                <rotation axis="y" angle="90"/>
+
+                <scale sx="15" sy="15" sz="5" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parede da tras-->
+        <node id="ParedeTras">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="75" y="-20" z="0"/>
+
+                <rotation axis="y" angle="-90"/>
+
+                <scale sx="15" sy="15" sz="5" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Teto -->
+        <node id="Teto">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="0" y="55" z="-75"/>
+
+                <rotation axis="x" angle="90"/>
+
+                <scale sx="15" sy="30" sz="5" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Teto -->
+        <node id="Chao">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="0" y="-20" z="75"/>
+
+                <rotation axis="x" angle="-90"/>
+
+                <scale sx="15" sy="30" sz="5" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+        
 
         <!--Orc pieces present in the game-->
         <node id="Orc Pieces">
@@ -707,7 +875,10 @@
             <texture id="null"/>
 
             <transformations>
-                <translation x="0" y="0" z="1.5"/>
+
+                <translation x="-3" y="0" z="-1"/>
+                <rotation axis="y" angle="-90"/>
+
             </transformations>
 
             <descendants>
@@ -729,9 +900,10 @@
             <texture id="null"/>
 
             <transformations>
-                <rotation axis="y" angle="180"/>
 
-                <translation x="0" y="0" z="3.5"/>
+                <translation x="3" y="0" z="-1"/>
+
+                <rotation axis="y" angle="90"/>
 
             </transformations>
 

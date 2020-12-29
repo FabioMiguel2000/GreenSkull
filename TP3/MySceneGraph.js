@@ -1178,7 +1178,7 @@ class MySceneGraph {
                                     break;
 
                                 case 'board':
-                                    var board = new MyBoard(this.scene);
+                                    var board = new MyGameBoard(this.scene);
                                     currentNode.pushLeaf(board);
                                     break;
 
@@ -1210,7 +1210,7 @@ class MySceneGraph {
                             break;
                         default:
                             this.onXMLMinorError("A descendant wasn't declared properly in " + nodeID);
-                            break
+                            break;
                     }
                 }
             }

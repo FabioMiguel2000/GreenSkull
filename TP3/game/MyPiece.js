@@ -13,6 +13,7 @@ class MyPiece extends CGFobject {
         this.type = type;
         this.row = row;
         this.column = column;
+        this.tile = null;
         this.piece = new MyCylinder(this.scene, 0.6, 0.6, 0.3, 16, 4);
         this.initBuffers();
     }
@@ -44,7 +45,12 @@ class MyPiece extends CGFobject {
         this.updatePos(this.row, this.column);
 
     }
-
+    setTile(tile) {
+        this.tile = tile;
+    }
+    unsetTile() {
+        this.tile = null;
+    }
     updatePos(row, column) {
         this.posY = 7.5 - row * 1.5;
         this.posX = column * 1.7 - row * 0.85 - 0.85;

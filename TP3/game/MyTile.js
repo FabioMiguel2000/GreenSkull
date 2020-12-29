@@ -18,7 +18,7 @@ class MyTile extends CGFobject {
 
     initBuffers() {
         this.tileMat = new CGFappearance(this.scene);
-        this.tileMat.setEmission(1, 0, 0, 1);
+        this.tileMat.setEmission(0.6, 0, 0, 1);
         this.tileMat.setAmbient(0.24725, 0.1995, 0.0745, 1);
         this.tileMat.setDiffuse(0.75164, 0.60648, 0.22648, 1);
         this.tileMat.setSpecular(0.628281, 0.555802, 0.366065, 1);
