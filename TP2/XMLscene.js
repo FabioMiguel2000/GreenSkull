@@ -34,29 +34,14 @@ class XMLscene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(100);
 
-        this.loadingProgressObject=new MyRectangle(this, -1, -.1, 1, .1);
-        this.loadingProgress=0;
+        this.loadingProgressObject = new MyRectangle(this, -1, -.1, 1, .1);
+        this.loadingProgress = 0;
 
-        this.defaultAppearance=new CGFappearance(this);
-        
+        this.defaultAppearance = new CGFappearance(this);
+
         this.enableAxis = true;
-        //this.enableLights = true;
         this.scaleFactor = 1;
         this.selectedCamera = 0;
-        this.cameras = {'defaultCamera': 0, 'demoOrtho': 1};
-
-        //Animation testing
-        /*var keyframes = [];
-        var keyframe1 = new MyKeyframe(0, [1, 0, 0], [0, 0, 0], [1, 1, 1]);
-        var keyframe2 = new MyKeyframe(5, [-5, 0, 0], [0, 90, 0], [1, 1, 1.5]);
-        var keyframe3 = new MyKeyframe(15, [-5, 0, 2], [180, 90, 0], [0.9, 0.9, 1.2]);
-        keyframes.push(keyframe1);
-        keyframes.push(keyframe2);
-        keyframes.push(keyframe3);
-        
-        this.cylinder = new MyCylinder(this, 2, 3, 5, 16, 8);
-
-        this.anim = new MyKeyframeAnimation(keyframes);*/
         this.lastTime = 0;
         this.time = 0;
     }
@@ -65,18 +50,12 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+            this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
 
-        /*var defaultCamera = this.graph.cameras[0]; 
-
-        this.camera = this.graph.cameras[defaultCamera]; 
-
-        this.interface.setActiveCamera(this.camera);*/
-
-    }
-    /**
-     * Initializes the scene lights with the values read from the XML file.
-     */
+        }
+        /**
+         * Initializes the scene lights with the values read from the XML file.
+         */
     initLights() {
         var i = 0;
         // Lights index.
@@ -84,7 +63,7 @@ class XMLscene extends CGFscene {
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
             if (i >= 8)
-                break;              // Only eight lights allowed by WebCGF on default shaders.
+                break; // Only eight lights allowed by WebCGF on default shaders.
 
             if (this.graph.lights.hasOwnProperty(key)) {
                 var graphLight = this.graph.lights[key];
@@ -106,10 +85,13 @@ class XMLscene extends CGFscene {
             }
         }
     }
-
-    /** Handler called when the graph is finally loaded. 
-     * As loading is asynchronous, this may be called already after the application has started the run loop
-     */
+    setActiveCamera() {
+            this.camera = this.cameras[this.selectedCamera];
+            this.interface.setActiveCamera(this.camera);
+        }
+        /** Handler called when the graph is finally loaded. 
+         * As loading is asynchronous, this may be called already after the application has started the run loop
+         */
     onGraphLoaded() {
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
@@ -119,23 +101,28 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
-        this.sceneInited = true;
+
 
         this.interface.addLightsGroup(this.graph.lights);
 
-        this.updateCamera(this.selectedCamera);
-    }
-    updateCamera(i){
-            var cameraID = this.graph.camerasIDs[i];
-            var cam = this.graph.cameras[cameraID];
-            this.camera = cam;
-            this.interface.setActiveCamera(this.camera);
+
+        this.cameras = this.graph.cameras;
+
+        this.setActiveCamera();
+
+        this.interface.initCameras();
+
+
+        this.sceneInited = true;
+
     }
 
+
+
     // Note: update(t) is called periodically (as per setUpdatePeriod() in init())
-    update(t){
-        t = t /1000;
-        if(this.lastTime == 0){
+    update(t) {
+        t = t / 1000;
+        if (this.lastTime == 0) {
             this.lastTime = t;
         }
         var elapsedTime = t - this.lastTime; //Calculates the time passed since last update()
@@ -143,10 +130,10 @@ class XMLscene extends CGFscene {
         this.lastTime = t;
         this.animations = this.graph.animations;
         this.spriteAnimations = this.graph.spriteAnimations;
-        for(var key in this.animations){
+        for (var key in this.animations) {
             this.animations[key].update(elapsedTime);
         }
-        for(var key in this.spriteAnimations){
+        for (var key in this.spriteAnimations) {
             this.spriteAnimations[key].update(elapsedTime);
         }
     }
@@ -170,7 +157,7 @@ class XMLscene extends CGFscene {
 
         this.pushMatrix();
 
-        this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
         var i = 0;
         for (var key in this.lightValues) {
@@ -178,8 +165,7 @@ class XMLscene extends CGFscene {
                 if (this.lightValues[key]) {
                     this.lights[i].setVisible(true);
                     this.lights[i].enable();
-                }
-                else {
+                } else {
                     this.lights[i].setVisible(false);
                     this.lights[i].disable();
                 }
@@ -190,30 +176,23 @@ class XMLscene extends CGFscene {
 
         if (this.sceneInited) {
             // Draw axis
-            if(this.enableAxis){
-                this.axis.display();        
+            if (this.enableAxis) {
+                this.axis.display();
             }
- 
+
             this.defaultAppearance.apply();
 
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
-        }
-        else
-        {
+        } else {
             // Show some "loading" visuals
             this.defaultAppearance.apply();
 
-            this.rotate(-this.loadingProgress/10.0,0,0,1);
-            
+            this.rotate(-this.loadingProgress / 10.0, 0, 0, 1);
+
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
-
-        //this.updateCamera(this.selectedCamera);
-
-        //this.anim.apply(this);
-        //this.cylinder.display();
 
         this.popMatrix();
         // ---- END Background, camera and axis setup

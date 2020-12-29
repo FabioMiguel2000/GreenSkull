@@ -14,7 +14,14 @@
             <from x="15" y="15" z="15" />
             <to x="0" y="-2" z="0" />
         </perspective>
+        <ortho id="demoOrtho" near="0.1" far="500" left="-25" right="25" top="25" bottom="-25">
+            <from x="5" y="2.5" z="0" />
+            <to x="-5" y="2.5" z="0" />
+            <up x="0" y="1" z="0" />
+        </ortho>
+
     </views>
+    
 <!-- -->
 
 <!--Illumination-->
@@ -28,7 +35,7 @@
     <lights>
         <light id="Default light">            
             <enable value="1" />
-            <position x="0" y="8" z="0" w="1.0" />
+            <position x="0" y="50" z="0" w="1.0" />
             <ambient r="0.3" g="0.3" b="0.3" a="1.0" />                   
             <diffuse r="1" g="1" b="1" a="1.0" />             
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            
@@ -39,6 +46,10 @@
 
 <!--Textures-->
     <textures>
+        <!--Textura para tampo da mesa-->
+        <texture id="wood" path="scenes/image/woodTexture.jpg" />
+        <!--Textura para perna da mesa-->
+        <texture id="steel" path="scenes/image/steelTexture.jpg" />
     </textures>
 <!-- -->
 
@@ -56,6 +67,7 @@
             <diffuse r="0.4" g="0.4" b="0.4" a="1" />       
             <specular r="0.0" g="0.0" b="0.0" a="1" />        
         </material>
+        <!--
         <material id="orcMaterial" shininess="1">
             <emission r="0.0" g="0.0" b="0.0" a="1" />
             <ambient r="1.0" g="1.0" b="1.0" a="1" />      
@@ -73,6 +85,13 @@
             <ambient r="0.3" g="0.9" b="0.1" a="1" />      
             <diffuse r="0.3" g="0.9" b="0.1" a="1" />             
             <specular r="0.3" g="0.9" b="0.1" a="1" />        
+        </material>
+        -->
+        <material id="woodMaterial" shininess="1">
+            <emission r="0.52" g="0.37" b="0.26" a="1.0" />
+            <ambient r="0.4" g="0.4" b="0.4" a="1.0" />
+            <diffuse r="0.52" g="0.37" b="0.26" a="1.0" />
+            <specular r="0.1" g="0.1" b="0.1" a="1.0" />
         </material>
     </materials>
 <!-- -->
@@ -96,9 +115,11 @@
 
             <descendants>
                 <noderef id="Board"/>
-                <noderef id="Orc Pieces"/>
+                <noderef id="Room"/>
+              <!--  <noderef id="Orc Pieces"/>
                 <noderef id="Goblin Pieces"/>
-                <noderef id="Zombie Pieces"/>
+                <noderef id="Zombie Pieces"/>-->
+                <noderef id="Mesa e Cadeira"/>
             </descendants>
         </node>
         <!-- -->
@@ -119,6 +140,166 @@
             </descendants>
         </node>
         <!-- -->
+
+        <!--Game board-->
+        <node id="Room">
+            <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="ParedeEsq"/> 
+                <noderef id="ParedeDir"/> 
+                <noderef id="ParedeFre"/> 
+                <noderef id="ParedeTras"/> 
+                <noderef id="Teto"/> 
+                <noderef id="Chao"/> 
+
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parede da esquerda-->
+        <node id="ParedeEsq">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="0" y="-20" z="75"/>
+
+                <rotation axis="y" angle="180"/>
+
+                <scale sx="15" sy="15" sz="5" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parede da direita-->
+        <node id="ParedeDir">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="0" y="-20" z="-75"/>
+
+                <rotation axis="y" angle="0"/>
+
+                <scale sx="15" sy="15" sz="5" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parede da frente-->
+        <node id="ParedeFre">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="-75" y="-20" z="0"/>
+
+                <rotation axis="y" angle="90"/>
+
+                <scale sx="15" sy="15" sz="5" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Parede da tras-->
+        <node id="ParedeTras">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="75" y="-20" z="0"/>
+
+                <rotation axis="y" angle="-90"/>
+
+                <scale sx="15" sy="15" sz="5" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Teto -->
+        <node id="Teto">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="0" y="55" z="-75"/>
+
+                <rotation axis="x" angle="90"/>
+
+                <scale sx="15" sy="30" sz="5" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Teto -->
+        <node id="Chao">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="0" y="-20" z="75"/>
+
+                <rotation axis="x" angle="-90"/>
+
+                <scale sx="15" sy="30" sz="5" />
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-5" y1="0" x2="5" y2="5"/>
+                
+            </descendants>
+        </node>
+        <!-- -->
+        
 
         <!--Orc pieces present in the game-->
         <node id="Orc Pieces">
@@ -198,452 +379,900 @@
 
         <!--Orc piece that starts at (7, 7)-->
         <node id= "Orc Piece 1">
-            <material id="orcMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="5.1" y="-3" z="0"/>
+                
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="orc" row="7" column="7"/>
             </descendants>
         </node>
         <!-- -->
 
         <!--Orc piece that starts at (8, 7)-->
         <node id= "Orc Piece 2">
-            <material id="orcMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="4.25" y="-4.5" z="0"/>
+                
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="orc" row="8" column="7"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Orc piece that starts at (8, 8)-->
         <node id= "Orc Piece 3">
-            <material id="orcMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="5.95" y="-4.5" z="0"/>
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="orc" row="8" column="8"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Orc piece that starts at (9, 7)-->
         <node id= "Orc Piece 4">
-            <material id="orcMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="3.4" y="-6" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="orc" row="9" column="7"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Orc piece that starts at (9, 8)-->
         <node id= "Orc Piece 5">
-            <material id="orcMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="5.1" y="-6" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="orc" row="9" column="8"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Orc piece that starts at (9, 9)-->
         <node id= "Orc Piece 6">
-            <material id="orcMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="6.8" y="-6" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="orc" row="9" column="9"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Orc piece that starts at (10, 7)-->
         <node id= "Orc Piece 7">
-            <material id="orcMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="2.55" y="-7.5" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="orc" row="10" column="7"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Orc piece that starts at (10, 8)-->
         <node id= "Orc Piece 8">
-            <material id="orcMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="4.25" y="-7.5" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="orc" row="10" column="8"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Orc piece that starts at (10, 9)-->
         <node id= "Orc Piece 9">
-            <material id="orcMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="5.95" y="-7.5" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="orc" row="10" column="9"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Orc piece that starts at (10, 10)-->
         <node id= "Orc Piece 10">
-            <material id="orcMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="7.65" y="-7.5" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="orc" row="10" column="10"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Goblin piece that starts at (7, 1)-->
         <node id= "Goblin Piece 1">
-            <material id="goblinMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="-5.1" y="-3" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="goblin" row="7" column="1"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Goblin piece that starts at (8, 1)-->
         <node id= "Goblin Piece 2">
-            <material id="goblinMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="-5.95" y="-4.5" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="goblin" row="8" column="1"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Goblin piece that starts at (8, 2)-->
         <node id= "Goblin Piece 3">
-            <material id="goblinMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="-4.25" y="-4.5" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="goblin" row="8" column="2"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Goblin piece that starts at (9, 1)-->
         <node id= "Goblin Piece 4">
-            <material id="goblinMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="-6.8" y="-6" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="goblin" row="9" column="1"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Goblin piece that starts at (9, 2)-->
         <node id= "Goblin Piece 5">
-            <material id="goblinMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="-5.1" y="-6" z="0"/>
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="goblin" row="9" column="2"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Goblin piece that starts at (9, 3)-->
         <node id= "Goblin Piece 6">
-            <material id="goblinMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="-3.4" y="-6" z="0"/>
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="goblin" row="9" column="3"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Goblin piece that starts at (10, 1)-->
         <node id= "Goblin Piece 7">
-            <material id="goblinMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="-7.65" y="-7.5" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="goblin" row="10" column="1"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Goblin piece that starts at (10, 2)-->
         <node id= "Goblin Piece 8">
-            <material id="goblinMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="-5.95" y="-7.5" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="goblin" row="10" column="2"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Goblin piece that starts at (10, 3)-->
         <node id= "Goblin Piece 9">
-            <material id="goblinMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="-4.25" y="-7.5" z="0"/>
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="goblin" row="10" column="3"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Goblin piece that starts at (10, 4)-->
         <node id= "Goblin Piece 10">
-            <material id="goblinMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="-2.55" y="-7.5" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="goblin" row="10" column="4"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Zombie piece that starts at (3, 1)-->
         <node id= "Zombie Piece 1">
-            <material id="zombieMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="-1.7" y="3" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="zombie" row="3" column="1"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Zombie piece that starts at (3, 3)-->
         <node id= "Zombie Piece 2">
-            <material id="zombieMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="1.7" y="3" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="zombie" row="3" column="3"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Zombie piece that starts at (4, 1)-->
         <node id= "Zombie Piece 3">
-            <material id="zombieMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="-2.55" y="1.5" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="zombie" row="4" column="1"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Zombie piece that starts at (4, 4)-->
         <node id= "Zombie Piece 4">
-            <material id="zombieMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="2.55" y="1.5" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="zombie" row="4" column="4"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Zombie piece that starts at (5, 3)-->
         <node id= "Zombie Piece 5">
-            <material id="zombieMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="0" y="0" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="zombie" row="5" column="3"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Zombie piece that starts at (6, 3)-->
         <node id= "Zombie Piece 6">
-            <material id="zombieMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="-0.85" y="-1.5" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="zombie" row="6" column="3"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Zombie piece that starts at (6, 4)-->
         <node id= "Zombie Piece 7">
-            <material id="zombieMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="0.85" y="-1.5" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="zombie" row="6" column="4"/>
+
             </descendants>
         </node>
         <!-- -->
 
         <!--Zombie piece that starts at (7, 4)-->
         <node id= "Zombie Piece 8">
-            <material id="zombieMaterial"/>
+            <material id="null"/>
 
             <texture id="null"/>
 
             <transformations>
-                <translation x="-0" y="-3" z="0"/>
+
             </transformations>
 
             <descendants>
-                <leaf type="piece"/>
+                <piece type="zombie" row="7" column="4"/>
+
             </descendants>
         </node>
         <!-- -->
+
+        <!--Uma mesa e duas cadeira-->
+        <node id="Mesa e Cadeira">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="-20" z="7"/>
+                <scale sx="6" sy="6" sz="6" />
+                
+            </transformations>
+
+            <descendants>
+                <noderef id="Cadeira1"/>
+                <noderef id="Cadeira2"/>
+                
+                <noderef id="Mesa" />
+            </descendants>
+        </node>
+
+        <!--Cadeira-->
+        <node id="Cadeira1">
+            <material id="woodMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="-3" y="0" z="-1"/>
+                <rotation axis="y" angle="-90"/>
+
+            </transformations>
+
+            <descendants>
+                <noderef id="Perna cadeira 1"/>
+                <noderef id="Perna cadeira 2"/>
+                <noderef id="Perna cadeira 3"/>
+                <noderef id="Perna cadeira 4"/>
+                <noderef id="Assento"/>
+                <noderef id="Encosto"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        
+        <!--Cadeira-->
+        <node id="Cadeira2">
+            <material id="woodMaterial"/>
+
+            <texture id="null"/>
+
+            <transformations>
+
+                <translation x="3" y="0" z="-1"/>
+
+                <rotation axis="y" angle="90"/>
+
+            </transformations>
+
+            <descendants>
+                <noderef id="Perna cadeira 1"/>
+                <noderef id="Perna cadeira 2"/>
+                <noderef id="Perna cadeira 3"/>
+                <noderef id="Perna cadeira 4"/>
+                <noderef id="Assento"/>
+                <noderef id="Encosto"/>
+            </descendants>
+        </node>
+        <!-- -->
+                <!--Perna da cadeira 1-->
+        <node id="Perna cadeira 1">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0.6" y="0" z="0.7"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Perna cadeira"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da cadeira 2-->
+        <node id="Perna cadeira 2">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-0.6" y="0" z="0.7"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Perna cadeira"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da cadeira 3-->
+        <node id="Perna cadeira 3">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-0.6" y="0" z="-0.7"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Perna cadeira"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da cadeira 4-->
+        <node id="Perna cadeira 4">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0.6" y="0" z="-0.7"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Perna cadeira"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da cadeira-->
+        <node id="Perna cadeira">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.1" topRadius="0.1" height="1.5" slices="16" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Assento da cadeira-->
+        <node id="Assento">
+            <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="1.5" z="0"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Assento cima"/>
+                <noderef id="Assento baixo"/>
+                <noderef id="Assento lado 1"/>
+                <noderef id="Assento lado 2"/>
+                <noderef id="Assento lado 3"/>
+                <noderef id="Assento lado 4"/> 
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face de cima do assento-->
+        <node id="Assento cima">
+            <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="0.2" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.85" y1="-0.95" x2="0.85" y2="0.95"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face de baixo do assento-->
+        <node id="Assento baixo">
+            <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.85" y1="-0.95" x2="0.85" y2="0.95"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face do lado do assento-->
+        <node id="Assento lado 1">
+            <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <rotation axis="y" angle="90"/>
+                <translation x="0" y="0.1" z="0.85"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.95" y1="-0.1" x2="0.95" y2="0.1"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face do lado do assento-->
+        <node id="Assento lado 2">
+            <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                
+                <translation x="0" y="0.1" z="0.95"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.85" y1="-0.1" x2="0.85" y2="0.1"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face do lado do assento-->
+        <node id="Assento lado 3">
+            <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <rotation axis="y" angle="-90"/>
+                <translation x="0" y="0.1" z="0.85"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.95" y1="-0.1" x2="0.95" y2="0.1"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Face do lado do assento-->
+        <node id="Assento lado 4">
+            <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <rotation axis="y" angle="180"/>
+                <translation x="0" y="0.1" z="0.95"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="-0.85" y1="-0.1" x2="0.85" y2="0.1"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Encosto da cadeira-->
+        <node id="Encosto">
+            <material id="null"/>
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="1.7" z="0.8"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="Encosto direita"/>
+                <noderef id="Encosto esquerda"/>
+                <noderef id="Encosto meio"/>
+                <noderef id="Encosto cima"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Cilindro da direita do encosto-->
+        <node id="Encosto direita">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0.7" y="0" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.1" topRadius="0.1" height="1.5" slices="16" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Cilindro da esquerda do encosto-->
+        <node id="Encosto esquerda">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="-0.7" y="0" z="0"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.1" topRadius="0.1" height="1.5" slices="16" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Cilindro do meio do encosto-->
+        <node id="Encosto meio">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0.7" y="0.7" z="0"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.1" topRadius="0.1" height="1.5" slices="16" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Cilindro de cima do encosto-->
+        <node id="Encosto cima">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0.7" y="1.5" z="0"/>
+                <rotation axis="y" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.1" topRadius="0.1" height="1.5" slices="16" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->
+<!--Mesa-->
+        <node id="Mesa">
+            <material id="null" />
+
+            <texture id="null"/>
+
+            <transformations>
+                <translation x="0" y="0" z="-1"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>               
+                <noderef id="Tampo" />
+                <noderef id="Perna mesa" />
+                <noderef id="Suporte da perna"/>              
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Tampo retangular-->
+        <node id="Tampo">
+            <material id="woodMaterial" />
+
+            <texture id="wood"/>
+
+            <transformations>
+                <translation x="0" y="0" z="3"/>
+                
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="2.5" topRadius="2.5" height="0.3" slices="64" stacks="12"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <!--Perna da mesa-->
+        <node id="Perna mesa">
+            <material id="null" />
+
+            <texture id="steel"/>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="0.3" topRadius="0.3" height="3" slices="64" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->
+
+        <node id="Suporte da perna">   
+            <material id="null" />
+
+            <texture id="steel"/>
+
+            <transformations>                
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" bottomRadius="1.5" topRadius="1.5" height="0.2" slices="64" stacks="4"/>
+            </descendants>
+        </node>
+        <!-- -->    
     </nodes>
+
+
+    
 <!-- -->
 
 
