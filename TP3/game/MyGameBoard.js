@@ -177,25 +177,16 @@ class MyGameBoard extends CGFobject {
         return piece.tile;
     }
 
-    movePiece(startRow, startCol, destRow, destCol) {
-        var pieceToMove = null;
-        for (var i = 0; i < this.tiles.length; i++) {
-            if (this.tiles[i].row == startRow && this.tiles[i].column == startCol && this.tiles[i].piece != null) {
-                pieceToMove = this.tiles[i].piece;
-                this.tiles[i].unsetPiece;
-            }
-        }
-        if (pieceToMove == null) {
+    movePiece(piece, startingTile, destinationTile) {
+        if (startingTile.piece != piece) {
             return -1;
         }
-        for (var i = 0; i < this.tiles.length; i++) {
-            if (this.tiles[i].row == destRow && this.tiles[i].column == destCol && this.tiles[i].piece == null) {
-                this.tiles[i].setPiece(pieceToMove);
-                return 0;
-            }
+        startingTile.unsetPiece();
+        if (destinationTile.piece != null) {
+            return -1;
         }
-
-        return -1;
+        destinationTile.setPiece(piece);
+        return 0;
     }
 
 }

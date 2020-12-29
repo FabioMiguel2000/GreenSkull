@@ -46,7 +46,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.j
     './animation/MyAnimation.js', './animation/MyKeyframeAnimation.js', 'MySpriteSheet.js',
     './primitives/MyPlane.js', './primitives/MyPatch.js', './primitives/MyDefbarrel.js',
     'MySpriteAnimation.js', 'MySpriteText.js', './game/MyGameBoard.js', 'CGFOBJModel.js', 'CGFResourceReader.js',
-    './game/MyPiece.js', './game/MyGreenSkull.js', './game/MyTile.js',
+    './game/MyPiece.js', './game/MyGreenSkull.js', './game/MyTile.js', './game/MyGameMove.js',
 
 
     main = function() {
