@@ -7,7 +7,6 @@ class MyPrologInterface {
     }
 
     getRequest(){
-        let requestString = 'playFieldsOfAction('+list+')';
         let request = new MyXMLHttpRequest(this);
 
         request.addEventListener("load", this.parseStartPrologReply);
@@ -25,13 +24,9 @@ class MyPrologInterface {
             return;
         }
             
-        // the answer here is: [Board,CurrentPlayer,WhiteScore,BlackScore]
-            
-        let responseArray = textStringToArray(this.responseText,true);
-            // do something with responseArray[0];
-            // do something with responseArray[1];
-            // do something with responseArray[2];
-            // do something with responseArray[3];
+        let responseArray = textStringToArray(data.target.response, true);
+
+        console.log(responseArray);
     }
 
     startPrologGameError(){
