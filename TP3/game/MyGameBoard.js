@@ -33,7 +33,8 @@ class MyGameBoard extends CGFobject {
         this.squareMat.setDiffuse(0.52, 0.37, 0.26, 1);
         this.squareMat.setSpecular(0.1, 0.1, 0.1, 1);
 
-
+        //Temp functions for before buildBoard is working properly
+        /*
         for (var row = 1; row <= 10; row++) {
             for (var column = 1; column <= row; column++) {
                 var tile = new MyTile(this.scene, row, column);
@@ -62,7 +63,7 @@ class MyGameBoard extends CGFobject {
 
                 this.tiles.push(tile)
             }
-        }
+        }*/
     }
 
     display() {
@@ -187,6 +188,52 @@ class MyGameBoard extends CGFobject {
         }
         destinationTile.setPiece(piece);
         return 0;
+    }
+
+    //Function that receives the list containing the board configuration and places pieces in each space with one
+    buildBoard(board){
+        for(var i = 0; i < board.length; i++){
+            //The row is i + 1 because board positions start at 1 unlike list positions that start at 0
+            var row = i + 1;
+
+            for(var j = 0; j < board[i].length; j++){
+                //It is also added 1 to the column
+                var col = j + 1;
+
+                var tile = new MyTile(this.scene, row, column);
+                
+                switch(board[i][j]){
+                    case 'empty':
+                        break;
+                    
+                    case 'goblin':
+                        var piece = new MyPiece(this.scene, 'goblin', row, col);
+                        this.pieces.push(piece);
+
+                        this.tile.setPiece(piece);
+                        break;
+
+                    case 'orc':
+                        var piece = new MyPiece(this.scene, 'orc', row, col);
+                        this.pieces.push(piece);
+    
+                        this.tile.setPiece(piece);
+                        break;
+
+                    case 'zombie':
+                        var piece = new MyPiece(this.scene, 'zombie', row, col);
+                        this.pieces.push(piece);
+        
+                        this.tile.setPiece(piece);
+                        break;
+
+                    default:
+                        console.log("Warning: unintended object in board, something must have gone wrong while getting the board");
+                        break;
+                }
+                this.tiles.push(tile);
+            }
+        }
     }
 
 }

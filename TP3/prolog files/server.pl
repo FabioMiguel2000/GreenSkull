@@ -107,6 +107,9 @@ print_header_line(_).
 parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).
 
+% Input to retrieve initial game State
+parse_input(loadInitial, InitialState):- initial(InitialState).
+
 % Input to move piece
 parse_input(move(State, Move), NewState):- move(State, Move, NewState).
 
