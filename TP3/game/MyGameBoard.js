@@ -1,10 +1,10 @@
 /**
- * MyBoard
+ * MyGameBoard
  * @constructor
  * @param scene - Reference to MyScene object
  */
 class MyGameBoard extends CGFobject {
-    constructor(scene) {
+    constructor(scene, board) {
         super(scene);
 
         this.square = new MyRectangle(this.scene, -1, -1, 1, 1);
@@ -13,6 +13,8 @@ class MyGameBoard extends CGFobject {
 
         this.tiles = [];
         this.pieces = [];
+
+        this.buildBoard(board);
 
         this.initBuffers();
     }

@@ -6,13 +6,13 @@ class MyPrologInterface {
         this.port = port || 8081;
     }
 
-    getRequest(){
-        let request = new MyXMLHttpRequest(this);
-
-        request.addEventListener("load", this.parseStartPrologReply);
-        request.addEventListener("error", this.startPrologGameError);
+    getRequest(requestString, onSuccess, onError){
+        var request = new XMLHttpRequest();
 
         request.open('GET', 'http://localhost:'+this.port+'/'+requestString, true);
+
+        request.onload = onSuccess || this.parseStartPrologReply();
+		request.onerror = onError || this.startPrologGameError();
 
         request.setRequestHeader("Content-type", "application/x-www-formurlencoded; charset=UTF-8");
         request.send();
@@ -30,6 +30,6 @@ class MyPrologInterface {
     }
 
     startPrologGameError(){
-        console.log("There was an error while passing the request");
+        console.log("There was an error while executing the request");
     }
 }
