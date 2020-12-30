@@ -66,6 +66,9 @@ class MyGameBoard extends CGFobject {
     }
 
     display() {
+        this.scene.pushMatrix();
+        this.scene.rotate(-90 * Math.PI / 180, 1, 0, 0);
+
         /*Tiles */
         for (var i = 0; i < this.tiles.length; i++) {
             this.tiles[i].display();
@@ -146,6 +149,9 @@ class MyGameBoard extends CGFobject {
         //Green Skull
         this.scene.pushMatrix();
         this.greenSkull.display();
+        this.scene.popMatrix();
+
+
         this.scene.popMatrix();
     }
 

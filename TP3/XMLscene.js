@@ -35,6 +35,8 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(100);
         this.setPickEnabled(true);
 
+        this.gameOrchestrator = new MyGameOrchestrator(this);
+
         this.loadingProgressObject = new MyRectangle(this, -1, -.1, 1, .1);
         this.loadingProgress = 0;
 
@@ -194,6 +196,7 @@ class XMLscene extends CGFscene {
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
+        this.gameOrchestrator.display();
 
         this.popMatrix();
         // ---- END Background, camera and axis setup

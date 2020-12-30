@@ -50,6 +50,10 @@
         <texture id="wood" path="scenes/image/woodTexture.jpg" />
         <!--Textura para perna da mesa-->
         <texture id="steel" path="scenes/image/steelTexture.jpg" />
+        <!--Textura para perna da mesa-->
+        <texture id="lava" path="scenes/image/lava.png" />
+        <!--Textura para perna da mesa-->
+        <texture id="wall1" path="scenes/image/wall1.jpg" />
     </textures>
 <!-- -->
 
@@ -67,28 +71,14 @@
             <diffuse r="0.4" g="0.4" b="0.4" a="1" />       
             <specular r="0.0" g="0.0" b="0.0" a="1" />        
         </material>
-        <!--
-        <material id="orcMaterial" shininess="1">
-            <emission r="0.0" g="0.0" b="0.0" a="1" />
-            <ambient r="1.0" g="1.0" b="1.0" a="1" />      
-            <diffuse r="1.0" g="1.0" b="1.0" a="1" />       
-            <specular r="1.0" g="1.0" b="1.0" a="1" />           
-        </material>
-        <material id="goblinMaterial" shininess="1">
-            <emission r="0.0" g="0.0" b="0.0" a="1" />
-            <ambient r="0.8" g="0.2" b="0.8" a="1" />      
-            <diffuse r="0.8" g="0.2" b="0.8" a="1" />       
-            <specular r="0.8" g="0.2" b="0.8" a="1" />        
-        </material>
-        <material id="zombieMaterial" shininess="1">
-            <emission r="0.0" g="0.0" b="0.0" a="1" />
-            <ambient r="0.3" g="0.9" b="0.1" a="1" />      
-            <diffuse r="0.3" g="0.9" b="0.1" a="1" />             
-            <specular r="0.3" g="0.9" b="0.1" a="1" />        
-        </material>
-        -->
         <material id="woodMaterial" shininess="1">
             <emission r="0.52" g="0.37" b="0.26" a="1.0" />
+            <ambient r="0.4" g="0.4" b="0.4" a="1.0" />
+            <diffuse r="0.52" g="0.37" b="0.26" a="1.0" />
+            <specular r="0.1" g="0.1" b="0.1" a="1.0" />
+        </material>
+        <material id="lavaMaterial" shininess="1">
+            <emission r="0.9" g="0.37" b="0.26" a="1.0" />
             <ambient r="0.4" g="0.4" b="0.4" a="1.0" />
             <diffuse r="0.52" g="0.37" b="0.26" a="1.0" />
             <specular r="0.1" g="0.1" b="0.1" a="1.0" />
@@ -114,34 +104,14 @@
             </transformations>
 
             <descendants>
-                <noderef id="Board"/>
                 <noderef id="Room"/>
-              <!--  <noderef id="Orc Pieces"/>
-                <noderef id="Goblin Pieces"/>
-                <noderef id="Zombie Pieces"/>-->
                 <noderef id="Mesa e Cadeira"/>
             </descendants>
         </node>
         <!-- -->
 
-        <!--Game board-->
-        <node id="Board">
-            <material id="null"/>
 
-            <texture id="null"/>
-
-            <transformations>
-                <translation x="0" y="0" z="0"/>
-                <rotation axis="x" angle="-90"/>
-            </transformations>
-
-            <descendants>
-                <leaf type="board"/>
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Game board-->
+        <!--Room -->
         <node id="Room">
             <material id="null"/>
 
@@ -164,9 +134,9 @@
 
         <!--Parede da esquerda-->
         <node id="ParedeEsq">
-            <material id="null" />
+            <material id="lavaMaterial" />
 
-            <texture id="null"/>
+            <texture id="wall1"/>
 
             <transformations>
 
@@ -279,9 +249,9 @@
 
         <!--Teto -->
         <node id="Chao">
-            <material id="null" />
+            <material id="lavaMaterial" />
 
-            <texture id="null"/>
+            <texture id="lava"/>
 
             <transformations>
 
@@ -299,556 +269,8 @@
             </descendants>
         </node>
         <!-- -->
-        
 
-        <!--Orc pieces present in the game-->
-        <node id="Orc Pieces">
-           <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-                <translation x="0" y="0.6" z="0"/>
-                <rotation axis="x" angle="-90"/>
-            </transformations>
-
-            <descendants>
-                <noderef id="Orc Piece 1"/>
-                <noderef id="Orc Piece 2"/>
-                <noderef id="Orc Piece 3"/>
-                <noderef id="Orc Piece 4"/>
-                <noderef id="Orc Piece 5"/>
-                <noderef id="Orc Piece 6"/>
-                <noderef id="Orc Piece 7"/>
-                <noderef id="Orc Piece 8"/>
-                <noderef id="Orc Piece 9"/>
-                <noderef id="Orc Piece 10"/>
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Goblin pieces present in the game-->
-        <node id="Goblin Pieces">
-           <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-                <translation x="0" y="0.6" z="0"/>
-                <rotation axis="x" angle="-90"/>
-            </transformations>
-
-            <descendants>
-                <noderef id="Goblin Piece 1"/>
-                <noderef id="Goblin Piece 2"/>
-                <noderef id="Goblin Piece 3"/>
-                <noderef id="Goblin Piece 4"/>
-                <noderef id="Goblin Piece 5"/>
-                <noderef id="Goblin Piece 6"/>
-                <noderef id="Goblin Piece 7"/>
-                <noderef id="Goblin Piece 8"/>
-                <noderef id="Goblin Piece 9"/>
-                <noderef id="Goblin Piece 10"/>
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Zombie pieces present in the game-->
-        <node id="Zombie Pieces">
-           <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-                <translation x="0" y="0.6" z="0"/>
-                <rotation axis="x" angle="-90"/>
-            </transformations>
-
-            <descendants>
-                <noderef id="Zombie Piece 1"/>
-                <noderef id="Zombie Piece 2"/>
-                <noderef id="Zombie Piece 3"/>
-                <noderef id="Zombie Piece 4"/>
-                <noderef id="Zombie Piece 5"/>
-                <noderef id="Zombie Piece 6"/>
-                <noderef id="Zombie Piece 7"/>
-                <noderef id="Zombie Piece 8"/>
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Orc piece that starts at (7, 7)-->
-        <node id= "Orc Piece 1">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-                
-            </transformations>
-
-            <descendants>
-                <piece type="orc" row="7" column="7"/>
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Orc piece that starts at (8, 7)-->
-        <node id= "Orc Piece 2">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-                
-            </transformations>
-
-            <descendants>
-                <piece type="orc" row="8" column="7"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Orc piece that starts at (8, 8)-->
-        <node id= "Orc Piece 3">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-            </transformations>
-
-            <descendants>
-                <piece type="orc" row="8" column="8"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Orc piece that starts at (9, 7)-->
-        <node id= "Orc Piece 4">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="orc" row="9" column="7"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Orc piece that starts at (9, 8)-->
-        <node id= "Orc Piece 5">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="orc" row="9" column="8"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Orc piece that starts at (9, 9)-->
-        <node id= "Orc Piece 6">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="orc" row="9" column="9"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Orc piece that starts at (10, 7)-->
-        <node id= "Orc Piece 7">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="orc" row="10" column="7"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Orc piece that starts at (10, 8)-->
-        <node id= "Orc Piece 8">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="orc" row="10" column="8"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Orc piece that starts at (10, 9)-->
-        <node id= "Orc Piece 9">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="orc" row="10" column="9"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Orc piece that starts at (10, 10)-->
-        <node id= "Orc Piece 10">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="orc" row="10" column="10"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Goblin piece that starts at (7, 1)-->
-        <node id= "Goblin Piece 1">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="goblin" row="7" column="1"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Goblin piece that starts at (8, 1)-->
-        <node id= "Goblin Piece 2">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="goblin" row="8" column="1"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Goblin piece that starts at (8, 2)-->
-        <node id= "Goblin Piece 3">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="goblin" row="8" column="2"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Goblin piece that starts at (9, 1)-->
-        <node id= "Goblin Piece 4">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="goblin" row="9" column="1"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Goblin piece that starts at (9, 2)-->
-        <node id= "Goblin Piece 5">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-            </transformations>
-
-            <descendants>
-                <piece type="goblin" row="9" column="2"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Goblin piece that starts at (9, 3)-->
-        <node id= "Goblin Piece 6">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-            </transformations>
-
-            <descendants>
-                <piece type="goblin" row="9" column="3"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Goblin piece that starts at (10, 1)-->
-        <node id= "Goblin Piece 7">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="goblin" row="10" column="1"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Goblin piece that starts at (10, 2)-->
-        <node id= "Goblin Piece 8">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="goblin" row="10" column="2"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Goblin piece that starts at (10, 3)-->
-        <node id= "Goblin Piece 9">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-            </transformations>
-
-            <descendants>
-                <piece type="goblin" row="10" column="3"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Goblin piece that starts at (10, 4)-->
-        <node id= "Goblin Piece 10">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="goblin" row="10" column="4"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Zombie piece that starts at (3, 1)-->
-        <node id= "Zombie Piece 1">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="zombie" row="3" column="1"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Zombie piece that starts at (3, 3)-->
-        <node id= "Zombie Piece 2">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="zombie" row="3" column="3"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Zombie piece that starts at (4, 1)-->
-        <node id= "Zombie Piece 3">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="zombie" row="4" column="1"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Zombie piece that starts at (4, 4)-->
-        <node id= "Zombie Piece 4">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="zombie" row="4" column="4"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Zombie piece that starts at (5, 3)-->
-        <node id= "Zombie Piece 5">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="zombie" row="5" column="3"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Zombie piece that starts at (6, 3)-->
-        <node id= "Zombie Piece 6">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="zombie" row="6" column="3"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Zombie piece that starts at (6, 4)-->
-        <node id= "Zombie Piece 7">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="zombie" row="6" column="4"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Zombie piece that starts at (7, 4)-->
-        <node id= "Zombie Piece 8">
-            <material id="null"/>
-
-            <texture id="null"/>
-
-            <transformations>
-
-            </transformations>
-
-            <descendants>
-                <piece type="zombie" row="7" column="4"/>
-
-            </descendants>
-        </node>
-        <!-- -->
-
-        <!--Uma mesa e duas cadeira-->
+       <!--Uma mesa e duas cadeira-->
         <node id="Mesa e Cadeira">
             <material id="null" />
 
