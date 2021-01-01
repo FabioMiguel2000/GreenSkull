@@ -34,7 +34,7 @@ class MyGameBoard extends CGFobject {
         this.squareMat.setSpecular(0.1, 0.1, 0.1, 1);
 
         //Temp functions for before buildBoard is working properly
-        /*
+        var id = 1;
         for (var row = 1; row <= 10; row++) {
             for (var column = 1; column <= row; column++) {
                 var tile = new MyTile(this.scene, row, column);
@@ -43,6 +43,8 @@ class MyGameBoard extends CGFobject {
                     (row == 10 && column == 9) || (row == 10 && column == 10)) {
                     var piece = new MyPiece(this.scene, 'orc', row, column);
                     piece.setTile(tile);
+                    piece.setPickID(id);
+                    id++;
                     tile.setPiece(piece);
                     this.pieces.push(piece);
                 } else if ((row == 7 && column == 1) || (row == 8 && column == 1) || (row == 8 && column == 2) || (row == 9 && column == 1) ||
@@ -50,6 +52,8 @@ class MyGameBoard extends CGFobject {
                     (row == 10 && column == 3) || (row == 10 && column == 4)) {
                     var piece = new MyPiece(this.scene, 'goblin', row, column);
                     piece.setTile(tile);
+                    piece.setPickID(id);
+                    id++;
                     tile.setPiece(piece);
                     this.pieces.push(piece);
 
@@ -57,13 +61,15 @@ class MyGameBoard extends CGFobject {
                     (row == 5 && column == 3) || (row == 6 && column == 3) || (row == 6 && column == 4) || (row == 7 && column == 4)) {
                     var piece = new MyPiece(this.scene, 'zombie', row, column);
                     piece.setTile(tile);
+                    piece.setPickID(id);
+                    id++;
                     tile.setPiece(piece);
                     this.pieces.push(piece);
                 }
 
                 this.tiles.push(tile)
             }
-        }*/
+        }
     }
 
     display() {
@@ -74,6 +80,8 @@ class MyGameBoard extends CGFobject {
         for (var i = 0; i < this.tiles.length; i++) {
             this.tiles[i].display();
             if (this.tiles[i].piece != null) {
+                this.scene.registerForPick(this.tiles[i].piece.pickID, this.tiles[i].piece);
+
                 this.tiles[i].displayPiece();
                 //console.log(this.tiles[i].piece);
             }
@@ -197,21 +205,21 @@ class MyGameBoard extends CGFobject {
     }
 
     //Function that receives the list containing the board configuration and places pieces in each space with one
-    buildBoard(board){
-        for(var i = 0; i < board.length; i++){
+    buildBoard(board) {
+        for (var i = 0; i < board.length; i++) {
             //The row is i + 1 because board positions start at 1 unlike list positions that start at 0
             var row = i + 1;
 
-            for(var j = 0; j < board[i].length; j++){
+            for (var j = 0; j < board[i].length; j++) {
                 //It is also added 1 to the column
                 var col = j + 1;
 
                 var tile = new MyTile(this.scene, row, column);
-                
-                switch(board[i][j]){
+
+                switch (board[i][j]) {
                     case 'empty':
                         break;
-                    
+
                     case 'goblin':
                         var piece = new MyPiece(this.scene, 'goblin', row, col);
                         this.pieces.push(piece);
@@ -222,14 +230,14 @@ class MyGameBoard extends CGFobject {
                     case 'orc':
                         var piece = new MyPiece(this.scene, 'orc', row, col);
                         this.pieces.push(piece);
-    
+
                         this.tile.setPiece(piece);
                         break;
 
                     case 'zombie':
                         var piece = new MyPiece(this.scene, 'zombie', row, col);
                         this.pieces.push(piece);
-        
+
                         this.tile.setPiece(piece);
                         break;
 

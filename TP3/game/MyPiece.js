@@ -10,6 +10,7 @@
 class MyPiece extends CGFobject {
     constructor(scene, type, row, column) {
         super(scene);
+        this.pickID = null;
         this.type = type;
         this.row = row;
         this.column = column;
@@ -44,6 +45,9 @@ class MyPiece extends CGFobject {
         }
         this.updatePos(this.row, this.column);
 
+    }
+    setPickID(ID) {
+        this.pickID = ID;
     }
     setTile(tile) {
         this.tile = tile;

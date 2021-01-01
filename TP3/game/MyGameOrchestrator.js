@@ -9,16 +9,17 @@ class MyGameOrchestrator extends CGFobject {
         super(scene);
         //this.gameSequence = new MyGameSequence(this.scene);
         this.gameBoard = new MyGameBoard(this.scene);
-        /*var filename = getUrlVars()['file'] || "GreenSkull.xml";
-        this.theme = new MySceneGraph(filename, scene);
-        var port;
-        this.prolog = new MyPrologInterface(port);*/
+        //var filename = getUrlVars()['file'] || "GreenSkull.xml";
+        //this.theme = new MySceneGraph(filename, scene);
+        var port = 8081;
+        this.prolog = new MyPrologInterface(port);
 
         this.initBuffers();
 
     }
 
     initBuffers() {
+        this.prolog.hellofunc();
 
     }
     update(time) {

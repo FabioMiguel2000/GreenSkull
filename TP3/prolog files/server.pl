@@ -122,6 +122,15 @@ parse_input(isEnd(GameBoard), End):- isEnd(GameBoard, End).
 % Input to close the server
 parse_input(quit, goodbye).
 
+hello_world([1, 2, 4]):-
+	write('Hello world').
+
+parse_input(hello_world(Fname), ReturnTemp):-
+	hello_world(ReturnTemp).
+
+parse_input('a', [1,2,3]) :-
+    String = 'Funcionou'.
+
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
 
