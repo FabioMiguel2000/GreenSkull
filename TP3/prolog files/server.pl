@@ -126,9 +126,11 @@ parse_input(loadIntermediate, [Board|[[[GS]]|[Rest]]]):- intermediate([Board|[GS
 
 parse_input(loadIntermediate, [Board|[[[GS]]|[Rest]]]):- final([Board|[GS|Rest]]).
 
-
 % Input to move piece
-parse_input(move(State, Move), NewState):- move(State, Move, NewState).
+parse_input(move([Board|[[[GS]]|[Rest]]], Move), [NewBoard|[[[NewGS]]|[NewRest]]]):- 
+	move([Board|[GS|Rest]], Move, [NewBoard|[NewGS|NewRest]]).
+
+parse_input(move(_State, _Move), no).
 
 % Input to get the score of a Player (or zombie)
 parse_input(score(GameBoard, Player), Value):- value(GameBoard, Player, Value).
@@ -139,18 +141,18 @@ parse_input(isEnd(GameBoard), End):- isEnd(GameBoard, End).
 % Input to close the server
 parse_input(quit, goodbye).
 
-hello_world([1, 2, 4]):-
-	write('Hello world').
-
-parse_input(hello_world(Fname), ReturnTemp):-
+parse_input(hello_world(_Fname), ReturnTemp):-
 	hello_world(ReturnTemp).
 
 parse_input('a', [1,2,3]) :-
-    String = 'Funcionou'.
+    _String = 'Funcionou'.
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
 
+hello_world([1, 2, 4]):-
+	write('Hello world').
+
 % Checks if the game has ended, and returns 'yes' if it has or 'no' if it has not
-isEnd(Gameboard, yes):- checkIfEndState(GameBoard).
-isEnd(Gameboard, no).
+isEnd(GameBoard, yes):- checkIfEndState(GameBoard).
+isEnd(_GameBoard, no).

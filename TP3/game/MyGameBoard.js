@@ -127,9 +127,7 @@ class MyGameBoard extends CGFobject {
         this.greenSkull.display();
         this.scene.popMatrix();
 
-
         this.scene.popMatrix();
-
     }
 
     setGreenSkull(player) {
@@ -172,14 +170,16 @@ class MyGameBoard extends CGFobject {
             console.log("No piece on starting Tile");
             return -1;
         }
-        startingTile.unsetPiece();
+        
         if (destinationTile.piece != null) {
             console.log("Destination tile not empty");
             return -1;
         }
+
+        startingTile.unsetPiece();
         destinationTile.setPiece(piece);
         piece.setTile(destinationTile);
-        //piece.updatePos(destinationTile.row, destinationTile.column);
+
         return 0;
     }
 
