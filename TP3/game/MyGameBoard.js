@@ -16,21 +16,6 @@ class MyGameBoard extends CGFobject {
 
             this.initBuffers();
         }
-        /*logPicking() {
-            if (this.scene.pickMode == false) {
-                if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
-                    for (var i = 0; i < this.scene.pickResults.length; i++) {
-                        var obj = this.scene.pickResults[i][0];
-                        if (obj) {
-                            var customId = this.scene.pickResults[i][1];
-                            console.log("Picked object: " + obj + ", with pick id " + customId);
-                            //console.log(obj);
-                        }
-                    }
-                    this.scene.pickResults.splice(0, this.scene.pickResults.length);
-                }
-            }
-        }*/
 
     initBuffers() {
         //Geometry for a tile of the board that will be replicated to display all tiles of the board
@@ -60,9 +45,10 @@ class MyGameBoard extends CGFobject {
         /*Tiles */
 
         for (var i = 0; i < this.tiles.length; i++) {
+            this.scene.registerForPick(idTiles, this.tiles[i]);
             this.tiles[i].display();
             //console.log(this.tiles[0]);
-            this.scene.registerForPick(idTiles, this.tiles[i]);
+            
             idTiles++;
 
             if (this.tiles[i].piece != null) {
@@ -72,7 +58,7 @@ class MyGameBoard extends CGFobject {
             }
 
         }
-
+        this.scene.clearPickRegistration();
 
 
         /*Square Board */
