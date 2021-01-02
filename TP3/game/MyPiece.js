@@ -51,11 +51,14 @@ class MyPiece extends CGFobject {
     }
     setTile(tile) {
         this.tile = tile;
+        this.updatePos(tile.row, tile.column);
     }
     unsetTile() {
         this.tile = null;
     }
     updatePos(row, column) {
+        this.row = row;
+        this.column = column;
         this.posY = 7.5 - row * 1.5;
         this.posX = column * 1.7 - row * 0.85 - 0.85;
     }

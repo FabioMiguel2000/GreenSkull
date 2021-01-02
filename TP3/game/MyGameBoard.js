@@ -5,17 +5,17 @@
  */
 class MyGameBoard extends CGFobject {
     constructor(scene) {
-            super(scene);
+        super(scene);
 
-            this.square = new MyRectangle(this.scene, -1, -1, 1, 1);
-            this.triangle = new MyTriangle(this.scene, 0, 0, 1.5, 1.5, 1.5, 0);
-            this.greenSkull = new MyGreenSkull(this.scene, 'goblin');
+        this.square = new MyRectangle(this.scene, -1, -1, 1, 1);
+        this.triangle = new MyTriangle(this.scene, 0, 0, 1.5, 1.5, 1.5, 0);
+        this.greenSkull = new MyGreenSkull(this.scene, 'goblin');
 
-            this.tiles = [];
-            this.pieces = [];
+        this.tiles = [];
+        this.pieces = [];
 
-            this.initBuffers();
-        }
+        this.initBuffers();
+    }
 
     initBuffers() {
         //Geometry for a tile of the board that will be replicated to display all tiles of the board
@@ -36,27 +36,22 @@ class MyGameBoard extends CGFobject {
     }
 
     display() {
-        //this.logPicking();
-        //this.scene.clearPickRegistration();
+
 
         this.scene.pushMatrix();
         this.scene.rotate(-90 * Math.PI / 180, 1, 0, 0);
-        var idTiles = 31;
+
         /*Tiles */
 
         for (var i = 0; i < this.tiles.length; i++) {
-            this.scene.registerForPick(idTiles, this.tiles[i]);
+            this.scene.registerForPick(this.tiles[i].pickID, this.tiles[i]);
             this.tiles[i].display();
-            //console.log(this.tiles[0]);
-            
-            idTiles++;
 
             if (this.tiles[i].piece != null) {
                 this.scene.registerForPick(this.tiles[i].piece.pickID, this.tiles[i].piece);
                 this.tiles[i].displayPiece();
-                //console.log(this.tiles[i].piece);
-            }
 
+            }
         }
         this.scene.clearPickRegistration();
 
@@ -171,13 +166,20 @@ class MyGameBoard extends CGFobject {
 
     movePiece(piece, startingTile, destinationTile) {
         if (startingTile.piece != piece) {
+            console.log(startingTile.piece);
+            console.log(piece);
+
+            console.log("No piece on starting Tile");
             return -1;
         }
         startingTile.unsetPiece();
         if (destinationTile.piece != null) {
+            console.log("Destination tile not empty");
             return -1;
         }
         destinationTile.setPiece(piece);
+        piece.setTile(destinationTile);
+        //piece.updatePos(destinationTile.row, destinationTile.column);
         return 0;
     }
 

@@ -47,6 +47,8 @@ class XMLscene extends CGFscene {
         this.selectedCamera = 0;
         this.lastTime = 0;
         this.time = 0;
+
+        this.pickedPiece = null;
     }
 
     /**
@@ -122,6 +124,7 @@ class XMLscene extends CGFscene {
 
 
 
+
     // Note: update(t) is called periodically (as per setUpdatePeriod() in init())
     update(t) {
         t = t / 1000;
@@ -149,6 +152,13 @@ class XMLscene extends CGFscene {
                     if (obj) {
                         var customId = this.pickResults[i][1];
                         console.log("Picked object: " + obj + ", with pick id " + customId);
+
+                        if (customId < 30)
+                            this.pickedPiece = obj;
+                        else if (this.pickedPiece != null && customId > 30) {
+                            this.gameOrchestrator.movePiece(this.pickedPiece, obj);
+                            this.pickedPiece = null;
+                        }
                     }
                 }
                 this.pickResults.splice(0, this.pickResults.length);
@@ -162,6 +172,7 @@ class XMLscene extends CGFscene {
     display() {
         this.logPicking();
         this.clearPickRegistration();
+
         // ---- BEGIN Background, camera and axis setup
 
         // Clear image and depth buffer everytime we update the scene
@@ -176,6 +187,7 @@ class XMLscene extends CGFscene {
         this.applyViewMatrix();
 
         this.pushMatrix();
+        this.clearPickRegistration();
 
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
@@ -213,7 +225,10 @@ class XMLscene extends CGFscene {
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
+
+
         this.gameOrchestrator.display();
+
 
         this.popMatrix();
 

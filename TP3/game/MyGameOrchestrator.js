@@ -7,7 +7,7 @@
 class MyGameOrchestrator extends CGFobject {
     constructor(scene) {
         super(scene);
-        //this.gameSequence = new MyGameSequence(this.scene);
+        this.gameSequence = new MyGameSequence(this.scene);
         this.gameBoard = new MyGameBoard(this.scene);
         //var filename = getUrlVars()['file'] || "GreenSkull.xml";
         //this.theme = new MySceneGraph(filename, scene);
@@ -16,6 +16,18 @@ class MyGameOrchestrator extends CGFobject {
 
         this.initBuffers();
 
+    }
+
+    movePiece(pieceToMove, destTile) {
+        /*console.log("Piece to move: " + pieceToMove.pickID);
+        console.log("Destination tile: " + destTile.pickID);*/
+        var row = pieceToMove.row;
+        var col = pieceToMove.column;
+        if (this.gameBoard.movePiece(pieceToMove, pieceToMove.tile, destTile) == -1) {
+            console.log("Piece not moved!");
+        } else {
+            console.log("Piece at position (" + row + ", " + col + ") moved to (" + destTile.row + ", " + destTile.column + ")");
+        }
     }
 
 
@@ -48,7 +60,8 @@ class MyGameOrchestrator extends CGFobject {
         var greenSkull = items[1][0];
         /*var piecesTaken = items[2][0].split(',');
         console.log(piecesTaken);*/
-        var id = 1;
+        var idPiece = 1;
+        var idTiles = 31;
 
         for (var row = 0; row < gameState.length; row++) {
             var rowArray = gameState[row].split(',');
@@ -59,35 +72,37 @@ class MyGameOrchestrator extends CGFobject {
                     case 'goblin':
                         var piece = new MyPiece(this.scene, 'goblin', row + 1, col + 1);
                         piece.setTile(tile);
-                        piece.setPickID(id);
-                        id++;
+                        piece.setPickID(idPiece);
+                        idPiece++;
                         tile.setPiece(piece);
                         this.gameBoard.pieces.push(piece);
                         break;
                     case 'orc':
                         var piece = new MyPiece(this.scene, 'orc', row + 1, col + 1);
                         piece.setTile(tile);
-                        piece.setPickID(id);
-                        id++;
+                        piece.setPickID(idPiece);
+                        idPiece++;
                         tile.setPiece(piece);
                         this.gameBoard.pieces.push(piece);
                         break;
                     case 'zombie':
                         var piece = new MyPiece(this.scene, 'zombie', row + 1, col + 1);
                         piece.setTile(tile);
-                        piece.setPickID(id);
-                        id++;
+                        piece.setPickID(idPiece);
+                        idPiece++;
                         tile.setPiece(piece);
                         this.gameBoard.pieces.push(piece);
                         break;
                     default:
                         break;
                 }
+                tile.setPickID(idTiles);
+                idTiles++;
                 this.gameBoard.tiles.push(tile);
 
             }
         }
-        console.log(this.gameBoard.tiles[0]);
+        //console.log(this.gameBoard.tiles[0]);
         this.gameBoard.setGreenSkull(greenSkull);
     }
 
