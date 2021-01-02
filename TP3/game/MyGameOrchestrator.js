@@ -14,8 +14,9 @@ class MyGameOrchestrator extends CGFobject {
         var port = 8081;
         this.prolog = new MyPrologInterface(port);
 
-        this.initBuffers();
+        this.currentPlayer = 'orc';
 
+        this.initBuffers();
     }
 
     movePiece(pieceToMove, destTile) {
@@ -23,10 +24,29 @@ class MyGameOrchestrator extends CGFobject {
         console.log("Destination tile: " + destTile.pickID);*/
         var row = pieceToMove.row;
         var col = pieceToMove.column;
-        if (this.gameBoard.movePiece(pieceToMove, pieceToMove.tile, destTile) == -1) {
-            console.log("Piece not moved!");
-        } else {
-            console.log("Piece at position (" + row + ", " + col + ") moved to (" + destTile.row + ", " + destTile.column + ")");
+        var moveType;
+        
+        if(destTile.piece == null){
+            moveType = 'normal';
+        }
+        else{
+            moveType = 'jump';
+        }
+
+        var request = 'move(' + this.stringState + ',[' + this.currentPlayer + ',' + moveType + 
+            '[[' + row + ',' + col + '],[' + destTile.row + ',' + destTile.column + ']]])' ;
+
+        var newRequest = this.prolog.getRequest(request)
+
+        console.log(newRequest);
+        
+        if(newRequest != 'no'){
+            if (this.gameBoard.movePiece(pieceToMove, pieceToMove.tile, destTile) == -1) {
+                console.log("Piece not moved!");
+            } else {
+                console.log("Piece at position (" + row + ", " + col + ") moved to (" + destTile.row + ", " + destTile.column + ")");
+                this.stringState = newRequest;
+            }
         }
     }
 
@@ -36,24 +56,25 @@ class MyGameOrchestrator extends CGFobject {
     }
     loadInitialState() {
         let request = 'loadInitial';
-        var stringState = this.prolog.loadState(request);
+        this.stringState = this.prolog.loadState(request);
+        console.log(this.stringState);
         let depth = 0;
         let item = '';
         let items = [];
-        for (let i = 0; i < stringState.length; i++) {
-            if (stringState[i] === '[') {
+        for (let i = 0; i < this.stringState.length; i++) {
+            if (this.stringState[i] === '[') {
                 depth++;
                 if (depth === 2) {
                     items.push([]);
                 }
-            } else if (stringState[i] === ']') {
+            } else if (this.stringState[i] === ']') {
                 if (depth === 3) {
                     items[items.length - 1].push(item);
                     item = '';
                 }
                 depth--;
             } else if (depth === 3) {
-                item += stringState[i]
+                item += this.stringState[i]
             }
         }
         var gameState = items[0];
@@ -106,8 +127,6 @@ class MyGameOrchestrator extends CGFobject {
         this.gameBoard.setGreenSkull(greenSkull);
     }
 
-
-
     update(time) {
         //this.animator.update(time);
     }
@@ -121,6 +140,4 @@ class MyGameOrchestrator extends CGFobject {
         this.gameBoard.display();
 
     }
-
-
 }
