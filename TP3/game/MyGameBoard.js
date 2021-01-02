@@ -53,7 +53,7 @@ class MyGameBoard extends CGFobject {
 
             }
         }
-        //this.scene.clearPickRegistration();
+        this.scene.clearPickRegistration();
 
 
         /*Square Board */
