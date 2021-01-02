@@ -160,8 +160,9 @@ class XMLscene extends CGFscene {
      * Displays the scene.
      */
     display() {
-        this.logPicking();
         this.clearPickRegistration();
+
+        this.logPicking();
         // ---- BEGIN Background, camera and axis setup
 
         // Clear image and depth buffer everytime we update the scene
@@ -216,6 +217,7 @@ class XMLscene extends CGFscene {
         this.gameOrchestrator.display();
 
         this.popMatrix();
+
         // ---- END Background, camera and axis setup
     }
 }

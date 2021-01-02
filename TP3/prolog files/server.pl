@@ -122,9 +122,9 @@ parse_input(test(C,N), Res) :- test(C,Res,N).
 
 parse_input(loadInitial, [Board|[[[GS]]|[Rest]]]):- initial([Board|[GS|Rest]]).
 
-parse_input(loadInt, [Board|[[[GS]]|[Rest]]]):- intermediate([Board|[GS|Rest]]).
+parse_input(loadIntermediate, [Board|[[[GS]]|[Rest]]]):- intermediate([Board|[GS|Rest]]).
 
-
+parse_input(loadIntermediate, [Board|[[[GS]]|[Rest]]]):- final([Board|[GS|Rest]]).
 
 
 % Input to move piece
