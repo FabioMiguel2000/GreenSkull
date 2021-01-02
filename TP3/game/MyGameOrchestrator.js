@@ -40,7 +40,7 @@ class MyGameOrchestrator extends CGFobject {
             if (this.gameBoard.movePiece(pieceToMove, pieceToMove.tile, destTile) == -1) {
                 console.log("Piece not moved!");
             } else {
-                console.log("Piece at position (" + row + ", " + col + ") moved to (" + destTile.row + ", " + destTile.column + ")");
+                console.log("MOVEMENT SUCCESS: Piece at position (" + row + ", " + col + ") moved to (" + destTile.row + ", " + destTile.column + ")");
                 this.stringState = response;
             }
         }

@@ -163,7 +163,7 @@ class XMLscene extends CGFscene {
 
                         if (customId < 30) {
                             this.pickedPiece = obj;
-                            this.selectPieceAnimation();
+                            //this.selectPieceAnimation();
 
                         } else if (this.pickedPiece != null && customId > 30) {
                             this.gameOrchestrator.movePiece(this.pickedPiece, obj);

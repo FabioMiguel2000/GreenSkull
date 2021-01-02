@@ -133,7 +133,6 @@ parse_input(loadIntermediate, [Board|[[[GS]]|[Rest]]]):- final([Board|[GS|Rest]]
 parse_input(move(GameState,Player,MoveType,FromRow,FromCol,ToRow,ToCol), [NewBoard|[[[NewGS]]|[NewRest]]]):-
 	move(GameState, [Player|[MoveType|[[FromRow|FromCol]|[[ToRow|ToCol]]]]], [NewBoard|[NewGS|NewRest]]).
 
-parse_input(move(GameState), successful).
 
 parse_input(move(_State, _Move), no).
 
