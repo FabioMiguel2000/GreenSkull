@@ -29,6 +29,9 @@ class MyGreenSkull extends CGFobject {
         else
             this.player = 'goblin';
     }
+    playerWithGS(player) {
+        this.player = player;
+    }
 
     display() {
 

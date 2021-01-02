@@ -4,21 +4,26 @@
 class MyPrologInterface {
     constructor(port) {
         this.port = port || 8081;
+
     }
 
-    getRequest(requestString, onError) {
+    getRequest(requestString, onSuccess, onError) {
         let request = new XMLHttpRequest();
+        this.response = "";
 
-        request.open('GET', 'http://localhost:' + this.port + '/' + requestString, true);
+        request.open('GET', 'http://localhost:' + this.port + '/' + requestString, false);
 
-        /*request.onload = () => {
-                //this.response = JSON.parse(request.responseText);
-                this.responseReady = true;
-                console.log(this.response);
-                console.log("hello");
+        request.onload = () => {
+                this.response = request.responseText;
+                //this.responseReady = true;
+                //console.log(this.response);
+                //console.log("hello");
 
-            }*/
-        request.onload = function(data) { console.log("The request was successful. Reply: " + data.target.response); };
+            }
+            /*request.onload = onSuccess || function(data) {
+                console.log("The request was successful. Reply: " + data.target.response);
+
+            };*/
 
         request.onerror = onError || function() { console.log("Error waiting for response"); };
 
@@ -47,5 +52,15 @@ class MyPrologInterface {
         let request = `hello_world(${fname},${lname})`;*/
         let request = 'a';
         this.getRequest(request);
+    }
+
+    loadInitialState() {
+        let request = 'loadInt';
+
+        this.getRequest(request);
+
+        return this.response;
+        //console.log(response);
+        //console.log(data.target.response);
     }
 }

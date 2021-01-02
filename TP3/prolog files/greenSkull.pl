@@ -7,7 +7,6 @@
 :- consult('utils.pl').
 :- consult('AI.pl').
 :- consult('positions.pl').
-:- consult('test.pl').
 :- consult('server.pl').
 
 :- use_module(library(random)).

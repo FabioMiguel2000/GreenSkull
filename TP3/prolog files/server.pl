@@ -100,7 +100,17 @@ print_header_line(_).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%                                       Commands                                                  %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+:- consult('gameStates.pl').
+:- consult('display.pl').
+:- consult('menu.pl').
+:- consult('gameEnd.pl').
+:- consult('gameLoop.pl').
+:- consult('movement.pl').
+:- consult('utils.pl').
+:- consult('AI.pl').
+:- consult('positions.pl').
 
+:- use_module(library(random)).
 % Require your Prolog Files here
 
 % Test inputs
@@ -108,7 +118,14 @@ parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).
 
 % Input to retrieve initial game State
-parse_input(loadInitial, InitialState):- initial(InitialState).
+%parse_input(loadInitial, InitialState):- initial(InitialState).
+
+parse_input(loadInitial, [Board|[[[GS]]|[Rest]]]):- initial([Board|[GS|Rest]]).
+
+parse_input(loadInt, [Board|[[[GS]]|[Rest]]]):- intermediate([Board|[GS|Rest]]).
+
+
+
 
 % Input to move piece
 parse_input(move(State, Move), NewState):- move(State, Move, NewState).

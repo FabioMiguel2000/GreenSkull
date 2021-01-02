@@ -34,7 +34,7 @@ class MyGameBoard extends CGFobject {
         this.squareMat.setSpecular(0.1, 0.1, 0.1, 1);
 
         //Temp functions for before buildBoard is working properly
-        var id = 1;
+        /*var id = 1;
         for (var row = 1; row <= 10; row++) {
             for (var column = 1; column <= row; column++) {
                 var tile = new MyTile(this.scene, row, column);
@@ -69,7 +69,7 @@ class MyGameBoard extends CGFobject {
 
                 this.tiles.push(tile)
             }
-        }
+        }*/
     }
 
     display() {
@@ -162,6 +162,10 @@ class MyGameBoard extends CGFobject {
 
 
         this.scene.popMatrix();
+    }
+
+    setGreenSkull(player) {
+        this.greenSkull.playerWithGS(player);
     }
 
     removePieceFromTile(row, column) {
