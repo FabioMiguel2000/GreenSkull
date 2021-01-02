@@ -127,8 +127,13 @@ parse_input(loadIntermediate, [Board|[[[GS]]|[Rest]]]):- intermediate([Board|[GS
 parse_input(loadIntermediate, [Board|[[[GS]]|[Rest]]]):- final([Board|[GS|Rest]]).
 
 % Input to move piece
-parse_input(move([Board|[[[GS]]|[Rest]]], Move), [NewBoard|[[[NewGS]]|[NewRest]]]):- 
-	move([Board|[GS|Rest]], Move, [NewBoard|[NewGS|NewRest]]).
+% parse_input(move([Board|[[[GS]]|[Rest]]], Move), [NewBoard|[[[NewGS]]|[NewRest]]]):- 
+% 	move([Board|[GS|Rest]], Move, [NewBoard|[NewGS|NewRest]]).
+
+parse_input(move(GameState,Player,MoveType,FromRow,FromCol,ToRow,ToCol), [NewBoard|[[[NewGS]]|[NewRest]]]):-
+	move(GameState, [Player|[MoveType|[[FromRow|FromCol]|[[ToRow|ToCol]]]]], [NewBoard|[NewGS|NewRest]]).
+
+parse_input(move(GameState), successful).
 
 parse_input(move(_State, _Move), no).
 

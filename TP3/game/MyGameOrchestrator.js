@@ -15,39 +15,63 @@ class MyGameOrchestrator extends CGFobject {
         this.prolog = new MyPrologInterface(port);
 
         this.currentPlayer = 'orc';
+        this.piecesTaken = [];
 
         this.initBuffers();
     }
 
     movePiece(pieceToMove, destTile) {
-        /*console.log("Piece to move: " + pieceToMove.pickID);
-        console.log("Destination tile: " + destTile.pickID);*/
         var row = pieceToMove.row;
         var col = pieceToMove.column;
         var moveType;
-        
-        if(destTile.piece == null){
+
+        if (destTile.piece == null) {
             moveType = 'normal';
-        }
-        else{
+        } else {
             moveType = 'jump';
         }
+        var request = "move(" + this.getStringState() + "," + this.currentPlayer + "," + moveType + "," +
+            row + "," + col + "," + destTile.row + "," + destTile.column + ")";
 
-        var request = 'move(' + this.stringState + ',[' + this.currentPlayer + ',' + moveType + 
-            '[[' + row + ',' + col + '],[' + destTile.row + ',' + destTile.column + ']]])' ;
+        var response = this.prolog.loadState(request)
+            //console.log(response);
 
-        var newRequest = this.prolog.getRequest(request)
-
-        console.log(newRequest);
-        
-        if(newRequest != 'no'){
+        if (response != 'no') {
             if (this.gameBoard.movePiece(pieceToMove, pieceToMove.tile, destTile) == -1) {
                 console.log("Piece not moved!");
             } else {
                 console.log("Piece at position (" + row + ", " + col + ") moved to (" + destTile.row + ", " + destTile.column + ")");
-                this.stringState = newRequest;
+                this.stringState = response;
             }
         }
+    }
+
+    getStringState() {
+        var str = '[[';
+        var index = 0;
+        for (var row = 1; row <= 10; row++) {
+            str += '['
+            for (var col = 1; col <= row; col++) {
+                if (this.gameBoard.tiles[index].piece == null) {
+                    str += 'empty';
+                } else {
+                    str += this.gameBoard.tiles[index].piece.type;
+
+                }
+                if (col != row)
+                    str += ',';
+                index++;
+            }
+            str += ']';
+            if (row != 10)
+                str += ',';
+        }
+        str += '],';
+        str += this.currentPlayer + ',[';
+        str += this.piecesTaken.toString();
+        str += ']]';
+        return str;
+
     }
 
 
@@ -57,7 +81,7 @@ class MyGameOrchestrator extends CGFobject {
     loadInitialState() {
         let request = 'loadInitial';
         this.stringState = this.prolog.loadState(request);
-        console.log(this.stringState);
+        //console.log(this.stringState);
         let depth = 0;
         let item = '';
         let items = [];
