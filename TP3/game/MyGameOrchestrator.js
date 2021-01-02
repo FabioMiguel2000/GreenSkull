@@ -17,21 +17,7 @@ class MyGameOrchestrator extends CGFobject {
         this.initBuffers();
 
     }
-    logPicking() {
-        if (this.scene.pickMode == false) {
-            if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
-                for (var i = 0; i < this.scene.pickResults.length; i++) {
-                    var obj = this.scene.pickResults[i][0];
-                    if (obj) {
-                        var customId = this.scene.pickResults[i][1];
-                        console.log("Picked object: " + obj + ", with pick id " + customId);
-                        console.log(obj);
-                    }
-                }
-                this.scene.pickResults.splice(0, this.scene.pickResults.length);
-            }
-        }
-    }
+
 
     initBuffers() {
         this.loadInitialState();
@@ -101,6 +87,7 @@ class MyGameOrchestrator extends CGFobject {
 
             }
         }
+        console.log(this.gameBoard.tiles[0]);
         this.gameBoard.setGreenSkull(greenSkull);
     }
 
@@ -114,8 +101,7 @@ class MyGameOrchestrator extends CGFobject {
         this.theme.display();
 
         this.animator.display();*/
-        this.logPicking();
-        this.scene.clearPickRegistration();
+
 
         this.gameBoard.display();
 
