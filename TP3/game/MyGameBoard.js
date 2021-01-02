@@ -166,9 +166,6 @@ class MyGameBoard extends CGFobject {
 
     movePiece(piece, startingTile, destinationTile) {
         if (startingTile.piece != piece) {
-            console.log(startingTile.piece);
-            console.log(piece);
-
             console.log("No piece on starting Tile");
             return -1;
         }
@@ -179,7 +176,6 @@ class MyGameBoard extends CGFobject {
         }
         destinationTile.setPiece(piece);
         piece.setTile(destinationTile);
-        //piece.updatePos(destinationTile.row, destinationTile.column);
         return 0;
     }
 

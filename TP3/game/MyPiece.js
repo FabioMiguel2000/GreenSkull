@@ -17,6 +17,7 @@ class MyPiece extends CGFobject {
         this.tile = null;
         this.piece = new MyCylinder(this.scene, 0.6, 0.6, 0.3, 16, 4);
         this.initBuffers();
+        this.animation = null;
     }
 
     initBuffers() {
@@ -45,6 +46,11 @@ class MyPiece extends CGFobject {
         }
         this.updatePos(this.row, this.column);
 
+    }
+
+    setAnimation(animation) {
+        //console.log(animation);
+        this.animation = animation;
     }
     setPickID(ID) {
         this.pickID = ID;

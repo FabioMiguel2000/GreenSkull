@@ -144,6 +144,14 @@ class XMLscene extends CGFscene {
         }
     }
 
+    selectPieceAnimation() {
+        var selectAnimation = this.animations["Piece Select"];
+        console.log(selectAnimation);
+        this.pickedPiece.setAnimation(selectAnimation);
+        selectAnimation.apply();
+    }
+
+
     logPicking() {
         if (this.pickMode == false) {
             if (this.pickResults != null && this.pickResults.length > 0) {
@@ -153,9 +161,11 @@ class XMLscene extends CGFscene {
                         var customId = this.pickResults[i][1];
                         console.log("Picked object: " + obj + ", with pick id " + customId);
 
-                        if (customId < 30)
+                        if (customId < 30) {
                             this.pickedPiece = obj;
-                        else if (this.pickedPiece != null && customId > 30) {
+                            this.selectPieceAnimation();
+
+                        } else if (this.pickedPiece != null && customId > 30) {
                             this.gameOrchestrator.movePiece(this.pickedPiece, obj);
                             this.pickedPiece = null;
                         }
