@@ -13,6 +13,7 @@ class MyTile extends CGFobject {
         this.column = column;
         this.piece = null;
         this.tile = new MyCylinder(this.scene, 1, 1, 0.6, 6, 4);
+        this.pickID = null;
         this.initBuffers();
     }
 
@@ -25,6 +26,9 @@ class MyTile extends CGFobject {
         this.tileMat.setShininess(51.2);
         this.updatePos(this.row, this.column);
 
+    }
+    setPickID(ID) {
+        this.pickID = ID;
     }
     setPiece(piece) {
         this.piece = piece;
