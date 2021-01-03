@@ -19,8 +19,6 @@ class MyGameOrchestrator extends CGFobject {
         this.goblinScore = 0;
         this.orcScore = 0;
         this.zombieScore = 0;
-
-
     }
 
     updateGameScore() {
@@ -35,18 +33,18 @@ class MyGameOrchestrator extends CGFobject {
     }
 
     updateGoblinScore() {
-        var request = "value(" + this.getStringState() + "," + "goblin)";
+        var request = "value(" + this.gameBoard.getStringState() + "," + "goblin)";
         this.goblinScore = this.prolog.getResponse(request);
 
     }
 
     updateOrcScore() {
-        var request = "value(" + this.getStringState() + "," + "orc)";
+        var request = "value(" + this.gameBoard.getStringState() + "," + "orc)";
         this.orcScore = this.prolog.getResponse(request);
     }
 
     updateZombieScore() {
-        var request = "value(" + this.getStringState() + "," + "zombie)";
+        var request = "value(" + this.gameBoard.getStringState() + "," + "zombie)";
         this.zombieScore = this.prolog.getResponse(request);
     }
 
@@ -63,18 +61,17 @@ class MyGameOrchestrator extends CGFobject {
         } else {
             moveType = 'jump';
         }
-        var request = "move(" + this.getStringState() + "," + this.currentPlayer + "," + moveType + "," +
+        var request = "move(" + this.gameBoard.getStringState() + "," + this.currentPlayer + "," + moveType + "," +
             row + "," + col + "," + destRow + "," + destCol + ")";
 
         var response = this.prolog.getResponse(request);
-        //console.log(response);
 
         if (response != 'no') {
 
             if (moveType == 'normal') {
 
                 var newMove = new MyGameMove(this.scene, pieceToMove, previousTile, destTile, moveType,
-                    this.currentPlayer, this.getStringState());
+                    this.currentPlayer, this.gameBoard.getStringState());
 
                 if (this.gameBoard.movePiece(pieceToMove, previousTile, destTile) == -1) {
                     console.log("Piece not moved!");
@@ -89,7 +86,7 @@ class MyGameOrchestrator extends CGFobject {
                 var jumpDestTile = this.gameBoard.jumpPiece(pieceToMove, previousTile, destTile, this.currentPlayer);
 
                 var newMove = new MyGameMove(this.scene, pieceToMove, previousTile, jumpDestTile, moveType,
-                    this.currentPlayer, this.getStringState());
+                    this.currentPlayer, this.gameBoard.getStringState());
 
                 if (jumpDestTile == -1) {
                     console.log("Piece not moved!");
@@ -98,48 +95,16 @@ class MyGameOrchestrator extends CGFobject {
                     console.log("Piece at position (" + row + ", " + col + ") moved to (" +
                         jumpDestTile.row + ", " + jumpDestTile.col + ")");
                     this.gameSequence.addGameMove(newMove);
-
-                    this.stringState = response;
                 }
             }
 
-            this.updateGameScore();
             this.swapPlayer(moveType);
+            this.updateGameScore();
+
             this.updateCamera();
-        }
-    }
 
-    getStringState() {
-        var str = '[[';
-        var index = 0;
-        for (var row = 1; row <= 10; row++) {
-            str += '['
-            for (var col = 1; col <= row; col++) {
-                if (this.gameBoard.tiles[index].piece == null) {
-                    str += 'empty';
-                } else {
-                    str += this.gameBoard.tiles[index].piece.type;
-
-                }
-                if (col != row)
-                    str += ',';
-                index++;
-            }
-            str += ']';
-            if (row != 10)
-                str += ',';
+            this.verifyGameEnd();
         }
-        str += '],';
-        str += this.gameBoard.greenSkull.player + ',[';
-        for (var i = 0; i < this.gameBoard.capturedPieces.length; i++) {
-            str += this.gameBoard.capturedPieces[i].type;
-            if (i != this.gameBoard.capturedPieces.length - 1) {
-                str += ',';
-            }
-        }
-        str += ']]';
-        return str;
-
     }
 
     swapPlayer(moveType) {
@@ -171,6 +136,10 @@ class MyGameOrchestrator extends CGFobject {
         console.log(this.currentPlayer);
     }
 
+    initBuffers() {
+        this.gameBoard.startGame();
+        this.loadInitialState();
+    }
 
     undoMove() {
         var lastMove = this.gameSequence.undoGameMove();
@@ -180,18 +149,21 @@ class MyGameOrchestrator extends CGFobject {
             lastMove.originTile.setPiece(piece);
             piece.setTile(lastMove.originTile);
             this.currentPlayer = lastMove.player;
+
             if (lastMove.type == 'jump') {
                 console.log('undo jump move')
                 var capturedPiece = this.gameBoard.removeLastCaptured();
                 capturedPiece.tile.setPiece(capturedPiece);
             }
+
             this.updateGameScore();
         }
     }
+
     loadInitialState() {
         let request = 'loadInitial';
-        this.stringState = this.prolog.getResponse(request);
-        this.updateGameState(this.stringState);
+        let stringState = this.prolog.getResponse(request);
+        this.updateGameState(stringState);
     }
 
     updateGameState(stringState) {
@@ -275,6 +247,19 @@ class MyGameOrchestrator extends CGFobject {
             this.scene.rotating = true;
 
         }
+    }
+
+    verifyGameEnd() {
+        var request = "isEnd(" + this.gameBoard.getStringState() + ")";
+
+        if (this.prolog.getResponse(request) == 'yes') {
+            this.endGame();
+        }
+    }
+
+    //Unfinished
+    endGame() {
+        console.log("Game ended!");
     }
 
     update(time) {

@@ -36,9 +36,46 @@ class MyGameBoard extends CGFobject {
         this.loadEmptyBoard();
 
     }
+
+    //Returns a string of the game state to be used in prolog requests
+    getStringState() {
+        var str = '[[';
+        var index = 0;
+        for (var row = 1; row <= 10; row++) {
+            str += '['
+            for (var col = 1; col <= row; col++) {
+                if (this.tiles[index].piece == null) {
+                    str += 'empty';
+                } else {
+                    str += this.tiles[index].piece.type;
+
+                }
+                if (col != row)
+                    str += ',';
+                index++;
+            }
+            str += ']';
+            if (row != 10)
+                str += ',';
+        }
+        str += '],';
+        str += this.getGreenSkull() + ',[';
+
+        for(var i = 0; i < this.capturedPieces.length; i++){
+            if(i > 1) {
+                str += ','
+            }
+            str += this.capturedPieces[i].type;
+        }
+        str += ']]';
+
+        return str;
+    }
+
     addCapturedPiece(piece) {
         this.capturedPieces.push(piece);
     }
+
     removeLastCaptured() {
         return this.capturedPieces.pop();
     }
@@ -46,7 +83,6 @@ class MyGameBoard extends CGFobject {
     startGame() {
         this.clearGameBoard();
         this.gameStarted = true;
-
     }
 
     clearGameBoard() {
@@ -56,12 +92,10 @@ class MyGameBoard extends CGFobject {
     }
 
     display() {
-
         this.scene.pushMatrix();
         this.scene.rotate(-90 * Math.PI / 180, 1, 0, 0);
 
         /*Tiles */
-
         for (var i = 0; i < this.tiles.length; i++) {
             this.scene.registerForPick(this.tiles[i].pickID, this.tiles[i]);
             this.tiles[i].display();
@@ -151,6 +185,7 @@ class MyGameBoard extends CGFobject {
 
         this.scene.popMatrix();
     }
+
     getGreenSkull() {
         return this.greenSkull.getPlayer();
     }

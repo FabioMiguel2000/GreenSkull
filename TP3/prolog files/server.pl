@@ -140,8 +140,10 @@ parse_input(move(_, _, _, _, _, _, _), no).
 % Gets score
 parse_input(value(GameState,orc), OrcScore):-
 	value(GameState, orc, OrcScore).
+
 parse_input(value(GameState,zombie), OrcScore):-
 	value(GameState, zombie, OrcScore).
+	
 parse_input(value(GameState,goblin), OrcScore):-
 	value(GameState, goblin, OrcScore).
 
@@ -149,7 +151,7 @@ parse_input(value(GameState,goblin), OrcScore):-
 parse_input(score(GameBoard, Player), Value):- value(GameBoard, Player, Value).
 
 % Input to check if the game has ended
-parse_input(isEnd(GameBoard), End):- isEnd(GameBoard, End).
+parse_input(isEnd([GameBoard|_]), End):- isEnd(GameBoard, End).
 
 % Input to close the server
 parse_input(quit, goodbye).
