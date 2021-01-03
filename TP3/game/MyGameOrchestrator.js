@@ -19,12 +19,10 @@ class MyGameOrchestrator extends CGFobject {
         this.goblinScore = 0;
         this.orcScore = 0;
         this.zombieScore = 0;
-
-
     }
 
     updateGameScore() {
-        console.log(this.getStringState());
+        console.log(this.gameBoard.getStringState());
         this.updateGoblinScore();
         this.updateOrcScore();
         this.updateZombieScore();
@@ -36,18 +34,18 @@ class MyGameOrchestrator extends CGFobject {
     }
 
     updateGoblinScore() {
-        var request = "value(" + this.getStringState() + "," + "goblin)";
+        var request = "value(" + this.gameBoard.getStringState() + "," + "goblin)";
         this.goblinScore = this.prolog.getResponse(request);
 
     }
 
     updateOrcScore() {
-        var request = "value(" + this.getStringState() + "," + "orc)";
+        var request = "value(" + this.gameBoard.getStringState() + "," + "orc)";
         this.orcScore = this.prolog.getResponse(request);
     }
 
     updateZombieScore() {
-        var request = "value(" + this.getStringState() + "," + "zombie)";
+        var request = "value(" + this.gameBoard.getStringState() + "," + "zombie)";
         this.zombieScore = this.prolog.getResponse(request);
     }
 
@@ -64,18 +62,17 @@ class MyGameOrchestrator extends CGFobject {
         } else {
             moveType = 'jump';
         }
-        var request = "move(" + this.getStringState() + "," + this.currentPlayer + "," + moveType + "," +
+        var request = "move(" + this.gameBoard.getStringState() + "," + this.currentPlayer + "," + moveType + "," +
             row + "," + col + "," + destRow + "," + destCol + ")";
 
         var response = this.prolog.getResponse(request);
-        //console.log(response);
 
         if (response != 'no') {
 
-            if (moveType == 'normal') {
-
-                var newMove = new MyGameMove(this.scene, pieceToMove, previousTile, destTile, moveType,
-                    this.currentPlayer, this.getStringState());
+            if(moveType == 'normal'){
+                
+                var newMove = new MyGameMove(this.scene, pieceToMove, previousTile, destTile, moveType, 
+                    this.currentPlayer, this.gameBoard.getStringState());
 
                 if (this.gameBoard.movePiece(pieceToMove, previousTile, destTile) == -1) {
                     console.log("Piece not moved!");
@@ -86,11 +83,13 @@ class MyGameOrchestrator extends CGFobject {
                     this.gameSequence.addGameMove(newMove);
                     this.stringState = response;
                 }
-            } else if (moveType == 'jump') {
+            }
+
+            else if(moveType == 'jump'){
                 var jumpDestTile = this.gameBoard.jumpPiece(pieceToMove, previousTile, destTile, this.currentPlayer);
 
                 var newMove = new MyGameMove(this.scene, pieceToMove, previousTile, jumpDestTile, moveType,
-                    this.currentPlayer, this.getStringState());
+                    this.currentPlayer, this.gameBoard.getStringState());
 
                 if (jumpDestTile == -1) {
                     console.log("Piece not moved!");
@@ -99,71 +98,47 @@ class MyGameOrchestrator extends CGFobject {
                     console.log("Piece at position (" + row + ", " + col + ") moved to (" +
                         jumpDestTile.row + ", " + jumpDestTile.col + ")");
                     this.gameSequence.addGameMove(newMove);
-
-                    this.stringState = response;
                 }
             }
+
+            this.swapPlayer(moveType);
 
             this.updateGameScore();
-            this.swapPlayer(moveType);
         }
+
+        this.verifyGameEnd();
     }
 
-    getStringState() {
-        var str = '[[';
-        var index = 0;
-        for (var row = 1; row <= 10; row++) {
-            str += '['
-            for (var col = 1; col <= row; col++) {
-                if (this.gameBoard.tiles[index].piece == null) {
-                    str += 'empty';
-                } else {
-                    str += this.gameBoard.tiles[index].piece.type;
-
-                }
-                if (col != row)
-                    str += ',';
-                index++;
-            }
-            str += ']';
-            if (row != 10)
-                str += ',';
-        }
-        str += '],';
-        str += this.gameBoard.greenSkull.player + ',[';
-        for (var i = 0; i < this.gameBoard.capturedPieces.length; i++) {
-            str += this.gameBoard.capturedPieces[i].type;
-            if (i != this.gameBoard.capturedPieces.length - 1) {
-                str += ',';
-            }
-        }
-        str += ']]';
-        return str;
-
-    }
-
-    swapPlayer(moveType) {
+    swapPlayer(moveType){
         var playerWithGS = this.gameBoard.getGreenSkull();
 
-        if (this.currentPlayer == 'zombie') {
+        if(this.currentPlayer == 'zombie'){
 
             //At this point, the green skull was already swapped, so if a jump was made by the player who had the 
             //green skull, they pass both their turn and the green skull to the other player
-            if (moveType == 'jump') {
-                this.currentPlayer = playerWithGS;
-            } else if (moveType == 'normal') {
-                if (playerWithGS == 'orc') {
+            if(moveType == 'jump'){
+                this.currentPlayer = playerWithGS;                
+            }
+
+            else if(moveType == 'normal'){
+                if(playerWithGS == 'orc'){
                     this.currentPlayer = 'goblin';
-                } else if (playerWithGS == 'goblin') {
+                }
+                else if(playerWithGS == 'goblin'){
                     this.currentPlayer = 'orc';
                 }
             }
-        } else if (playerWithGS == this.currentPlayer) {
+        }
+
+        else if(playerWithGS == this.currentPlayer){
             this.currentPlayer = 'zombie';
-        } else {
-            if (this.currentPlayer == 'orc') {
+        }
+
+        else{
+            if(this.currentPlayer == 'orc'){
                 this.currentPlayer = 'goblin';
-            } else if (this.currentPlayer == 'goblin') {
+            }
+            else if(this.currentPlayer == 'goblin'){
                 this.currentPlayer = 'orc';
             }
         }
@@ -171,6 +146,10 @@ class MyGameOrchestrator extends CGFobject {
         console.log(this.currentPlayer);
     }
 
+    initBuffers() {
+        this.gameBoard.startGame();
+        this.loadInitialState();
+    }
 
     undoMove() {
         var lastMove = this.gameSequence.undoGameMove();
@@ -180,18 +159,21 @@ class MyGameOrchestrator extends CGFobject {
             lastMove.originTile.setPiece(piece);
             piece.setTile(lastMove.originTile);
             this.currentPlayer = lastMove.player;
+
             if (lastMove.type == 'jump') {
                 console.log('undo jump move')
                 var capturedPiece = this.gameBoard.removeLastCaptured();
                 capturedPiece.tile.setPiece(capturedPiece);
             }
+
             this.updateGameScore();
         }
     }
+
     loadInitialState() {
         let request = 'loadInitial';
-        this.stringState = this.prolog.getResponse(request);
-        this.updateGameState(this.stringState);
+        let stringState = this.prolog.getResponse(request);
+        this.updateGameState(stringState);
     }
 
     updateGameState(stringState) {
@@ -269,6 +251,19 @@ class MyGameOrchestrator extends CGFobject {
         }
         //console.log(this.gameBoard.tiles[0]);
         this.gameBoard.setGreenSkull(greenSkull);
+    }
+
+    verifyGameEnd(){
+        var request = "isEnd(" + this.gameBoard.getStringState() + ")";
+
+        if(this.prolog.getResponse(request) == 'yes'){
+            this.endGame();
+        }
+    }
+
+    //Unfinished
+    endGame(){
+        console.log("Game ended!");
     }
 
     update(time) {
