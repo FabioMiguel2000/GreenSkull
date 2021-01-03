@@ -152,7 +152,7 @@ class MyGameBoard extends CGFobject {
         this.scene.popMatrix();
     }
     getGreenSkull() {
-        return this.greenSkull.player;
+        return this.greenSkull.getPlayer();
     }
 
     setGreenSkull(player) {
@@ -215,7 +215,7 @@ class MyGameBoard extends CGFobject {
         return 0;
     }
 
-    jumpPiece(piece, startingTile, jumpTile) {
+    jumpPiece(piece, startingTile, jumpTile, player) {
         if (startingTile.piece != piece) {
             console.log("No piece on starting Tile");
             return -1;
@@ -233,6 +233,10 @@ class MyGameBoard extends CGFobject {
         jumpTile.unsetPiece();
         destTile.setPiece(piece);
         piece.setTile(destTile);
+
+        if((this.getGreenSkull() == player) || (player == 'zombie')){
+            this.greenSkull.switchGreenSkull();
+        }
 
         //Returns destination tile for the MyGameOrchestrator to use
         return destTile;

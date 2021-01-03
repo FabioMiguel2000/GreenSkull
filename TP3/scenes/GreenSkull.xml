@@ -46,14 +46,21 @@
 
 <!--Textures-->
     <textures>
-        <!--Textura para tampo da mesa-->
+        <!--Textura de madeira-->
         <texture id="wood" path="scenes/image/woodTexture.jpg" />
-        <!--Textura para perna da mesa-->
+        <!--Textura de metal-->
         <texture id="steel" path="scenes/image/steelTexture.jpg" />
-        <!--Textura para perna da mesa-->
+        <!--Textura para o solo de lava-->
         <texture id="lava" path="scenes/image/lava.png" />
-        <!--Textura para perna da mesa-->
-        <texture id="wall1" path="scenes/image/wall1.jpg" />
+        <!--Textura para um fundo com zombies-->
+        <texture id="zombies" path="scenes/image/wall1.jpg" />
+        <!--Textura de um vulcão-->
+        <texture id="volcano" path="scenes/image/volcano.jpg" />
+        <!--Textura para o céu-->
+        <texture id="smokySky" path="scenes/image/smokeSky.jpg" />
+        <!--Textura para um fundo rochoso-->
+        <texture id="rocks" path="scenes/image/rockBackgroun.jpg" />
+
     </textures>
 <!-- -->
 
@@ -167,7 +174,7 @@
         <node id="ParedeEsq">
             <material id="lavaMaterial" />
 
-            <texture id="wall1"/>
+            <texture id="zombies"/>
 
             <transformations>
 
@@ -188,9 +195,9 @@
 
         <!--Parede da direita-->
         <node id="ParedeDir">
-            <material id="null" />
+            <material id="lavaMaterial" />
 
-            <texture id="null"/>
+            <texture id="volcano"/>
 
             <transformations>
 
@@ -211,9 +218,9 @@
 
         <!--Parede da frente-->
         <node id="ParedeFre">
-            <material id="null" />
+            <material id="lavaMaterial" />
 
-            <texture id="null"/>
+            <texture id="rocks"/>
 
             <transformations>
 
@@ -234,9 +241,9 @@
 
         <!--Parede da tras-->
         <node id="ParedeTras">
-            <material id="null" />
+            <material id="lavaMaterial" />
 
-            <texture id="null"/>
+            <texture id="rocks"/>
 
             <transformations>
 
@@ -257,9 +264,9 @@
 
         <!--Teto -->
         <node id="Teto">
-            <material id="null" />
+            <material id="lavaMaterial" />
 
-            <texture id="null"/>
+            <texture id="smokySky"/>
 
             <transformations>
 
