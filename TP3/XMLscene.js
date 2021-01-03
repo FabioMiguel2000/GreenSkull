@@ -44,19 +44,23 @@ class XMLscene extends CGFscene {
 
         this.enableAxis = true;
         this.scaleFactor = 1;
-        this.selectedCamera = 0;
+        //this.selectedCamera = 0;
         this.lastTime = 0;
         this.time = 0;
-
+        this.cameraRotationPercentage = 0;
+        this.rotating = false;
         /* TP3*/
         this.pickedPiece = null;
         this.gameStarted = false;
         this.startGame = function() {
             this.gameStarted = true;
+            this.setGameCamera();
             this.gameOrchestrator.initBuffers();
         };
         this.endGame = function() {
+            this.camera.orbit([0, 1, 0], (90 / 180) * Math.PI);
             this.gameStarted = false;
+            this.setDefaultCamera();
             this.gameOrchestrator = new MyGameOrchestrator(this);
         };
         this.undo = function() {
@@ -71,7 +75,6 @@ class XMLscene extends CGFscene {
      */
     initCameras() {
             this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
-
         }
         /**
          * Initializes the scene lights with the values read from the XML file.
@@ -130,12 +133,37 @@ class XMLscene extends CGFscene {
     }
 
     setActiveCamera() {
-            this.camera = this.cameras[this.selectedCamera];
-            this.interface.setActiveCamera(this.camera);
+        this.camera = this.cameras[this.selectedCamera];
+        this.interface.setActiveCamera(this.camera);
+    }
+    setGameCamera() {
+        this.camera = this.cameras['gameCamera'];
+        this.camera.orbit([0, 1, 0], -(90 / 180) * Math.PI);
+        this.interface.setActiveCamera(this.camera);
+    }
+    rotateGameCamera(elapsedTime) {
+        var cameraRotateFrag = elapsedTime / 4;
+        if (this.gameStarted) {
+            if (this.cameraRotationPercentage >= 0.96) {
+                this.camera.orbit([0, 1, 0], (180 * (1 - this.cameraRotationPercentage) / 180) * Math.PI);
+                this.cameraRotationPercentage = 0;
+                this.setPickEnabled(true);
+                this.rotating = false;
+            } else {
+                this.camera.orbit([0, 1, 0], (180 * cameraRotateFrag / 180) * Math.PI);
+
+                this.cameraRotationPercentage += cameraRotateFrag;
+            }
         }
-        /** Handler called when the graph is finally loaded. 
-         * As loading is asynchronous, this may be called already after the application has started the run loop
-         */
+    }
+    setDefaultCamera() {
+        this.camera = this.cameras['defaultCamera'];
+        this.interface.setActiveCamera(this.camera);
+    }
+
+    /** Handler called when the graph is finally loaded. 
+     * As loading is asynchronous, this may be called already after the application has started the run loop
+     */
     onGraphLoaded() {
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
@@ -154,7 +182,7 @@ class XMLscene extends CGFscene {
 
         this.setActiveCamera();
 
-        this.interface.initCameras();
+        //this.interface.initCameras();
 
         this.interface.initGameOptions();
 
@@ -179,6 +207,10 @@ class XMLscene extends CGFscene {
         }
         for (var key in this.spriteAnimations) {
             this.spriteAnimations[key].update(elapsedTime);
+        }
+        if (this.rotating) {
+            this.setPickEnabled(false);
+            this.rotateGameCamera(elapsedTime);
         }
     }
 
@@ -221,6 +253,7 @@ class XMLscene extends CGFscene {
             }
         }
     }
+
 
     /**
      * Displays the scene.
@@ -288,6 +321,7 @@ class XMLscene extends CGFscene {
 
 
         this.popMatrix();
+
 
         // ---- END Background, camera and axis setup
     }

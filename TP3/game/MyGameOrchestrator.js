@@ -24,7 +24,6 @@ class MyGameOrchestrator extends CGFobject {
     }
 
     updateGameScore() {
-        console.log(this.getStringState());
         this.updateGoblinScore();
         this.updateOrcScore();
         this.updateZombieScore();
@@ -106,6 +105,7 @@ class MyGameOrchestrator extends CGFobject {
 
             this.updateGameScore();
             this.swapPlayer(moveType);
+            this.updateCamera();
         }
     }
 
@@ -269,6 +269,12 @@ class MyGameOrchestrator extends CGFobject {
         }
         //console.log(this.gameBoard.tiles[0]);
         this.gameBoard.setGreenSkull(greenSkull);
+    }
+    updateCamera() {
+        if (this.currentPlayer != 'zombie') {
+            this.scene.rotating = true;
+
+        }
     }
 
     update(time) {

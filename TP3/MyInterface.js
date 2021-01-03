@@ -75,7 +75,7 @@ class MyInterface extends CGFinterface {
 
     }
 
-    initCameras() {
+    /*initCameras() {
         this.gui.add(this.scene, 'selectedCamera', Object.keys(this.scene.cameras)).name('Selected Camera').onChange(this.scene.setActiveCamera.bind(this.scene));
-    }
+    }*/
 }
