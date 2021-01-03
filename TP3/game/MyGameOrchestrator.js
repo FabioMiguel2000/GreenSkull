@@ -24,6 +24,7 @@ class MyGameOrchestrator extends CGFobject {
         var col = pieceToMove.col;
         var destRow = destTile.row;
         var destCol = destTile.col;
+        var previousTile = pieceToMove.tile;
         var moveType;
 
         if (destTile.piece == null) {
@@ -39,10 +40,11 @@ class MyGameOrchestrator extends CGFobject {
         if (response != 'no') {
 
             if(moveType == 'normal'){
-                var newMove = new MyGameMove(this.scene, pieceToMove, pieceToMove.tile, destTile, moveType, 
+                
+                var newMove = new MyGameMove(this.scene, pieceToMove, previousTile, destTile, moveType, 
                     this.currentPlayer, this.getStringState());
 
-                if (this.gameBoard.movePiece(pieceToMove, pieceToMove.tile, destTile) == -1) {
+                if (this.gameBoard.movePiece(pieceToMove, previousTile, destTile) == -1) {
                     console.log("Piece not moved!");
                     return;
                 } else {
@@ -54,9 +56,9 @@ class MyGameOrchestrator extends CGFobject {
             }
 
             else if(moveType == 'jump'){
-                var jumpDestTile = this.gameBoard.jumpPiece(pieceToMove, pieceToMove.tile, destTile, this.currentPlayer);
+                var jumpDestTile = this.gameBoard.jumpPiece(pieceToMove, previousTile, destTile, this.currentPlayer);
 
-                var newMove = new MyGameMove(this.scene, pieceToMove, pieceToMove.tile, jumpDestTile, moveType,
+                var newMove = new MyGameMove(this.scene, pieceToMove, previousTile, jumpDestTile, moveType,
                     this.currentPlayer, this.getStringState());
 
                 if (jumpDestTile == -1) {
@@ -251,7 +253,6 @@ class MyGameOrchestrator extends CGFobject {
         this.theme.display();
 
         this.animator.display();*/
-
 
         this.gameBoard.display();
 
