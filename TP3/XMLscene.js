@@ -199,12 +199,21 @@ class XMLscene extends CGFscene {
                         var customId = this.pickResults[i][1];
                         console.log("Picked object: " + obj + ", with pick id " + customId);
 
-                        if (customId < 30) {
+                        if (this.pickedPiece == null && customId < 30) {
                             this.pickedPiece = obj;
-                            //this.selectPieceAnimation();
+                            this.selectPieceAnimation();
 
-                        } else if (this.pickedPiece != null && customId > 30) {
-                            this.gameOrchestrator.movePiece(this.pickedPiece, obj);
+                        } else if (this.pickedPiece != null) {
+                            var tile;
+
+                            if(customId < 30){
+                                tile = obj.tile;
+                            }
+                            else{
+                                tile = obj;
+                            }
+                            
+                            this.gameOrchestrator.movePiece(this.pickedPiece, tile);
                             this.pickedPiece = null;
                         }
                     }

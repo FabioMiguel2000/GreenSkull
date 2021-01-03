@@ -25,21 +25,21 @@ class MyGameOrchestrator extends CGFobject {
         var moveType;
 
         if (destTile.piece == null) {
-            moveType = 'normal';
+            moveType = "normal";
         } else {
-            moveType = 'jump';
+            moveType = "jump";
         }
         var request = "move(" + this.getStringState() + "," + this.currentPlayer + "," + moveType + "," +
             row + "," + col + "," + destTile.row + "," + destTile.column + ")";
 
-        var response = this.prolog.loadState(request)
-            //console.log(response);
+        var response = this.prolog.loadState(request);
+        console.log(response);
 
         if (response != 'no') {
             if (this.gameBoard.movePiece(pieceToMove, pieceToMove.tile, destTile) == -1) {
                 console.log("Piece not moved!");
             } else {
-                console.log("MOVEMENT SUCCESS: Piece at position (" + row + ", " + col + ") moved to (" + destTile.row + ", " + destTile.column + ")");
+                console.log("Piece at position (" + row + ", " + col + ") moved to (" + destTile.row + ", " + destTile.column + ")");
                 this.stringState = response;
             }
         }
