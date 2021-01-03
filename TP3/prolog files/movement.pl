@@ -123,74 +123,75 @@ movePiece(Player, [GameBoard|Rest],
 
 /* Makes a piece jump after conditions have been checked; 
 this predicate varies a bit depending on the relative position
-of the captured piece*/
+of the captured piece; altered from original work to remove 
+errors since certain assertions are not made*/
 makeJump(Player, [GameBoard|[GS|[Captured|_]]], 
     [[Row|Col]|[[Row|CapCol]]], 
-    [NewGameBoard|[NGS|[NewCaptured|_]]]):-
+    [NewGameBoard|[GS|[NewCaptured|_]]]):-
     CapCol =:= Col + 1, JumpCol is Col + 2,
     setSpace(GameBoard, IntGameBoard1, Row, Col, empty), 
     addCaptured(Captured, NewCaptured, GameBoard, Row, CapCol),
     setSpace(IntGameBoard1, IntGameBoard2, Row, CapCol, empty),
     setSpace(IntGameBoard2, NewGameBoard, Row, JumpCol, Player),
-    assert(currentPiecePos([Row, JumpCol])),
-    checkGreenSkullSwap(GS, NGS).
+    assert(currentPiecePos([Row, JumpCol])).
+%   checkGreenSkullSwap(GS, NGS).
 
 makeJump(Player, [GameBoard|[GS|[Captured|_]]], 
     [[Row|Col]|[[Row|CapCol]]], 
-    [NewGameBoard|[NGS|[NewCaptured|_]]]):-
+    [NewGameBoard|[GS|[NewCaptured|_]]]):-
     CapCol =:= Col - 1, JumpCol is Col - 2,
     setSpace(GameBoard, IntGameBoard1, Row, Col, empty), 
     addCaptured(Captured, NewCaptured, GameBoard, Row, CapCol),
     setSpace(IntGameBoard1, IntGameBoard2, Row, CapCol, empty),
     setSpace(IntGameBoard2, NewGameBoard, Row, JumpCol, Player),
-    assert(currentPiecePos([Row, JumpCol])),
-    checkGreenSkullSwap(GS, NGS).
+    assert(currentPiecePos([Row, JumpCol])).
+%   checkGreenSkullSwap(GS, NGS).
 
 makeJump(Player, [GameBoard|[GS|[Captured|_]]],
     [[Row|Col]|[[CapRow|Col]]], 
-    [NewGameBoard|[NGS|[NewCaptured|_]]]):-
+    [NewGameBoard|[GS|[NewCaptured|_]]]):-
     CapRow =:= Row + 1, JumpRow is Row + 2,
     setSpace(GameBoard, IntGameBoard1, Row, Col, empty), 
     addCaptured(Captured, NewCaptured, GameBoard, CapRow, Col),
     setSpace(IntGameBoard1, IntGameBoard2, CapRow, Col, empty),
     setSpace(IntGameBoard2, NewGameBoard, JumpRow, Col, Player),
-    assert(currentPiecePos([JumpRow, Col])),
-    checkGreenSkullSwap(GS, NGS).
+    assert(currentPiecePos([JumpRow, Col])).
+%   checkGreenSkullSwap(GS, NGS).
 
 makeJump(Player, [GameBoard|[GS|[Captured|_]]],
     [[Row|Col]|[[CapRow|Col]]], 
-    [NewGameBoard|[NGS|[NewCaptured|_]]]):-
+    [NewGameBoard|[GS|[NewCaptured|_]]]):-
     CapRow =:= Row - 1, JumpRow is Row - 2,
     setSpace(GameBoard, IntGameBoard1, Row, Col, empty), 
     addCaptured(Captured, NewCaptured, GameBoard, CapRow, Col),
     setSpace(IntGameBoard1, IntGameBoard2, CapRow, Col, empty),
     setSpace(IntGameBoard2, NewGameBoard, JumpRow, Col, Player),
-    assert(currentPiecePos([JumpRow, Col])),
-    checkGreenSkullSwap(GS, NGS).
+    assert(currentPiecePos([JumpRow, Col])).
+%   checkGreenSkullSwap(GS, NGS).
 
 makeJump(Player, [GameBoard|[GS|[Captured|_]]],
     [[Row|Col]|[[CapRow|CapCol]]], 
-    [NewGameBoard|[NGS|[NewCaptured|_]]]):-
+    [NewGameBoard|[GS|[NewCaptured|_]]]):-
     CapCol =:= Col + 1, JumpCol is Col + 2,
     CapRow =:= Row + 1, JumpRow is Row + 2,
     setSpace(GameBoard, IntGameBoard1, Row, Col, empty), 
     addCaptured(Captured, NewCaptured, GameBoard, CapRow, CapCol),
     setSpace(IntGameBoard1, IntGameBoard2, CapRow, CapCol, empty),
     setSpace(IntGameBoard2, NewGameBoard, JumpRow, JumpCol, Player),
-    assert(currentPiecePos([JumpRow, JumpCol])),
-    checkGreenSkullSwap(GS, NGS).
+    assert(currentPiecePos([JumpRow, JumpCol])).
+%   checkGreenSkullSwap(GS, NGS).
 
 makeJump(Player, [GameBoard|[GS|[Captured|_]]],
     [[Row|Col]|[[CapRow|CapCol]]], 
-    [NewGameBoard|[NGS|[NewCaptured|_]]]):-
+    [NewGameBoard|[GS|[NewCaptured|_]]]):-
     CapCol =:= Col - 1, JumpCol is Col - 2,
     CapRow =:= Row - 1, JumpRow is Row - 2,
     setSpace(GameBoard, IntGameBoard1, Row, Col, empty), 
     addCaptured(Captured, NewCaptured, GameBoard, CapRow, CapCol),
     setSpace(IntGameBoard1, IntGameBoard2, CapRow, CapCol, empty),
     setSpace(IntGameBoard2, NewGameBoard, JumpRow, JumpCol, Player),
-    assert(currentPiecePos([JumpRow, JumpCol])),
-    checkGreenSkullSwap(GS, NGS).
+    assert(currentPiecePos([JumpRow, JumpCol])).
+%   checkGreenSkullSwap(GS, NGS).
 
 /* Enters a board in first parameter and returns another board
 in second parameter that's the first board but with the element
