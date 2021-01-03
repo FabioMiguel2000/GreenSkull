@@ -49,19 +49,21 @@ class XMLscene extends CGFscene {
         this.time = 0;
         this.cameraRotationPercentage = 0;
         this.rotating = false;
+
         /* TP3*/
         this.pickedPiece = null;
         this.gameStarted = false;
         this.enableRotation = true;
+        this.gameEnded = false;
+
         this.startGame = function() {
-            this.gameStarted = true;
             this.setGameCamera();
+            this.gameStarted = true;
             this.gameOrchestrator.initBuffers();
         };
-        this.endGame = function() {
-            this.camera.orbit([0, 1, 0], (90 / 180) * Math.PI);
-            this.gameStarted = false;
+        this.restartGame = function() {
             this.setDefaultCamera();
+            this.gameStarted = false;
             this.gameOrchestrator = new MyGameOrchestrator(this);
         };
         this.undo = function() {
@@ -76,6 +78,7 @@ class XMLscene extends CGFscene {
      */
     initCameras() {
             this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+
         }
         /**
          * Initializes the scene lights with the values read from the XML file.
@@ -120,6 +123,14 @@ class XMLscene extends CGFscene {
                 document.getElementById("playerTurn").innerText = "";
                 document.getElementById("information").innerText = "Click 'Start Game' to play";
 
+            } else if (this.gameEnded) {
+                document.getElementById("goblinScore").innerText = "Goblin Score: " + this.gameOrchestrator.goblinScore + "\n";
+                document.getElementById("orcScore").innerText = "Orc Score: " + this.gameOrchestrator.orcScore + "\n";
+                document.getElementById("zombieScore").innerText = "Zombie Score: " + this.gameOrchestrator.zombieScore + "\n";
+                document.getElementById("greenSkull").innerText = "";
+                document.getElementById("playerTurn").innerText = "The game has ended!\n";
+                document.getElementById("information").innerText = this.winText;
+
             } else {
                 document.getElementById("goblinScore").innerText = "Goblin Score: " + this.gameOrchestrator.goblinScore + "\n";
                 document.getElementById("orcScore").innerText = "Orc Score: " + this.gameOrchestrator.orcScore + "\n";
@@ -137,11 +148,13 @@ class XMLscene extends CGFscene {
         this.camera = this.cameras[this.selectedCamera];
         this.interface.setActiveCamera(this.camera);
     }
+
     setGameCamera() {
         this.camera = this.cameras['gameCamera'];
         this.camera.orbit([0, 1, 0], -(90 / 180) * Math.PI);
         this.interface.setActiveCamera(this.camera);
     }
+
     rotateGameCamera(elapsedTime) {
         var cameraRotateFrag = elapsedTime / 4;
         if (this.gameStarted) {
@@ -157,14 +170,12 @@ class XMLscene extends CGFscene {
             }
         }
     }
+
     setDefaultCamera() {
         this.camera = this.cameras['defaultCamera'];
         this.interface.setActiveCamera(this.camera);
     }
 
-    /** Handler called when the graph is finally loaded. 
-     * As loading is asynchronous, this may be called already after the application has started the run loop
-     */
     onGraphLoaded() {
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
@@ -174,16 +185,11 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
-
-
         this.interface.addLightsGroup(this.graph.lights);
-
 
         this.cameras = this.graph.cameras;
 
         this.setActiveCamera();
-
-        //this.interface.initCameras();
 
         this.interface.initGameOptions();
 
@@ -203,12 +209,15 @@ class XMLscene extends CGFscene {
         this.lastTime = t;
         this.animations = this.graph.animations;
         this.spriteAnimations = this.graph.spriteAnimations;
+
         for (var key in this.animations) {
             this.animations[key].update(elapsedTime);
         }
+
         for (var key in this.spriteAnimations) {
             this.spriteAnimations[key].update(elapsedTime);
         }
+
         if (this.rotating) {
             this.setPickEnabled(false);
             this.rotateGameCamera(elapsedTime);
@@ -217,7 +226,6 @@ class XMLscene extends CGFscene {
 
     selectPieceAnimation() {
         var selectAnimation = this.animations["Piece Select"];
-        console.log(selectAnimation);
         this.pickedPiece.setAnimation(selectAnimation);
         selectAnimation.apply();
     }
@@ -255,6 +263,11 @@ class XMLscene extends CGFscene {
         }
     }
 
+    endGame(winText) {
+        this.gameEnded = true;
+        this.setPickEnabled(false);
+        this.winText = winText;
+    }
 
     /**
      * Displays the scene.
@@ -320,9 +333,7 @@ class XMLscene extends CGFscene {
 
         this.gameOrchestrator.display();
 
-
         this.popMatrix();
-
 
         // ---- END Background, camera and axis setup
     }

@@ -9,8 +9,6 @@ class MyGameOrchestrator extends CGFobject {
         super(scene);
         this.gameSequence = new MyGameSequence(this.scene);
         this.gameBoard = new MyGameBoard(this.scene);
-        //var filename = getUrlVars()['file'] || "GreenSkull.xml";
-        //this.theme = new MySceneGraph(filename, scene);
         var port = 8081;
         this.prolog = new MyPrologInterface(port);
 
@@ -98,13 +96,17 @@ class MyGameOrchestrator extends CGFobject {
                 }
             }
 
-            this.swapPlayer(moveType);
             this.updateGameScore();
+
             if (this.scene.enableRotation)
                 this.updateCamera();
 
-            this.verifyGameEnd();
+
+            this.swapPlayer(moveType);
+
         }
+
+        this.verifyGameEnd();
     }
 
     swapPlayer(moveType) {
@@ -133,7 +135,6 @@ class MyGameOrchestrator extends CGFobject {
             }
         }
 
-        console.log(this.currentPlayer);
     }
 
     initBuffers() {
@@ -189,17 +190,9 @@ class MyGameOrchestrator extends CGFobject {
         var gameState = items[0];
         var greenSkull = items[1][0];
 
-        /*var piecesTaken = items[2][0].split(',');
-        console.log(piecesTaken);*/
         var idPiece = 1;
         var idTiles = 31;
         this.gameBoard.clearGameBoard();
-        /*if(items[2][0] != '' && items[2][0].search(',') > 0){
-            this.gameBoard.capturedPieces = items[2][0].split(',');
-        }
-        else if(items[2][0] != '' && items[2][0].search(',') < 0){
-            this.gameBoard.capturedPieces
-        }*/
         for (var row = 0; row < gameState.length; row++) {
             var rowArray = gameState[row].split(',');
 
@@ -239,14 +232,7 @@ class MyGameOrchestrator extends CGFobject {
 
             }
         }
-        //console.log(this.gameBoard.tiles[0]);
         this.gameBoard.setGreenSkull(greenSkull);
-    }
-    updateCamera() {
-        if (this.currentPlayer != 'zombie') {
-            this.scene.rotating = true;
-
-        }
     }
 
     verifyGameEnd() {
@@ -257,19 +243,38 @@ class MyGameOrchestrator extends CGFobject {
         }
     }
 
-    //Unfinished
+    updateCamera() {
+        if (this.currentPlayer != 'zombie') {
+            this.scene.rotating = true;
+        }
+    }
+
     endGame() {
         console.log("Game ended!");
+
+        var winText;
+
+        if (this.goblinScore > this.orcScore && this.goblinScore > this.zombieScore) {
+            winText = "The goblins win!";
+        } else if (this.orcScore > this.goblinScore && this.orcScore > this.zombieScore) {
+            winText = "The orcs win!";
+        } else if (this.zombieScore > this.goblinScore && this.zombieScore > this.orcScore) {
+            winText = "The zombies win!";
+        } else if (this.goblinScore == this.orcScore && this.goblinScore > this.zombieScore) {
+            winText = "The goblins and the orcs tied!";
+        } else if (this.goblinScore == this.zombieScore && this.goblinScore > this.orcScore) {
+            winText = "The goblins and the zombiess tied!";
+        } else if (this.zombieScore == this.orcScore && this.orcScore > this.goblinScore) {
+            winText = "The orcs and the zombies tied!";
+        } else {
+            winText = "Everyone tied!";
+        }
+
+        this.scene.endGame(winText);
     }
 
-    update(time) {
-        //this.animator.update(time);
-    }
     display() {
-        /*
-        this.theme.display();
 
-        this.animator.display();*/
 
         this.gameBoard.display();
 

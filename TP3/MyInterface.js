@@ -71,7 +71,7 @@ class MyInterface extends CGFinterface {
 
         group.add(this.scene, 'startGame').name('Start Game');
         group.add(this.scene, 'undo').name('Undo Move');
-        group.add(this.scene, 'endGame').name('End Game');
+        group.add(this.scene, 'restartGame').name('Restart Game');
 
 
     }
