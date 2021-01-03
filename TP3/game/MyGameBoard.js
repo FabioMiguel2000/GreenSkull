@@ -235,7 +235,6 @@ class MyGameBoard extends CGFobject {
         piece.setTile(destTile);
 
         if((this.getGreenSkull() == player) || (player == 'zombie')){
-            console.log("here");
             this.greenSkull.switchGreenSkull();
         }
 

@@ -35,7 +35,6 @@ class MyGameOrchestrator extends CGFobject {
             row + "," + col + "," + destRow + "," + destCol + ")";
 
         var response = this.prolog.loadState(request);
-        //console.log(response);
 
         if (response != 'no') {
 
@@ -57,7 +56,7 @@ class MyGameOrchestrator extends CGFobject {
             else if(moveType == 'jump'){
                 var jumpDestTile = this.gameBoard.jumpPiece(pieceToMove, pieceToMove.tile, destTile, this.currentPlayer);
 
-                var newMove = new MyGameMove(this.scene, pieceToMove, previousTile, jumpDestTile, moveType,
+                var newMove = new MyGameMove(this.scene, pieceToMove, pieceToMove.tile, jumpDestTile, moveType,
                     this.currentPlayer, this.getStringState());
 
                 if (jumpDestTile == -1) {
