@@ -19,9 +19,11 @@ class MyGameOrchestrator extends CGFobject {
 
     }
 
-    movePiece(pieceToMove, destTile) {
+movePiece(pieceToMove, destTile) {
         var row = pieceToMove.row;
         var col = pieceToMove.column;
+        var destRow = destTile.row;
+        var destCol = destTile.col;
         var moveType;
 
         if (destTile.piece == null) {
@@ -30,16 +32,19 @@ class MyGameOrchestrator extends CGFobject {
             moveType = "jump";
         }
         var request = "move(" + this.getStringState() + "," + this.currentPlayer + "," + moveType + "," +
-            row + "," + col + "," + destTile.row + "," + destTile.column + ")";
+            row + "," + col + "," + destRow + "," + destCol + ")";
 
         var response = this.prolog.loadState(request);
         console.log(response);
 
         if (response != 'no') {
+            var newMove = new MyGameMove(this.scene, pieceToMove, pieceToMove.tile, destTile, moveType, 
+                this.currentPlayer, this.getStringState());
             if (this.gameBoard.movePiece(pieceToMove, pieceToMove.tile, destTile) == -1) {
                 console.log("Piece not moved!");
             } else {
-                console.log("Piece at position (" + row + ", " + col + ") moved to (" + destTile.row + ", " + destTile.column + ")");
+                console.log("Piece at position (" + row + ", " + col + ") moved to (" + destRow + ", " + destCol + ")");
+                this.gameSequence.addGameMove(newMove);
                 this.stringState = response;
             }
         }
@@ -66,7 +71,7 @@ class MyGameOrchestrator extends CGFobject {
                 str += ',';
         }
         str += '],';
-        str += this.currentPlayer + ',[';
+        str += this.gameBoard.greenSkull.player + ',[';
         str += this.piecesTaken.toString();
         str += ']]';
         return str;

@@ -135,8 +135,6 @@ parse_input(move([Board|Info],Player,jump,FromRow,FromCol,ToRow,ToCol), [NewBoar
 	isValidJump(Player, Board, [[FromRow|FromCol]|[[ToRow|ToCol]]]),
 	move([Board|Info], [Player|[jump|[[FromRow|FromCol]|[[ToRow|ToCol]]]]], [NewBoard|[NewGS|NewRest]]).
 
-parse_input(move(_GameState), successful).
-
 parse_input(move(_, _, _, _, _, _, _), no).
 
 % Input to get the score of a Player (or zombie)
