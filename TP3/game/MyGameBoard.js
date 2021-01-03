@@ -151,7 +151,7 @@ class MyGameBoard extends CGFobject {
         this.greenSkull.playerWithGS(player);
     }
 
-    getTile(row, col){
+    getTile(row, col) {
         for (var i = 0; i < this.tiles.length; i++) {
             if (this.tiles[i].row == row && this.tiles[i].col == col) {
                 return this.tiles[i];
@@ -207,7 +207,7 @@ class MyGameBoard extends CGFobject {
         return 0;
     }
 
-    jumpPiece(piece, startingTile, jumpTile){
+    jumpPiece(piece, startingTile, jumpTile) {
         if (startingTile.piece != piece) {
             console.log("No piece on starting Tile");
             return -1;
@@ -224,7 +224,7 @@ class MyGameBoard extends CGFobject {
         this.capturedPieces.push(jumpTile.piece);
         jumpTile.unsetPiece();
         destTile.setPiece(piece);
-        piece.setTile(jumpTile);
+        piece.setTile(destTile);
 
         //Returns destination tile for the MyGameOrchestrator to use
         return destTile;
