@@ -19,13 +19,13 @@ class MyGameOrchestrator extends CGFobject {
 
     }
 
-movePiece(pieceToMove, destTile) {
+    movePiece(pieceToMove, destTile) {
         var row = pieceToMove.row;
         var col = pieceToMove.column;
         var destRow = destTile.row;
-        var destCol = destTile.col;
+        var destCol = destTile.column;
         var moveType;
-
+        console.log(destCol)
         if (destTile.piece == null) {
             moveType = "normal";
         } else {
@@ -38,7 +38,7 @@ movePiece(pieceToMove, destTile) {
         console.log(response);
 
         if (response != 'no') {
-            var newMove = new MyGameMove(this.scene, pieceToMove, pieceToMove.tile, destTile, moveType, 
+            var newMove = new MyGameMove(this.scene, pieceToMove, pieceToMove.tile, destTile, moveType,
                 this.currentPlayer, this.getStringState());
             if (this.gameBoard.movePiece(pieceToMove, pieceToMove.tile, destTile) == -1) {
                 console.log("Piece not moved!");
