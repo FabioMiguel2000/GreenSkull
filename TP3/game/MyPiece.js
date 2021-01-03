@@ -4,16 +4,16 @@
  * @param scene - Reference to MyScene object
  * @param type - String indicating which type of piece it is
  * @param row - Int indicating the row number of the piece
- * @param column - Int indicating the row number of the piece
+ * @param col - Int indicating the row number of the piece
  */
 
 class MyPiece extends CGFobject {
-    constructor(scene, type, row, column) {
+    constructor(scene, type, row, col) {
         super(scene);
         this.pickID = null;
         this.type = type;
         this.row = row;
-        this.column = column;
+        this.col = col;
         this.tile = null;
         this.piece = new MyCylinder(this.scene, 0.6, 0.6, 0.3, 16, 4);
         this.initBuffers();
@@ -44,7 +44,7 @@ class MyPiece extends CGFobject {
             default:
                 break;
         }
-        this.updatePos(this.row, this.column);
+        this.updatePos(this.row, this.col);
 
     }
 
@@ -57,16 +57,16 @@ class MyPiece extends CGFobject {
     }
     setTile(tile) {
         this.tile = tile;
-        this.updatePos(tile.row, tile.column);
+        this.updatePos(tile.row, tile.col);
     }
     unsetTile() {
         this.tile = null;
     }
-    updatePos(row, column) {
+    updatePos(row, col) {
         this.row = row;
-        this.column = column;
+        this.col = col;
         this.posY = 7.5 - row * 1.5;
-        this.posX = column * 1.7 - row * 0.85 - 0.85;
+        this.posX = col * 1.7 - row * 0.85 - 0.85;
     }
 
     display() {

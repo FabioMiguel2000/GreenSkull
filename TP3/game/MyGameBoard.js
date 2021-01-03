@@ -13,6 +13,7 @@ class MyGameBoard extends CGFobject {
         this.gameStarted = false;
         this.tiles = [];
         this.pieces = [];
+        this.capturedPieces = [];
 
         this.initBuffers();
     }
@@ -47,7 +48,6 @@ class MyGameBoard extends CGFobject {
     }
 
     display() {
-
 
         this.scene.pushMatrix();
         this.scene.rotate(-90 * Math.PI / 180, 1, 0, 0);
@@ -151,24 +151,34 @@ class MyGameBoard extends CGFobject {
         this.greenSkull.playerWithGS(player);
     }
 
-    removePieceFromTile(row, column) {
+    getTile(row, col){
         for (var i = 0; i < this.tiles.length; i++) {
-            if (this.tiles[i].row == row && this.tiles[i].column == column) {
+            if (this.tiles[i].row == row && this.tiles[i].col == col) {
+                return this.tiles[i];
+            }
+        }
+        return null;
+    }
+
+    removePieceFromTile(row, col) {
+        for (var i = 0; i < this.tiles.length; i++) {
+            if (this.tiles[i].row == row && this.tiles[i].col == col) {
                 this.tiles[i].unsetPiece();
             }
         }
     }
 
-    addPieceToTile(piece, row, column) {
+    addPieceToTile(piece, row, col) {
         for (var i = 0; i < this.tiles.length; i++) {
-            if (this.tiles[i].row == row && this.tiles[i].column == column) {
+            if (this.tiles[i].row == row && this.tiles[i].col == col) {
                 this.tiles[i].setPiece(piece);
             }
         }
     }
-    getPieceFromTile(row, column) {
+
+    getPieceFromTile(row, col) {
         for (var i = 0; i < this.tiles.length; i++) {
-            if (this.tiles[i].row == row && this.tiles[i].column == column) {
+            if (this.tiles[i].row == row && this.tiles[i].col == col) {
                 return this.tiles[i].piece;
             }
         }
@@ -197,6 +207,91 @@ class MyGameBoard extends CGFobject {
         return 0;
     }
 
+    jumpPiece(piece, startingTile, jumpTile){
+        if (startingTile.piece != piece) {
+            console.log("No piece on starting Tile");
+            return -1;
+        }
+
+        if (jumpTile.piece == null) {
+            console.log("No piece to jump over");
+            return -1;
+        }
+
+        var destTile = this.getJumpDestTile(jumpTile, startingTile);
+
+        startingTile.unsetPiece();
+        this.capturedPieces.push(jumpTile.piece);
+        jumpTile.unsetPiece();
+        destTile.setPiece(piece);
+        piece.setTile(jumpTile);
+
+        //Returns destination tile for the MyGameOrchestrator to use
+        return destTile;
+    }
+
+    getJumpDestTile(jumpTile, startingTile) {
+        var rowDiff = jumpTile.row - startingTile.row;
+        var colDiff = jumpTile.col - startingTile.col;
+
+        var destRow;
+        var destCol;
+
+        switch (rowDiff) {
+            case 1:
+                switch (colDiff) {
+                    case 1:
+                        destRow = jumpTile.row + 1;
+                        destCol = jumpTile.col + 1;
+                        break;
+
+                    case 0:
+                        destRow = jumpTile.row + 1;
+                        destCol = jumpTile.col;
+                        break;
+
+                    default:
+                        return -1;
+                }
+                break;
+
+            case 0:
+                switch (colDiff) {
+                    case 1:
+                        destRow = jumpTile.row;
+                        destCol = jumpTile.col + 1;
+                        break;
+
+                    case -1:
+                        destRow = jumpTile.row;
+                        destCol = jumpTile.col - 1;
+                        break;
+
+                    default:
+                        return -1;
+                }
+                break;
+
+            case -1:
+                switch (colDiff) {
+                    case 0:
+                        destRow = jumpTile.row - 1;
+                        destCol = jumpTile.col;
+                        break;
+
+                    case -1:
+                        destRow = jumpTile.row - 1;
+                        destCol = jumpTile.col - 1;
+                        break;
+
+                    default:
+                        return -1;
+                }
+                break;
+        }
+
+        return this.getTile(destRow, destCol);
+    }
 
     loadEmptyBoard() {
         for (var row = 1; row <= 10; row++) {
@@ -209,5 +304,4 @@ class MyGameBoard extends CGFobject {
             }
         }
     }
-
 }

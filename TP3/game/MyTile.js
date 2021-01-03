@@ -3,14 +3,14 @@
  * @constructor
  * @param scene - Reference to MyScene object
  * @param row - Int indicating the row number of the tile
- * @param column - Int indicating the row number of the tile
+ * @param col - Int indicating the row number of the tile
  */
 
 class MyTile extends CGFobject {
-    constructor(scene, row, column) {
+    constructor(scene, row, col) {
         super(scene);
         this.row = row;
-        this.column = column;
+        this.col = col;
         this.piece = null;
         this.tile = new MyCylinder(this.scene, 1, 1, 0.6, 6, 4);
         this.pickID = null;
@@ -24,7 +24,7 @@ class MyTile extends CGFobject {
         this.tileMat.setDiffuse(0.75164, 0.60648, 0.22648, 1);
         this.tileMat.setSpecular(0.628281, 0.555802, 0.366065, 1);
         this.tileMat.setShininess(51.2);
-        this.updatePos(this.row, this.column);
+        this.updatePos(this.row, this.col);
 
     }
     setPickID(ID) {
@@ -41,8 +41,8 @@ class MyTile extends CGFobject {
         this.piece.display();
     }
 
-    updatePos(row, column) {
-        this.posX = -0.85 * (row - 1) + 1.7 * (column - 1);
+    updatePos(row, col) {
+        this.posX = -0.85 * (row - 1) + 1.7 * (col - 1);
         this.posY = 7.5 - 1.5 * row;
     }
 

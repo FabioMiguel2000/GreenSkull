@@ -21,11 +21,11 @@ class MyGameOrchestrator extends CGFobject {
 
     movePiece(pieceToMove, destTile) {
         var row = pieceToMove.row;
-        var col = pieceToMove.column;
+        var col = pieceToMove.col;
         var destRow = destTile.row;
-        var destCol = destTile.column;
+        var destCol = destTile.col;
         var moveType;
-        console.log(destCol)
+
         if (destTile.piece == null) {
             moveType = "normal";
         } else {
@@ -38,14 +38,35 @@ class MyGameOrchestrator extends CGFobject {
         console.log(response);
 
         if (response != 'no') {
-            var newMove = new MyGameMove(this.scene, pieceToMove, pieceToMove.tile, destTile, moveType,
-                this.currentPlayer, this.getStringState());
-            if (this.gameBoard.movePiece(pieceToMove, pieceToMove.tile, destTile) == -1) {
-                console.log("Piece not moved!");
-            } else {
-                console.log("Piece at position (" + row + ", " + col + ") moved to (" + destRow + ", " + destCol + ")");
-                this.gameSequence.addGameMove(newMove);
-                this.stringState = response;
+
+            if(moveType == "normal"){
+                var newMove = new MyGameMove(this.scene, pieceToMove, pieceToMove.tile, destTile, moveType, 
+                    this.currentPlayer, this.getStringState());
+
+                if (this.gameBoard.movePiece(pieceToMove, pieceToMove.tile, destTile) == -1) {
+                    console.log("Piece not moved!");
+                } else {
+                    console.log("Piece at position (" + row + ", " + col + ") moved to ("
+                         + destRow + ", " + destCol + ")");
+                    this.gameSequence.addGameMove(newMove);
+                    this.stringState = response;
+                }
+            }
+
+            else if(moveType == "jump"){
+                var jumpDestTile = this.gameBoard.jumpPiece(pieceToMove, pieceToMove.tile, destTile);
+
+                var newMove = new MyGameMove(this.scene, pieceToMove, pieceToMove.tile, jumpDestTile, moveType, 
+                    this.currentPlayer, this.getStringState());
+
+                if(jumpDestTile == -1){
+                    console.log("Piece not moved!");
+                } else {
+                    console.log("Piece at position (" + row + ", " + col + ") moved to (" 
+                        + jumpDestTile.row + ", " + jumpDestTile.col + ")");
+                    this.gameSequence.addGameMove(newMove);
+                    this.stringState = response;
+                }
             }
         }
     }
