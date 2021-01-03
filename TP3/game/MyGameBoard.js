@@ -36,6 +36,13 @@ class MyGameBoard extends CGFobject {
         this.loadEmptyBoard();
 
     }
+    addCapturedPiece(piece) {
+        this.capturedPieces.push(piece);
+    }
+    removeLastCaptured() {
+        return this.capturedPieces.pop();
+    }
+
     startGame() {
         this.clearGameBoard();
         this.gameStarted = true;
@@ -45,6 +52,7 @@ class MyGameBoard extends CGFobject {
     clearGameBoard() {
         this.tiles = [];
         this.pieces = [];
+        this.capturedPieces = [];
     }
 
     display() {

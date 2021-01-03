@@ -35,7 +35,7 @@ class MyGameOrchestrator extends CGFobject {
             row + "," + col + "," + destRow + "," + destCol + ")";
 
         var response = this.prolog.loadState(request);
-        console.log(response);
+        //console.log(response);
 
         if (response != 'no') {
 
@@ -47,8 +47,8 @@ class MyGameOrchestrator extends CGFobject {
                     console.log("Piece not moved!");
                     return;
                 } else {
-                    console.log("Piece at position (" + row + ", " + col + ") moved to ("
-                         + destRow + ", " + destCol + ")");
+                    console.log("Piece at position (" + row + ", " + col + ") moved to (" +
+                        destRow + ", " + destCol + ")");
                     this.gameSequence.addGameMove(newMove);
                     this.stringState = response;
                 }
@@ -57,16 +57,17 @@ class MyGameOrchestrator extends CGFobject {
             else if(moveType == 'jump'){
                 var jumpDestTile = this.gameBoard.jumpPiece(pieceToMove, pieceToMove.tile, destTile, this.currentPlayer);
 
-                var newMove = new MyGameMove(this.scene, pieceToMove, pieceToMove.tile, jumpDestTile, moveType, 
+                var newMove = new MyGameMove(this.scene, pieceToMove, previousTile, jumpDestTile, moveType,
                     this.currentPlayer, this.getStringState());
 
-                if(jumpDestTile == -1){
+                if (jumpDestTile == -1) {
                     console.log("Piece not moved!");
                     return;
                 } else {
-                    console.log("Piece at position (" + row + ", " + col + ") moved to (" 
-                        + jumpDestTile.row + ", " + jumpDestTile.col + ")");
+                    console.log("Piece at position (" + row + ", " + col + ") moved to (" +
+                        jumpDestTile.row + ", " + jumpDestTile.col + ")");
                     this.gameSequence.addGameMove(newMove);
+
                     this.stringState = response;
                 }
             }
@@ -144,36 +145,62 @@ class MyGameOrchestrator extends CGFobject {
         this.gameBoard.startGame();
         this.loadInitialState();
     }
+
+    undoMove() {
+        var lastMove = this.gameSequence.undoGameMove();
+        if (lastMove != -1) {
+            var piece = lastMove.movedPiece;
+            lastMove.destinationTile.unsetPiece();
+            lastMove.originTile.setPiece(piece);
+            piece.setTile(lastMove.originTile);
+            this.currentPlayer = lastMove.player;
+            if (lastMove.type == 'jump') {
+                console.log('undo jump move')
+                var capturedPiece = this.gameBoard.removeLastCaptured();
+                capturedPiece.tile.setPiece(capturedPiece);
+            }
+        }
+    }
     loadInitialState() {
         let request = 'loadInitial';
         this.stringState = this.prolog.loadState(request);
-        //console.log(this.stringState);
+        this.updateGameState(this.stringState);
+    }
+
+    updateGameState(stringState) {
         let depth = 0;
         let item = '';
         let items = [];
-        for (let i = 0; i < this.stringState.length; i++) {
-            if (this.stringState[i] === '[') {
+        for (let i = 0; i < stringState.length; i++) {
+            if (stringState[i] === '[') {
                 depth++;
                 if (depth === 2) {
                     items.push([]);
                 }
-            } else if (this.stringState[i] === ']') {
+            } else if (stringState[i] === ']') {
                 if (depth === 3) {
                     items[items.length - 1].push(item);
                     item = '';
                 }
                 depth--;
             } else if (depth === 3) {
-                item += this.stringState[i]
+                item += stringState[i]
             }
         }
         var gameState = items[0];
         var greenSkull = items[1][0];
+
         /*var piecesTaken = items[2][0].split(',');
         console.log(piecesTaken);*/
         var idPiece = 1;
         var idTiles = 31;
-
+        this.gameBoard.clearGameBoard();
+        /*if(items[2][0] != '' && items[2][0].search(',') > 0){
+            this.gameBoard.capturedPieces = items[2][0].split(',');
+        }
+        else if(items[2][0] != '' && items[2][0].search(',') < 0){
+            this.gameBoard.capturedPieces
+        }*/
         for (var row = 0; row < gameState.length; row++) {
             var rowArray = gameState[row].split(',');
 

@@ -61,7 +61,7 @@ class XMLscene extends CGFscene {
         };
         this.undo = function() {
             if (this.gameStarted) {
-                //undo 
+                this.gameOrchestrator.undoMove();
             }
         };
     }
@@ -197,22 +197,21 @@ class XMLscene extends CGFscene {
                     var obj = this.pickResults[i][0];
                     if (obj) {
                         var customId = this.pickResults[i][1];
-                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                        //console.log("Picked object: " + obj + ", with pick id " + customId);
 
                         if (this.pickedPiece == null && customId < 30) {
                             this.pickedPiece = obj;
-                            this.selectPieceAnimation();
+                            //this.selectPieceAnimation();
 
                         } else if (this.pickedPiece != null) {
                             var tile;
 
-                            if(customId < 30){
+                            if (customId < 30) {
                                 tile = obj.tile;
-                            }
-                            else{
+                            } else {
                                 tile = obj;
                             }
-                            
+
                             this.gameOrchestrator.movePiece(this.pickedPiece, tile);
                             this.pickedPiece = null;
                         }

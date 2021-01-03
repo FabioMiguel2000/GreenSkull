@@ -25,7 +25,7 @@ class MyGameSequence extends CGFobject {
         if (this.gameMoves.length < 1) {
             return -1;
         }
-        this.gamesMoves.pop();
-        return 0;
+        return this.gameMoves.pop();
+
     }
 }
