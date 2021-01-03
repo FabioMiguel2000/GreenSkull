@@ -15,8 +15,40 @@ class MyGameOrchestrator extends CGFobject {
         this.prolog = new MyPrologInterface(port);
 
         this.currentPlayer = 'orc';
-        this.piecesTaken = [];
 
+        this.goblinScore = 0;
+        this.orcScore = 0;
+        this.zombieScore = 0;
+
+
+    }
+
+    updateGameScore() {
+        console.log(this.getStringState());
+        this.updateGoblinScore();
+        this.updateOrcScore();
+        this.updateZombieScore();
+
+    }
+    initBuffers() {
+        this.gameBoard.startGame();
+        this.loadInitialState();
+    }
+
+    updateGoblinScore() {
+        var request = "value(" + this.getStringState() + "," + "goblin)";
+        this.goblinScore = this.prolog.getResponse(request);
+
+    }
+
+    updateOrcScore() {
+        var request = "value(" + this.getStringState() + "," + "orc)";
+        this.orcScore = this.prolog.getResponse(request);
+    }
+
+    updateZombieScore() {
+        var request = "value(" + this.getStringState() + "," + "zombie)";
+        this.zombieScore = this.prolog.getResponse(request);
     }
 
     movePiece(pieceToMove, destTile) {
@@ -34,7 +66,7 @@ class MyGameOrchestrator extends CGFobject {
         var request = "move(" + this.getStringState() + "," + this.currentPlayer + "," + moveType + "," +
             row + "," + col + "," + destRow + "," + destCol + ")";
 
-        var response = this.prolog.loadState(request);
+        var response = this.prolog.getResponse(request);
         //console.log(response);
 
         if (response != 'no') {
@@ -68,6 +100,8 @@ class MyGameOrchestrator extends CGFobject {
                     this.stringState = response;
                 }
             }
+            this.updateGameScore();
+
         }
     }
 
@@ -93,17 +127,18 @@ class MyGameOrchestrator extends CGFobject {
         }
         str += '],';
         str += this.gameBoard.greenSkull.player + ',[';
-        str += this.piecesTaken.toString();
+        for (var i = 0; i < this.gameBoard.capturedPieces.length; i++) {
+            str += this.gameBoard.capturedPieces[i].type;
+            if (i != this.gameBoard.capturedPieces.length - 1) {
+                str += ',';
+            }
+        }
         str += ']]';
         return str;
 
     }
 
 
-    initBuffers() {
-        this.gameBoard.startGame();
-        this.loadInitialState();
-    }
 
     undoMove() {
         var lastMove = this.gameSequence.undoGameMove();
@@ -118,11 +153,12 @@ class MyGameOrchestrator extends CGFobject {
                 var capturedPiece = this.gameBoard.removeLastCaptured();
                 capturedPiece.tile.setPiece(capturedPiece);
             }
+            this.updateGameScore();
         }
     }
     loadInitialState() {
         let request = 'loadInitial';
-        this.stringState = this.prolog.loadState(request);
+        this.stringState = this.prolog.getResponse(request);
         this.updateGameState(this.stringState);
     }
 

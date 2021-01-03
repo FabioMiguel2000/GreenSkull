@@ -137,6 +137,14 @@ parse_input(move([Board|Info],Player,jump,FromRow,FromCol,ToRow,ToCol), [NewBoar
 
 parse_input(move(_, _, _, _, _, _, _), no).
 
+% Gets score
+parse_input(value(GameState,orc), OrcScore):-
+	value(GameState, orc, OrcScore).
+parse_input(value(GameState,zombie), OrcScore):-
+	value(GameState, zombie, OrcScore).
+parse_input(value(GameState,goblin), OrcScore):-
+	value(GameState, goblin, OrcScore).
+
 % Input to get the score of a Player (or zombie)
 parse_input(score(GameBoard, Player), Value):- value(GameBoard, Player, Value).
 

@@ -22,7 +22,7 @@ class MyPrologInterface {
         request.send();
     }
 
-    loadState(request) {
+    getResponse(request) {
         this.getRequest(request);
         return this.response;
 

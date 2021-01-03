@@ -117,9 +117,9 @@ class XMLscene extends CGFscene {
                 document.getElementById("information").innerText = "Click 'Start Game' to play";
 
             } else {
-                document.getElementById("goblinScore").innerText = "Goblin Score:\n";
-                document.getElementById("orcScore").innerText = "Orc Score:  \n";
-                document.getElementById("zombieScore").innerText = "Zombie Score: \n";
+                document.getElementById("goblinScore").innerText = "Goblin Score: " + this.gameOrchestrator.goblinScore + "\n";
+                document.getElementById("orcScore").innerText = "Orc Score: " + this.gameOrchestrator.orcScore + "\n";
+                document.getElementById("zombieScore").innerText = "Zombie Score: " + this.gameOrchestrator.zombieScore + "\n";
                 document.getElementById("greenSkull").innerText = "Green Skull: " + this.gameOrchestrator.gameBoard.getGreenSkull() + "\n";
                 document.getElementById("playerTurn").innerText = "Player Turn: " + this.gameOrchestrator.currentPlayer + "\n";
                 document.getElementById("information").innerText = "";
