@@ -100,8 +100,8 @@ class MyGameOrchestrator extends CGFobject {
 
             this.swapPlayer(moveType);
             this.updateGameScore();
-
-            this.updateCamera();
+            if (this.scene.enableRotation)
+                this.updateCamera();
 
             this.verifyGameEnd();
         }

@@ -52,6 +52,7 @@ class XMLscene extends CGFscene {
         /* TP3*/
         this.pickedPiece = null;
         this.gameStarted = false;
+        this.enableRotation = true;
         this.startGame = function() {
             this.gameStarted = true;
             this.setGameCamera();
