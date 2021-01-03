@@ -17,7 +17,6 @@ class MyGameOrchestrator extends CGFobject {
         this.currentPlayer = 'orc';
         this.piecesTaken = [];
 
-        this.initBuffers();
     }
 
     movePiece(pieceToMove, destTile) {
@@ -76,6 +75,7 @@ class MyGameOrchestrator extends CGFobject {
 
 
     initBuffers() {
+        this.gameBoard.startGame();
         this.loadInitialState();
     }
     loadInitialState() {

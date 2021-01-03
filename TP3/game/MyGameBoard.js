@@ -10,7 +10,7 @@ class MyGameBoard extends CGFobject {
         this.square = new MyRectangle(this.scene, -1, -1, 1, 1);
         this.triangle = new MyTriangle(this.scene, 0, 0, 1.5, 1.5, 1.5, 0);
         this.greenSkull = new MyGreenSkull(this.scene, 'goblin');
-
+        this.gameStarted = false;
         this.tiles = [];
         this.pieces = [];
 
@@ -19,7 +19,6 @@ class MyGameBoard extends CGFobject {
 
     initBuffers() {
         //Geometry for a tile of the board that will be replicated to display all tiles of the board
-
 
         this.triangleMat = new CGFappearance(this.scene);
         this.triangleMat.setEmission(0, 0, 0, 1);
@@ -33,6 +32,18 @@ class MyGameBoard extends CGFobject {
         this.squareMat.setDiffuse(0.52, 0.37, 0.26, 1);
         this.squareMat.setSpecular(0.1, 0.1, 0.1, 1);
 
+        this.loadEmptyBoard();
+
+    }
+    startGame() {
+        this.clearGameBoard();
+        this.gameStarted = true;
+
+    }
+
+    clearGameBoard() {
+        this.tiles = [];
+        this.pieces = [];
     }
 
     display() {
@@ -123,11 +134,17 @@ class MyGameBoard extends CGFobject {
         this.scene.popMatrix();
 
         //Green Skull
-        this.scene.pushMatrix();
-        this.greenSkull.display();
-        this.scene.popMatrix();
+        if (this.gameStarted) {
+            this.scene.pushMatrix();
+            this.greenSkull.display();
+            this.scene.popMatrix();
+        }
+
 
         this.scene.popMatrix();
+    }
+    getGreenSkull() {
+        return this.greenSkull.player;
     }
 
     setGreenSkull(player) {
@@ -180,50 +197,17 @@ class MyGameBoard extends CGFobject {
         return 0;
     }
 
-    //Function that receives the list containing the board configuration and places pieces in each space with one
-    /*buildBoard(board) {
-        for (var i = 0; i < board.length; i++) {
-            //The row is i + 1 because board positions start at 1 unlike list positions that start at 0
-            var row = i + 1;
 
-            for (var j = 0; j < board[i].length; j++) {
-                //It is also added 1 to the column
-                var col = j + 1;
+    loadEmptyBoard() {
+        for (var row = 1; row <= 10; row++) {
 
-                var tile = new MyTile(this.scene, row, column);
+            for (var col = 1; col <= row; col++) {
 
-                switch (board[i][j]) {
-                    case 'empty':
-                        break;
+                var tile = new MyTile(this.scene, row, col);
 
-                    case 'goblin':
-                        var piece = new MyPiece(this.scene, 'goblin', row, col);
-                        this.pieces.push(piece);
-
-                        this.tile.setPiece(piece);
-                        break;
-
-                    case 'orc':
-                        var piece = new MyPiece(this.scene, 'orc', row, col);
-                        this.pieces.push(piece);
-
-                        this.tile.setPiece(piece);
-                        break;
-
-                    case 'zombie':
-                        var piece = new MyPiece(this.scene, 'zombie', row, col);
-                        this.pieces.push(piece);
-
-                        this.tile.setPiece(piece);
-                        break;
-
-                    default:
-                        console.log("Warning: unintended object in board, something must have gone wrong while getting the board");
-                        break;
-                }
                 this.tiles.push(tile);
             }
         }
-    }*/
+    }
 
 }

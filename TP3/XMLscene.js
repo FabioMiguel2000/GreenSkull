@@ -48,7 +48,22 @@ class XMLscene extends CGFscene {
         this.lastTime = 0;
         this.time = 0;
 
+        /* TP3*/
         this.pickedPiece = null;
+        this.gameStarted = false;
+        this.startGame = function() {
+            this.gameStarted = true;
+            this.gameOrchestrator.initBuffers();
+        };
+        this.endGame = function() {
+            this.gameStarted = false;
+            this.gameOrchestrator = new MyGameOrchestrator(this);
+        };
+        this.undo = function() {
+            if (this.gameStarted) {
+                //undo 
+            }
+        };
     }
 
     /**
@@ -90,6 +105,30 @@ class XMLscene extends CGFscene {
             }
         }
     }
+
+    loadPanel() {
+        if (typeof this.gameOrchestrator != "undefined") {
+            if (!this.gameStarted) {
+                document.getElementById("goblinScore").innerText = "";
+                document.getElementById("orcScore").innerText = "";
+                document.getElementById("zombieScore").innerText = "";
+                document.getElementById("greenSkull").innerText = "";
+                document.getElementById("playerTurn").innerText = "";
+                document.getElementById("information").innerText = "Click 'Start Game' to play";
+
+            } else {
+                document.getElementById("goblinScore").innerText = "Goblin Score:\n";
+                document.getElementById("orcScore").innerText = "Orc Score:  \n";
+                document.getElementById("zombieScore").innerText = "Zombie Score: \n";
+                document.getElementById("greenSkull").innerText = "Green Skull: " + this.gameOrchestrator.gameBoard.getGreenSkull() + "\n";
+                document.getElementById("playerTurn").innerText = "Player Turn: " + this.gameOrchestrator.currentPlayer + "\n";
+                document.getElementById("information").innerText = "";
+
+            }
+        }
+
+    }
+
     setActiveCamera() {
             this.camera = this.cameras[this.selectedCamera];
             this.interface.setActiveCamera(this.camera);
@@ -117,12 +156,11 @@ class XMLscene extends CGFscene {
 
         this.interface.initCameras();
 
+        this.interface.initGameOptions();
 
         this.sceneInited = true;
 
     }
-
-
 
 
     // Note: update(t) is called periodically (as per setUpdatePeriod() in init())
@@ -180,6 +218,7 @@ class XMLscene extends CGFscene {
      * Displays the scene.
      */
     display() {
+        this.loadPanel();
         this.logPicking();
         this.clearPickRegistration();
 

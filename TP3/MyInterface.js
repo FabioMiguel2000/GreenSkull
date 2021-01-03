@@ -64,6 +64,17 @@ class MyInterface extends CGFinterface {
             }
         }
     }
+    initGameOptions() {
+        var group = this.gui.addFolder("Options");
+        group.open();
+
+        group.add(this.scene, 'startGame').name('Start Game');
+        group.add(this.scene, 'undo').name('Undo Move');
+        group.add(this.scene, 'endGame').name('End Game');
+
+
+    }
+
     initCameras() {
         this.gui.add(this.scene, 'selectedCamera', Object.keys(this.scene.cameras)).name('Selected Camera').onChange(this.scene.setActiveCamera.bind(this.scene));
     }
