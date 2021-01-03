@@ -127,14 +127,17 @@ parse_input(loadIntermediate, [Board|[[[GS]]|[Rest]]]):- intermediate([Board|[GS
 parse_input(loadIntermediate, [Board|[[[GS]]|[Rest]]]):- final([Board|[GS|Rest]]).
 
 % Input to move piece
-% parse_input(move([Board|[[[GS]]|[Rest]]], Move), [NewBoard|[[[NewGS]]|[NewRest]]]):- 
-% 	move([Board|[GS|Rest]], Move, [NewBoard|[NewGS|NewRest]]).
+parse_input(move([Board|Info],Player,normal,FromRow,FromCol,ToRow,ToCol), [NewBoard|[[[NewGS]]|[NewRest]]]):-
+	isValidMove(Player, Board, [[FromRow|FromCol]|[[ToRow|ToCol]]]),
+	move([Board|Info], [Player|[normal|[[FromRow|FromCol]|[[ToRow|ToCol]]]]], [NewBoard|[NewGS|NewRest]]).
 
-parse_input(move(GameState,Player,MoveType,FromRow,FromCol,ToRow,ToCol), [NewBoard|[[[NewGS]]|[NewRest]]]):-
-	move(GameState, [Player|[MoveType|[[FromRow|FromCol]|[[ToRow|ToCol]]]]], [NewBoard|[NewGS|NewRest]]).
+parse_input(move([Board|Info],Player,jump,FromRow,FromCol,ToRow,ToCol), [NewBoard|[[[NewGS]]|[NewRest]]]):-
+	isValidJump(Player, Board, [[FromRow|FromCol]|[[ToRow|ToCol]]]),
+	move([Board|Info], [Player|[jump|[[FromRow|FromCol]|[[ToRow|ToCol]]]]], [NewBoard|[NewGS|NewRest]]).
 
+parse_input(move(_GameState), successful).
 
-parse_input(move(_State, _Move), no).
+parse_input(move(_, _, _, _, _, _, _), no).
 
 % Input to get the score of a Player (or zombie)
 parse_input(score(GameBoard, Player), Value):- value(GameBoard, Player, Value).
