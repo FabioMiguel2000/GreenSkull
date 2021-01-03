@@ -254,20 +254,27 @@ class MyGameOrchestrator extends CGFobject {
 
         var winText;
 
-        if (this.goblinScore > this.orcScore && this.goblinScore > this.zombieScore) {
+        if ((parseInt(this.goblinScore) > parseInt(this.orcScore)) && (parseInt(this.goblinScore) > parseInt(this.zombieScore))) {
+
             winText = "The goblins win!";
-        } else if (this.orcScore > this.goblinScore && this.orcScore > this.zombieScore) {
+        } else if ((parseInt(this.orcScore) > parseInt(this.goblinScore)) && (parseInt(this.orcScore) > parseInt(this.zombieScore))) {
+
             winText = "The orcs win!";
-        } else if (this.zombieScore > this.goblinScore && this.zombieScore > this.orcScore) {
+        } else if ((parseInt(this.zombieScore) > parseInt(this.goblinScore)) && (parseInt(this.zombieScore) > parseInt(this.orcScore))) {
             winText = "The zombies win!";
-        } else if (this.goblinScore == this.orcScore && this.goblinScore > this.zombieScore) {
+
+        } else if ((parseInt(this.goblinScore) == parseInt(this.orcScore)) && (parseInt(this.goblinScore) > parseInt(this.zombieScore))) {
             winText = "The goblins and the orcs tied!";
-        } else if (this.goblinScore == this.zombieScore && this.goblinScore > this.orcScore) {
+
+        } else if ((parseInt(this.goblinScore) == parseInt(this.zombieScore)) && (parseInt(this.goblinScore) > parseInt(this.orcScore))) {
             winText = "The goblins and the zombiess tied!";
-        } else if (this.zombieScore == this.orcScore && this.orcScore > this.goblinScore) {
+
+        } else if ((parseInt(this.zombieScore) == parseInt(this.orcScore)) && (parseInt(this.orcScore) > parseInt(this.goblinScore))) {
             winText = "The orcs and the zombies tied!";
+
         } else {
             winText = "Everyone tied!";
+
         }
 
         this.scene.endGame(winText);
