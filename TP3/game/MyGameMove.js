@@ -17,7 +17,7 @@ class MyGameMove extends CGFobject {
         this.originTile = originTile;
         this.destinationTile = destinationTile;
         this.type = type;
-        this.player = player
+        this.player = player;
         this.previousGameBoardState = previousGameBoardState;
 
         this.initBuffers();
