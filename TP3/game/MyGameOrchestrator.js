@@ -68,9 +68,9 @@ class MyGameOrchestrator extends CGFobject {
 
         if (response != 'no') {
 
-            if (moveType == 'normal') {
-
-                var newMove = new MyGameMove(this.scene, pieceToMove, previousTile, destTile, moveType,
+            if(moveType == 'normal'){
+                
+                var newMove = new MyGameMove(this.scene, pieceToMove, previousTile, destTile, moveType, 
                     this.currentPlayer, this.gameBoard.getStringState());
 
                 if (this.gameBoard.movePiece(pieceToMove, previousTile, destTile) == -1) {
@@ -82,7 +82,9 @@ class MyGameOrchestrator extends CGFobject {
                     this.gameSequence.addGameMove(newMove);
                     this.stringState = response;
                 }
-            } else if (moveType == 'jump') {
+            }
+
+            else if(moveType == 'jump'){
                 var jumpDestTile = this.gameBoard.jumpPiece(pieceToMove, previousTile, destTile, this.currentPlayer);
 
                 var newMove = new MyGameMove(this.scene, pieceToMove, previousTile, jumpDestTile, moveType,
@@ -98,37 +100,44 @@ class MyGameOrchestrator extends CGFobject {
                 }
             }
 
-            this.swapPlayer(moveType);
             this.updateGameScore();
-
+            this.swapPlayer(moveType);
             this.updateCamera();
-
-            this.verifyGameEnd();
         }
+
+        this.verifyGameEnd();
     }
 
-    swapPlayer(moveType) {
+    swapPlayer(moveType){
         var playerWithGS = this.gameBoard.getGreenSkull();
 
-        if (this.currentPlayer == 'zombie') {
+        if(this.currentPlayer == 'zombie'){
 
             //At this point, the green skull was already swapped, so if a jump was made by the player who had the 
             //green skull, they pass both their turn and the green skull to the other player
-            if (moveType == 'jump') {
-                this.currentPlayer = playerWithGS;
-            } else if (moveType == 'normal') {
-                if (playerWithGS == 'orc') {
+            if(moveType == 'jump'){
+                this.currentPlayer = playerWithGS;                
+            }
+
+            else if(moveType == 'normal'){
+                if(playerWithGS == 'orc'){
                     this.currentPlayer = 'goblin';
-                } else if (playerWithGS == 'goblin') {
+                }
+                else if(playerWithGS == 'goblin'){
                     this.currentPlayer = 'orc';
                 }
             }
-        } else if (playerWithGS == this.currentPlayer) {
+        }
+
+        else if(playerWithGS == this.currentPlayer){
             this.currentPlayer = 'zombie';
-        } else {
-            if (this.currentPlayer == 'orc') {
+        }
+
+        else{
+            if(this.currentPlayer == 'orc'){
                 this.currentPlayer = 'goblin';
-            } else if (this.currentPlayer == 'goblin') {
+            }
+            else if(this.currentPlayer == 'goblin'){
                 this.currentPlayer = 'orc';
             }
         }
@@ -242,24 +251,49 @@ class MyGameOrchestrator extends CGFobject {
         //console.log(this.gameBoard.tiles[0]);
         this.gameBoard.setGreenSkull(greenSkull);
     }
-    updateCamera() {
-        if (this.currentPlayer != 'zombie') {
-            this.scene.rotating = true;
 
-        }
-    }
-
-    verifyGameEnd() {
+    verifyGameEnd(){
         var request = "isEnd(" + this.gameBoard.getStringState() + ")";
 
-        if (this.prolog.getResponse(request) == 'yes') {
+        if(this.prolog.getResponse(request) == 'yes'){
             this.endGame();
         }
     }
 
-    //Unfinished
-    endGame() {
+    updateCamera() {
+        if (this.currentPlayer != 'zombie') {
+            this.scene.rotating = true;
+        }
+    }
+
+    endGame(){
         console.log("Game ended!");
+
+        var winText;
+
+        if(this.goblinScore > this.orcScore && this.goblinScore > this.zombieScore){
+            winText = "The goblins win!";
+        } 
+        else if(this.orcScore > this.goblinScore && this.orcScore > this.zombieScore){
+            winText = "The orcs win!";
+        }
+        else if(this.zombieScore > this.goblinScore && this.zombieScore > this.orcScore){
+            winText = "The zombies win!";
+        }
+        else if(this.goblinScore == this.orcScore && this.goblinScore > this.zombieScore){
+            winText = "The goblins and the orcs tied!";
+        }
+        else if(this.goblinScore == this.zombieScore && this.goblinScore > this.orcScore){
+            winText = "The goblins and the zombiess tied!";
+        }
+        else if(this.zombieScore == this.orcScore && this.orcScore > this.goblinScore){
+            winText = "The orcs and the zombies tied!";
+        }
+        else{
+            winText = "Everyone tied!";
+        }
+
+        this.scene.endGame(winText);
     }
 
     update(time) {
