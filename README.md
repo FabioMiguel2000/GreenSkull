@@ -53,6 +53,6 @@
 
 ----
 
-### [TP3 - ...](TP3)
-- (items briefly describing main strong points)
+### [TP3 - Green Skull](TP3)
+
 
